@@ -17,6 +17,7 @@ try {
         'success' => true
     ];
 
+
     echo json_encode($response);
 } catch (Exception $e) {
     $errorResponse = [

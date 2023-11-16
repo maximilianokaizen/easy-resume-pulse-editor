@@ -83,19 +83,27 @@
 
 								
 					<div class="btn-group me-3 float-end" role="group">
-						<button class="btn btn-primary btn-icon" title="Export (Ctrl + E)" id="save-btn" data-vvveb-action="saveAjax" data-vvveb-url="http://localhost:3000" data-v-vvveb-shortcut="ctrl+e">
-						  <span class="button-text">
-							<i class="la la-save"></i> <span id="btn-download-pdf">Download PDF</span>
-						  </span>	
-						</button>
+					
+						<button class="btn btn-primary btn-icon" title="Export (Ctrl + E)" id="save-btn" data-vvveb-action="saveAjax" data-vvveb-url="save.php?action=other" data-v-vvveb-shortcut="ctrl+e">
+							<span class="loading d-none">
+							<i class="la la-save"></i>
+							  <span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true">
+							  </span>
+							  <span>Saving </span> ... </span>
+							<span class="button-text">
+							  <i class="la la-save"></i> <span>Save PDF</span>
+							</span>	
+	
+						  </button>
+
 					  </div>	
 
 
 					  <div class="float-end me-3">
 				
-				</div>	
+					</div>	
 				
-     				   </div>
+     				</div>
 
 
 				<div id="left-panel">

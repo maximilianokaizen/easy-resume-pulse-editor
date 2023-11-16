@@ -65,7 +65,7 @@
 								
 					<div class="btn-group me-3 float-end" role="group">
 
-						<button class="btn btn-primary btn-icon" title="Export (Ctrl + E)" id="save-btn" data-vvveb-action="saveAjax" data-vvveb-url="save.php" data-v-vvveb-shortcut="ctrl+e">
+						<button class="btn btn-primary btn-icon token-injector title="Export (Ctrl + E)" id="save-btn" data-vvveb-action="saveAjax" data-vvveb-url="save.php?action=save" data-v-vvveb-shortcut="ctrl+e">
 
 							<span class="loading d-none">
 							<i class="la la-save"></i>
@@ -84,14 +84,14 @@
 								
 					<div class="btn-group me-3 float-end" role="group">
 					
-						<button class="btn btn-primary btn-icon" title="Export (Ctrl + E)" id="save-btn" data-vvveb-action="saveAjax" data-vvveb-url="save.php?action=other" data-v-vvveb-shortcut="ctrl+e">
+						<button class="btn btn-primary btn-icon token-injector" title="Export (Ctrl + E)" id="save-btn" data-vvveb-action="saveAjax" data-vvveb-url="save.php?action=download" data-v-vvveb-shortcut="ctrl+e">
 							<span class="loading d-none">
 							<i class="la la-save"></i>
 							  <span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true">
 							  </span>
 							  <span>Saving </span> ... </span>
 							<span class="button-text">
-							  <i class="la la-save"></i> <span>Save PDF</span>
+							  <i class="la la-save"></i> <span>Download PDF</span>
 							</span>	
 	
 						  </button>
@@ -1581,51 +1581,30 @@ $(function() {
 		Vvveb.Gui.toggleRightColumn();
 	}
 
-	document.getElementById('btn-download-pdf').addEventListener('click', function(event) {
+	/* custom js */
+	$(document).ready(function() {
+    $('.token-injector').each(function() {
+        var $element = $(this);
+        var tokenValue = getParameterByName('token');
+        var vvvebUrl = $element.data('vvveb-url');
 
-	event.stopPropagation(); 
-		const content = "html"
-		
-		// Construir el objeto JSON para enviar en la solicitud
-		const jsonData = {
-			htmlContent: content
-		};
+        if (tokenValue !== null) {
+            vvvebUrl = vvvebUrl + (vvvebUrl.includes('?') ? '&' : '?') + 'token=' + tokenValue;
+            $element.attr('data-vvveb-url', vvvebUrl);
+        }
+    });
 
-		// Realizar la solicitud HTTP usando fetch
-		fetch('http://localhost:3000/generate-pdf', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(jsonData)
-		})
-		.then(response => {
-			if (!response.ok) {
-				throw new Error(`HTTP error! Status: ${response.status}`);
-			}
-			return response.blob(); // Cambiar a blob() para manejar archivos binarios
-		})
-		.then(blob => {
-			// Crear un objeto URL para el blob
-			const url = URL.createObjectURL(blob);
-
-			// Crear un enlace y hacer clic para descargar el archivo
-			const a = document.createElement('a');
-			a.href = url;
-			a.download = 'resume.pdf';
-			document.body.appendChild(a);
-			a.click();
-			document.body.removeChild(a);
-
-			// Liberar el objeto URL
-			URL.revokeObjectURL(url);
-		})
-		.catch(error => {
-			console.error('Error en la solicitud HTTP:', error);
-		});
-
-	
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+			name = name.replace(/[\[\]]/g, "\\$&");
+			var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+				results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, " "));
+    	}
 	});
+	/* end of custom js */
 
 });
 

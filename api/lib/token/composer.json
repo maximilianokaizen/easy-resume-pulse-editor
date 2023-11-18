@@ -1,0 +1,6 @@
+{
+    "require": {
+        "lcobucci/jwt": "^5.1",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

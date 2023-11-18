@@ -74,7 +74,7 @@
 							  <span>Saving </span> ... </span>
 	
 							<span class="button-text">
-							  <i class="la la-save"></i> <span>Save page</span>
+							  <i class="la la-save"></i> <span>Save Resume</span>
 							</span>	
 	
 						  </button>
@@ -116,11 +116,7 @@
 									  <button class="btn btn-outline-primary btn-sm  btn-add" title="New file" id="new-file-btn" data-vvveb-action="newPage" data-vvveb-shortcut="">
 										   <span>New page</span> <i class="icon-duplicate-outline"></i>
 									  </button>
-									  
-									  <!--  &ensp;
-									  <button class="btn btn-link text-dark p-0"  title="Delete file" id="delete-file-btn" data-vvveb-action="deletePage" data-vvveb-shortcut="">
-										  <i class="la la-trash"></i> <small>Delete</small>
-									  </button> -->
+								
 									</div>
 
 								</div>
@@ -140,16 +136,13 @@
 							  <li class="nav-item component-tab">
 								<a class="nav-link" id="components-tab" data-bs-toggle="tab" href="#components-tabs" role="tab" aria-controls="components" aria-selected="false" title="Components">
 									<i class="icon-cube-outline"></i>
-									<!-- img src="../../../js/vvvebjs/icons/product.svg" height="23" --> 
-									<!-- div><small>Components</small></div -->
+								
 								</a>
 							  </li>
 							  
 							  <li class="nav-item component-configuration-tab">
 								<a class="nav-link" id="configuration-tab" data-bs-toggle="tab" href="#configuration" role="tab" aria-controls="configuration" aria-selected="false" title="Configuration">
 									<i class="la la-tools"></i>
-									<!-- img src="../../../js/vvvebjs/icons/filters.svg" height="23"--> 
-									<!-- div><small>Properties</small></div -->
 								</a>
 							  </li>
 							</ul>
@@ -165,7 +158,7 @@
 											<a class="nav-link active" data-bs-toggle="tab" href="#components" role="tab" aria-controls="components" aria-selected="true">
 												<i class="icon-cube-outline"></i> <div><span>Components</span></div></a>
 										  </li>
-										  <li class="nav-item blocks-tab">
+										  <li class="nav-item blocks-tab" style="display: none;">
 											<a class="nav-link" data-bs-toggle="tab" href="#blocks" role="tab" aria-controls="components" aria-selected="false">
 												<i class="icon-copy-outline"></i> <div><span>Blocks</span></div></a>
 										  </li>
@@ -271,39 +264,11 @@
 									<div class="drag-elements-sidepane sidepane">
 									<div>
 										<div class="component-properties">
-											<!-- color palette -->
-											<!--
-											<label class="header" data-header="default" for="header_pallette"><span>Global styles</span>
-												<div class="header-arrow"></div>
-											</label> -->
 											<input class="header_check" type="checkbox" checked id="header_pallette">
 											<div class="tab-pane section px-0" data-section="content">
-
-												
 												<div class="mb-3  col-sm-6  inline " data-key="background-color">      <label class=" form-label" for="input-model">Background Color</label>      <div class=" input"><div>   <input name="background-color" type="color" pattern="#[a-f0-9]{6}" class="form-control form-control-color">  </div></div>     </div>
-												
-												
-												
 												<div class="mb-3  col-sm-6  inline " data-key="background-color">      <label class=" form-label" for="input-model">Background Color</label>      <div class=" input"><div>   <input name="background-color" type="color" pattern="#[a-f0-9]{6}" class="form-control form-control-color">  </div></div>     </div>
-												
-												
-												
-												
 											</div>
-												
-												
-											<!-- typography -->	
-											<!-- 
-											<label class="header" data-header="element_header" for="header_element_typography"><span>Typography</span>
-												<div class="header-arrow"></div>
-											</label>
-											
-											<input class="header_check" type="checkbox" checked="true" id="header_element_typography">
-											<div class="section" data-section="element_header">
-											
-											</div> 
-											-->
-									
 									</div>
 								</div>
 								</div>
@@ -594,22 +559,11 @@
 												</div>
 										  
 										  </div>
-										
-											<!-- div class="tab-pane" id="box-properties" role="tabpanel" aria-labelledby="blocks-tab">
-												<div class="component-properties-sidepane">
-													<div>
-														<div class="component-properties">
-															<div class="mt-4 text-center">Click on an element to edit.</div>
-														</div>
-													</div>
-												</div>
-											</div -->
 										</div>
 									</div>		
 
 							</div>
-							<!-- //add section box -->
-
+					
 							<div id="drop-highlight-box">
 							</div>
 						</div>
@@ -1553,18 +1507,33 @@ let deleteUrl = 'save.php?action=delete';
 let saveReusableUrl = 'save.php?action=saveReusable';	
 
 
-let pages = 
-	[
-		{name:"resume", title:"Resume",  url: "demo/resume/resume.html", file: "demo/resume/resume.html", assets: ['demo/resume/styles.css']},
-	];
-
-
-
 $(function() {
-	
-	
+	let pages;
+	const urlParams = new URLSearchParams(window.location.search);
+	const templateId = urlParams.get('template');
+	const resumeId = urlParams.get('resumeId');
+	const token = urlParams.get('token');
+	if (resumeId === null) {
+			// new resume
+			if (!isNaN(templateId) && templateId !== null) {
+			const dynamicUrl = `themes/${templateId}/resume.php?token=${token}`;
+			const dynamicCSS = `themes/${templateId}/styles.css`;
+			pages = [
+				{
+					name: "resume",
+					title: "Resume",
+					url: dynamicUrl,
+					file: dynamicUrl,
+					assets: [dynamicCSS]
+				}
+			];
+		} 
+	}else{
+		// created resumen
+	}
+
 	let firstPage = Object.keys(pages)[0];
-	console.log('pages[firstPage]["url"] =>', pages[firstPage]["url"])
+	
 	Vvveb.Builder.init(pages[firstPage]["url"], function() {
 		
 	});
@@ -1627,60 +1596,13 @@ $(function() {
 
 	/* end of -- generate PDF */
 
-	/* get template for id */
-
-	/*
-	fetch('/api/get-template.php?id=1/')
-    .then(response => response.json())
-    .then(data => {
-        if (data.success === true) {
-            let htmlContent = data.htmlContent;
-            
-            // Esperar a que el iframe esté completamente cargado
-            window.addEventListener('load', function() {
-                Vvveb.Builder.setHtml(htmlContent);
-            });
-        } else {
-            console.error('La solicitud no fue exitosa.');
-        }
-    })
-    .catch(error => {
-        console.error('Error al obtener el JSON:', error);
-    });
-	*/
-
 	Vvveb.Gui.init();
 	
 	if (window.location.hash.indexOf("no-right-panel") != -1) {
 		Vvveb.Gui.toggleRightColumn();
 	}
 
-	/* custom js 
 
-	$(document).ready(function() {
-    $('.token-injector').each(function() {
-        var $element = $(this);
-        var tokenValue = getParameterByName('token');
-        var vvvebUrl = $element.data('vvveb-url');
-
-        if (tokenValue !== null) {
-            vvvebUrl = vvvebUrl + (vvvebUrl.includes('?') ? '&' : '?') + 'token=' + tokenValue;
-            $element.attr('data-vvveb-url', vvvebUrl);
-        }
-    });
-
-    function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-			name = name.replace(/[\[\]]/g, "\\$&");
-			var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-				results = regex.exec(url);
-			if (!results) return null;
-			if (!results[2]) return '';
-			return decodeURIComponent(results[2].replace(/\+/g, " "));
-    	}
-	});
-
-	/* end of custom js */
 
 });
 

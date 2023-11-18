@@ -1559,15 +1559,14 @@ let pages =
 	];
 
 
-console.log('pages =>', pages);
+
 $(function() {
 	
 	
 	let firstPage = Object.keys(pages)[0];
 	console.log('pages[firstPage]["url"] =>', pages[firstPage]["url"])
 	Vvveb.Builder.init(pages[firstPage]["url"], function() {
-		//load code after page is loaded here
-		console.log('Vvveb.Builder.getHtml() =>', Vvveb.Builder.getHtml());
+		
 	});
 	
 	/* download PDF */
@@ -1595,11 +1594,6 @@ $(function() {
 				template : templateId,
 			})
 		})
-		.then(response => {
-        console.log('Respuesta del servidor:', response);
-        // return response.blob();
-   		 })
-		/*
 		.then(response => response.blob())
 		.then(blob => {
 			const url = window.URL.createObjectURL(new Blob([blob]));
@@ -1612,7 +1606,6 @@ $(function() {
 			this.querySelector('.loading').classList.add('d-none');
 			this.querySelector('.button-text').classList.remove('d-none');
 		})
-		*/
 		.catch(error => {
 			console.error('Error al descargar el PDF:', error);
 			this.querySelector('.loading').classList.add('d-none');
@@ -1621,6 +1614,8 @@ $(function() {
 	});
 
 	/* end of -- generate PDF */
+
+	/* get template for id */
 
 	/*
 	fetch('/api/get-template.php?id=1/')

@@ -1,5 +1,5 @@
 <?php
-
+die();
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS"); 
 header("Access-Control-Allow-Headers: Content-Type");
@@ -55,6 +55,7 @@ try {
         );",
         */
         // Resumes
+        /*
         "CREATE TABLE resumes (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
             uuid VARCHAR(255) UNIQUE NOT NULL,
@@ -66,6 +67,7 @@ try {
             modified_at DATETIME NULL,
             FOREIGN KEY (user_id) REFERENCES users(id)
         );"
+        */
     ];
 
     $success = true;

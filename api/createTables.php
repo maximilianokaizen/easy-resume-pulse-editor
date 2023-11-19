@@ -41,6 +41,7 @@ try {
         )",
         */
         // Templates
+        /*
         "CREATE TABLE templates (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
             uuid VARCHAR(255) UNIQUE NOT NULL,
@@ -52,6 +53,7 @@ try {
             deleted_at DATETIME NULL,
             modified_at DATETIME NULL
         );",
+        */
         // Resumes
         "CREATE TABLE resumes (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,

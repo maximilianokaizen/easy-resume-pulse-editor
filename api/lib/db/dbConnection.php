@@ -38,44 +38,42 @@ class DatabaseConnector {
     }
 
     public function executeQuery($query, $params = []) {
-        if (!$this->isConnected()) {
+        try {
+            if (!$this->isConnected()) {
+                throw new Exception('La conexión a la base de datos no está disponible.');
+            }
+    
+            $statement = $this->connection->prepare($query);
+    
+            if ($statement === false) {
+                throw new Exception('Error al preparar la consulta: ' . $this->connection->error);
+            }
+    
+            if (!empty($params)) {
+                $types = str_repeat('s', count($params));
+                $statement->bind_param($types, ...$params);
+            }
+    
+            if (!$statement->execute()) {
+                throw new Exception('Error al ejecutar la consulta: ' . $statement->error);
+            }
+    
+            $result = $statement->get_result();
+    
+            if ($result === false) {
+                return null; // No hay resultados
+            }
+    
+            $data = $result->fetch_all(MYSQLI_ASSOC);
+            $statement->close();
+    
+            return $data;
+        } catch (Exception $e) {
             die(json_encode([
                 'success' => false,
-                'message' => 'La conexión a la base de datos no está disponible.'
+                'message' => $e->getMessage()
             ]));
         }
-
-        $statement = $this->connection->prepare($query);
-
-        if ($statement === false) {
-            die(json_encode([
-                'success' => false,
-                'message' => 'Error al preparar la consulta: ' . $this->connection->error
-            ]));
-        }
-
-        if (!empty($params)) {
-            $types = str_repeat('s', count($params));
-            $statement->bind_param($types, ...$params);
-        }
-
-        if (!$statement->execute()) {
-            die(json_encode([
-                'success' => false,
-                'message' => 'Error al ejecutar la consulta: ' . $statement->error
-            ]));
-        }
-
-        $result = $statement->get_result();
-
-        if ($result === false) {
-            return null; // No hay resultados
-        }
-
-        $data = $result->fetch_all(MYSQLI_ASSOC);
-        $statement->close();
-
-        return $data;
     }
 
     public function disconnect() {

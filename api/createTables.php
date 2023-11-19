@@ -21,6 +21,7 @@ try {
     // Array con las consultas SQL de creación de tablas
     $queries = [
         // Users
+        /*
         "CREATE TABLE IF NOT EXISTS users (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
             uuid VARCHAR(255) UNIQUE NOT NULL,
@@ -38,6 +39,7 @@ try {
             deleted_at DATETIME NULL,
             modified_at DATETIME NULL
         )",
+        */
         // Templates
         "CREATE TABLE templates (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,

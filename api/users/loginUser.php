@@ -61,6 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $payload = [
             'uuid' =>  $user['uuid'],
+            'plan' =>  $user['plan'],
+            'premium' => $user['premium'],
+            'plan' => $user['plan'],
+            'plan_start' => $user['plan_start'], 
+            'plan_end' => $user['plan_end'],
+            'user_active' => $user['user_active'],
         ];
         
         $minutes = 120;

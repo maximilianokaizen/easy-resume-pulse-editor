@@ -1,6 +1,6 @@
 <?php
 
-require_once('../lib/enabledCors.php');
+require_once('/lib/enabledCors.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);

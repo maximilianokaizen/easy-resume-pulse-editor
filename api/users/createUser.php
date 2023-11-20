@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'plan' => 'free',
             'plan_start' => date('Y-m-d H:i:s'), 
             'plan_end' => null,
-            'social' => false,
+            'social' => 0,
             'social_name' => '',
             'user_active' => false,
             'created_at' => date('Y-m-d H:i:s'), 
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userData = [
             'uuid' => sanitizeInput($jsonData['uuid'] ?? ''),
             'email' => sanitizeInput($jsonData['email'] ?? ''),
-            'password' => sanitizeInput(md5($jsonData['password']) . 'ka&zenPul$e_2020' ?? ''),
+            'password' => sanitizeInput(md5($jsonData['password'])),
             'name' => sanitizeInput($jsonData['name'] ?? ''),
             'premium' => isset($jsonData['premium']) ? (bool) $jsonData['premium'] : $defaults['premium'],
             'plan' => in_array($jsonData['plan'] ?? '', $validPlans) ? sanitizeInput($jsonData['plan']) : $defaults['plan'],
@@ -51,14 +51,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'deleted_at' => $defaults['deleted_at'],
             'modified_at' => $defaults['modified_at']
         ];
-    
+        
+        $params = [
+            $userData['uuid'],
+            $userData['email'],
+            $userData['password'],
+            $userData['name'],
+            $userData['premium'],
+            $userData['plan'],
+            $userData['plan_start'],
+            $userData['plan_end'],
+            $userData['social'],
+            $userData['social_name'],
+            $userData['user_active'],
+            $userData['created_at'],
+            $userData['deleted_at'],
+            $userData['modified_at']
+        ];
+
         $query = "INSERT INTO users (uuid, email, password, name, premium, plan, plan_start, plan_end, social, social_name, user_active, created_at, deleted_at, modified_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $db = new DatabaseConnector();
 
         try {
-            $result = $db->executeQuery($query);
+            $result = $db->executeQuery($query, $params);
             if ($result === null) {
-                die(json_encode(['success' => false, 'error' => $e->getMessage()])); 
+                die(json_encode(['success' => true])); 
             }
         }catch (Exception $e) {
             die(json_encode(['success' => false, 'error' => $e->getMessage()]));

@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1078124ecce943b8493f8e6df7cb45ea5ddab972',
+        'reference' => 'c86bd5ffac97a2d1a627ccae69f3a5a07937a82c',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1078124ecce943b8493f8e6df7cb45ea5ddab972',
+            'reference' => 'c86bd5ffac97a2d1a627ccae69f3a5a07937a82c',
             'dev_requirement' => false,
         ),
         'graham-campbell/result-type' => array(
@@ -28,13 +28,22 @@
             'reference' => 'fbd48bce38f73f8a4ec8583362e732e4095e5862',
             'dev_requirement' => false,
         ),
+        'lcobucci/clock' => array(
+            'pretty_version' => '3.2.0',
+            'version' => '3.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../lcobucci/clock',
+            'aliases' => array(),
+            'reference' => '6f28b826ea01306b07980cb8320ab30b966cd715',
+            'dev_requirement' => false,
+        ),
         'lcobucci/jwt' => array(
-            'pretty_version' => '5.1.0',
-            'version' => '5.1.0.0',
+            'pretty_version' => '4.3.0',
+            'version' => '4.3.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../lcobucci/jwt',
             'aliases' => array(),
-            'reference' => 'f0031c07b96db6a0ca649206e7eacddb7e9d5908',
+            'reference' => '4d7de2fe0d51a96418c0d04004986e410e87f6b4',
             'dev_requirement' => false,
         ),
         'phpoption/phpoption' => array(
@@ -54,6 +63,12 @@
             'aliases' => array(),
             'reference' => 'e41a24703d4560fd0acb709162f73b8adfc3aa0d',
             'dev_requirement' => false,
+        ),
+        'psr/clock-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
         ),
         'symfony/polyfill-ctype' => array(
             'pretty_version' => 'v1.28.0',

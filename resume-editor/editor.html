@@ -65,7 +65,7 @@
 								
 					<div class="btn-group me-3 float-end" role="group">
 
-						<button class="btn btn-primary btn-icon token-injector title="Export (Ctrl + E)" id="save-btn" data-vvveb-action="saveAjax" data-vvveb-url="save.php?action=save" data-v-vvveb-shortcut="ctrl+e">
+						<button class="btn btn-primary btn-icon" data-v-vvveb-shortcut="ctrl+e">
 
 							<span class="loading d-none">
 							<i class="la la-save"></i>
@@ -74,7 +74,7 @@
 							  <span>Saving </span> ... </span>
 	
 							<span class="button-text">
-							  <i class="la la-save"></i> <span>Save Resume</span>
+							  <i class="la la-save"></i> <span id="btn-save-resume">Save Resume</span>
 							</span>	
 	
 						  </button>
@@ -84,7 +84,7 @@
 								
 					<div class="btn-group me-3 float-end" role="group">
 					
-						<button class="btn btn-primary btn-icon token-injector" title="Export (Ctrl + E)" id="save-btn">
+						<button class="btn btn-primary btn-icon " title="Export (Ctrl + E)" id="save-btn">
 							<span class="loading d-none">
 							<i class="la la-save"></i>
 							  <span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true">
@@ -1487,14 +1487,16 @@ let saveReusableUrl = 'save.php?action=saveReusable';
 
 $(function() {
 	let pages;
+	const apiUrl = 'http://localhost:8080/api';
 	const urlParams = new URLSearchParams(window.location.search);
-	const templateId = urlParams.get('template');
-	const resumeId = urlParams.get('resumeId');
 	const token = urlParams.get('token');
+	const templateId = urlParams.get('template');
+	const uuid = urlParams.get('uuid');
+	const resumeId = urlParams.get('resumeId');
 	if (resumeId === null) {
 			// new resume
 			if (!isNaN(templateId) && templateId !== null) {
-			const dynamicUrl = `themes/${templateId}/resume.php?token=${token}`;
+			const dynamicUrl = `themes/${templateId}/index.php`;
 			const dynamicCSS = `themes/${templateId}/styles.css`;
 			pages = [
 				{
@@ -1512,24 +1514,57 @@ $(function() {
 
 	let firstPage = Object.keys(pages)[0];
 	
-	Vvveb.Builder.init(pages[firstPage]["url"], function() {
-		
+		Vvveb.Builder.init(pages[firstPage]["url"], function() {
+			fetch(apiUrl + '/resumes/getResume.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				uuid: uuid,
+				token: token,
+			})
+		})
+		.then(response => {
+			if (response.ok) {
+				return response.json();
+			} else {
+				throw new Error('La solicitud no pudo ser completada correctamente.');
+			}
+		})
+		.then(jsonResponse => {
+			if (jsonResponse.success === true){
+				// set content
+				const iframe = document.getElementById('iframe1');
+				iframe.contentDocument.documentElement.innerHTML = jsonResponse.resume.html;
+			} else {
+				console.log('Error: success es falso en la respuesta');
+			}
+		})
+		.catch(error => {
+			console.error('Error al descargar el PDF:', error);
+			// Manejar el error en caso de que ocurra
+		});
 	});
 	
 	/* download PDF */
 
 	document.getElementById('btn-download-pdf').addEventListener('click', function() {
-		
-		let htmlContent = Vvveb.Builder.getHtml();
-		const urlParams = new URLSearchParams(window.location.search);
-		const token = urlParams.get('token');
-		const templateId = urlParams.get('template');
-		
-		if (!token) {
-			console.error('..No se encontró un token en los parámetros de la URL');
-			return;
+
+		let baseUrl;
+
+		if (window.location.href.startsWith('https')) {
+			baseUrl = 'https://easyresumepulse.com/editor/api';
+		} else {
+			baseUrl = 'http://localhost:8080';
 		}
+
+		let htmlContent = Vvveb.Builder.getHtml();
 		
+		if (!token || !templateId || !uuid) {
+			window.location.href = baseUrl;
+		}
+				
 		fetch('https://easyresumepulse.com/editor/api/downloadPdf.php', {
 			method: 'POST',
 			headers: {
@@ -1573,6 +1608,37 @@ $(function() {
 	});
 
 	/* end of -- generate PDF */
+
+	/* save resume */
+
+	document.getElementById('btn-save-resume').addEventListener('click', function(event) {
+
+		let htmlContent = Vvveb.Builder.getHtml();
+
+		fetch(apiUrl + '/resumes/saveResume.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				uuid : uuid,
+				htmlContent: htmlContent,
+				token: token,
+			})
+		})
+		.then(response => response.text())
+		.then(textResponse => {
+			console.log('Respuesta del servidor:', textResponse);
+		})
+		.catch(error => {
+			console.error('Error al descargar el PDF:', error);
+		});
+
+	});
+
+	/* end of -- generate PDF */
+
+	/* end of save resume */
 
 	Vvveb.Gui.init();
 	

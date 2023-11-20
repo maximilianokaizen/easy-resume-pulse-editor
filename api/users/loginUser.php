@@ -3,23 +3,13 @@
 
 declare(strict_types=1);
 
-use Lcobucci\JWT\Encoding\ChainedFormatter;
-use Lcobucci\JWT\Encoding\JoseEncoder;
-use Lcobucci\JWT\Signer\Key\InMemory;
-use Lcobucci\JWT\Signer\Hmac\Sha256;
-use Lcobucci\JWT\Token\Builder;
-
-require 'vendor/autoload.php';
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 header('Content-Type: application/json'); // Establecer el encabezado para respuestas JSON
 
 // libs
 require_once('../lib/sanatize/sanatize.php');
 include_once('../lib/db/dbConnection.php');
 require_once('../environment.php');
+require_once('../lib/token/TokenManager.php');
 
 $env = getEnviroment();
 $appDomain = $env['APP_DOMAIN'];
@@ -59,44 +49,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         /* generate jwt token */
         
-        $payload = [
-            'uuid' =>  $user['uuid'],
-            'plan' =>  $user['plan'],
-            'premium' => $user['premium'],
-            'plan' => $user['plan'],
-            'plan_start' => $user['plan_start'], 
-            'plan_end' => $user['plan_end'],
-            'user_active' => $user['user_active'],
-        ];
-        
+        $uuid = $user['uuid'];
         $minutes = 120;
         
         try {
-            $tokenBuilder = (new Builder(new JoseEncoder(), ChainedFormatter::default()));
-            $algorithm    = new Sha256();
-            $signingKey   = InMemory::plainText(random_bytes(32));
-        
-            $now   = new DateTimeImmutable();
-            $token = $tokenBuilder
-                ->issuedBy($env['ISSUER'])
-                ->permittedFor($env['AUDIENCE'])
-                ->identifiedBy($env['JTI'])
-                ->canOnlyBeUsedAfter($now->modify('+1 minute'))
-                ->expiresAt($now->modify('+' . $minutes . ' minutes'));
-        
-            foreach ($payload as $key => $value) {
-                $token = $token->withClaim($key, $value);
-            }
-        
-            $tokenString = $token->getToken($algorithm, $signingKey)->toString();
-        
+
+            $token = TokenManager::generateToken($uuid, $minutes);
+            
         } catch (Throwable $e) {
             http_response_code(500);
             echo json_encode(['error' => $e->getMessage()]);
         }
         /* end of generate jwt token */
         
-        echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso.', 'token' => $tokenString]);
+        echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso.', 'token' => $token]);
 
     } catch (Exception $e) {
         http_response_code(401); // Unauthorized

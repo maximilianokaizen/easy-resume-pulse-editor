@@ -52,4 +52,39 @@ class TokenManager
             return false;
         }
     }
+
+    public static function verifyUuidInToken(string $tokenString, string $uuidToVerify): bool {
+
+        $envValues = self::getEnvValues();
+        $signer = new Sha256();
+        $token = (new Parser())->parse($tokenString);
+
+        if (!$token->verify($signer, $envValues['SIGNING_KEY'])) {
+            return false; // La firma del token es inválida
+        }
+
+        $claims = $token->getClaims();
+
+        if (isset($claims['uuid']) && $claims['uuid']->getValue() === $uuidToVerify) {
+            return true;
+        }
+        return false; 
+    }
+
+    public static function getUserUuidFromToken(string $tokenString): ?string {
+        try {
+            $token = (new Parser())->parse($tokenString);
+            $claims = $token->getClaims();
+
+            if (isset($claims['uuid'])) {
+                return $claims['uuid']->getValue();
+            }
+
+            return null; // El claim 'uuid' no está presente en el token
+        } catch (\Throwable $e) {
+            // Manejar cualquier excepción al analizar el token
+            throw new Exception('Error parsing token: ' . $e->getMessage());
+        }
+    }
+
 }

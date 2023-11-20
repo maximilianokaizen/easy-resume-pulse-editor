@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 
 // libs
 require_once('../lib/sanatize/sanatize.php');
-include_once('../lib/db/dbConnection.php');
+require_once('../lib/db/dbConnection.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

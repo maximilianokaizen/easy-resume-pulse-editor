@@ -19,10 +19,13 @@ $token = (new Parser())->parse((string) $token); // Parses from a string
 
 $claims = $token->getClaims();
 
-echo $claims['email']->getValue();
-echo $claims['email_verified']->getValue();
-echo $claims['name']->getValue();
-echo $claims['picture']->getValue();
+$email = $claims['email']->getValue();
+$email_verified =  $claims['email_verified']->getValue();
+$name = $claims['name']->getValue();
+$picture =  $claims['picture']->getValue();
+$given_name = $claims['given_name']->getValue();
+$family_name =  $claims['family_name']->getValue();
+die();
 /*
 {
   "iss": "https://accounts.google.com",

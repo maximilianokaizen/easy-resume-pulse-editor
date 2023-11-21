@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once 'vendor/autoload.php'; // Ruta a tu archivo autoload de la biblioteca google/apiclient
 
 // Configuración de la autenticación

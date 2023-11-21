@@ -19,12 +19,8 @@ $token = (new Parser())->parse((string) $token); // Parses from a string
 $token->getHeaders();
 $data = []; 
 $data['email'] = $token->getClaims('email'); 
-$data['name'] = $token->getClaims('name'); 
-$data['picture'] = $token->getClaims('picture'); 
-$data['email_verified'] = $token->getClaims('email_verified');
-$data['given_name'] = $token->getClaims('given_name');
-$data['family_name'] = $token->getClaims('family_name');
 
+die(var_dump($token->getClaims('email')));
 print_r($data);
 /*
 {

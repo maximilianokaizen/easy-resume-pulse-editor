@@ -30,7 +30,7 @@
   $currentURL = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
   if ($currentURL === 'https://easyresumepulse.com/en/signin.php') {
-      echo '<meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">';
+      echo '<meta name="google-signin-client_id" content="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com">';
   }
   ?>
 

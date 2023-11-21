@@ -6,11 +6,11 @@ error_reporting(E_ALL);
 
 require_once 'vendor/autoload.php'; // Ruta a tu archivo autoload de la biblioteca google/apiclient
 
-// Configuración de la autenticación
 $client = new Google_Client();
 $client->setClientId('223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com');
 $client->setClientSecret('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');
 
+/*
 // Verificar si hay un código de autorización
 if (isset($_GET['code'])) {
     $client->authenticate($_GET['code']); // Intercambiar código por token de acceso
@@ -36,3 +36,4 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
     $authUrl = $client->createAuthUrl();
     header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
 }
+*/

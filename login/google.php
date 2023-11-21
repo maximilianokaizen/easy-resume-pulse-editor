@@ -16,12 +16,13 @@ $token = $_POST['credential'];
 use Lcobucci\JWT\Parser;
 
 $token = (new Parser())->parse((string) $token); // Parses from a string
-var_dump($token->getHeaders()); // Retrieves the token header
-var_dump($token->getClaims()); // Retrieves the token claims
 
-echo $token->getHeader('jti'); // will print "4f1g23a12aa"
-echo $token->getClaim('iss'); // will print "http://example.com"
-echo $token->getClaim('uid'); // will print "1"
+$claims = $token->getClaims();
+
+echo $claims['email']->getValue();
+echo $claims['email_verified']->getValue();
+echo $claims['name']->getValue();
+echo $claims['picture']->getValue();
 /*
 {
   "iss": "https://accounts.google.com",

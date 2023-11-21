@@ -8,6 +8,29 @@ include_once 'init.php';
 </head>
 <body>
 <?php include_once 'header.php'; ?>
+
+<script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
   <main id="main">
     <section class="inner-page page-content">
       <div class="container">
@@ -38,15 +61,13 @@ include_once 'init.php';
             </div>
           </div>
         </form>
-
         <div class="separator mt-4 mb-3 text-center">OR</div>
-
         <!-- Botón para iniciar sesión con Facebook -->
         <div class="text-center">
-          <a href="login-with-facebook.php" class="btn btn-facebook">Login with Google</a>
-          <a href="login-with-facebook.php" class="btn btn-facebook">Login with Facebooke</a>
+         <!-- google -->
+         <div id="my-signin2"></div>
+         <!-- end of google -->
         </div>
-
       </div>
     </div>
 

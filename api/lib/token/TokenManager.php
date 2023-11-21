@@ -87,4 +87,26 @@ class TokenManager
         }
     }
 
+    public static function getGoogleLoginData(string $token): array {
+        try {
+            $parsedToken = (new Parser())->parse($token);
+            $claims = $parsedToken->getClaims();
+    
+            $data = [
+                'email' => isset($claims['email']) ? $claims['email']->getValue() : null,
+                'email_verified' => isset($claims['email_verified']) ? $claims['email_verified']->getValue() : null,
+                'nbf' => isset($claims['nbf']) ? $claims['nbf']->getValue() : null,
+                'name' => isset($claims['name']) ? $claims['name']->getValue() : null,
+                'picture' => isset($claims['picture']) ? $claims['picture']->getValue() : null,
+                'given_name' => isset($claims['given_name']) ? $claims['given_name']->getValue() : null,
+                'family_name' => isset($claims['family_name']) ? $claims['family_name']->getValue() : null,
+            ];
+    
+            return $data;
+        } catch (\Throwable $e) {
+            // Manejar cualquier excepción al analizar el token
+            throw new Exception('Error parsing token: ' . $e->getMessage());
+        }
+    }
+    
 }

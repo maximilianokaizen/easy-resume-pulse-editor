@@ -12,8 +12,9 @@ $client->setClientId('223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleu
 $client->setClientSecret('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');
 
 $token = $_POST['credential'];
+$googleData = TokenManager::getGoogleLoginData($token);
+die(var_dump($googleData));
 
-die($token);
 
 /*
 {

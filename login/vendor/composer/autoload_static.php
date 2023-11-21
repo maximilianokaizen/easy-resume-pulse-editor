@@ -6,6 +6,20 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit4c505abbb535fb225b40a6fbfc60b3db
 {
+    public static $prefixLengthsPsr4 = array (
+        'L' => 
+        array (
+            'Lcobucci\\JWT\\' => 13,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Lcobucci\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lcobucci/jwt/src',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Google_Auth_Abstract' => __DIR__ . '/..' . '/google/apiclient/src/Google/Auth/Abstract.php',
@@ -3032,6 +3046,8 @@ class ComposerStaticInit4c505abbb535fb225b40a6fbfc60b3db
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4c505abbb535fb225b40a6fbfc60b3db::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4c505abbb535fb225b40a6fbfc60b3db::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit4c505abbb535fb225b40a6fbfc60b3db::$classMap;
 
         }, null, ClassLoader::class);

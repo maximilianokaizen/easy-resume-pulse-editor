@@ -28,5 +28,14 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'lcobucci/jwt' => array(
+            'pretty_version' => '3.2.5',
+            'version' => '3.2.5.0',
+            'reference' => '82be04b4753f8b7693b62852b7eab30f97524f9b',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../lcobucci/jwt',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
     ),
 );

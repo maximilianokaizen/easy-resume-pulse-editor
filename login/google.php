@@ -10,6 +10,10 @@ $client = new Google_Client();
 $client->setClientId('223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com');
 $client->setClientSecret('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');
 
+var_dump($_GET);
+var_dump($_POST);
+
+die('apa');
 /*
 // Verificar si hay un código de autorización
 if (isset($_GET['code'])) {

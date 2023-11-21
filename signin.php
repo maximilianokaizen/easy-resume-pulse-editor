@@ -9,11 +9,12 @@ include_once 'init.php';
 <body>
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <div id="g_id_onload"
-         data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse">
-    </div>
-    <div class="g_id_signin" data-type="standard"></div>
+<div id="g_id_onload"
+data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com"
+        data-ux_mode="redirect"
+        data-login_uri="https://easyresumepulse.com/en/login/google.php">
+</div>
+<div class="g_id_signin" data-type="standard"></div>
 
 <?php include_once 'header.php'; ?>
   <main id="main">

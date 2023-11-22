@@ -8,7 +8,7 @@ include_once 'init-panel.php';
 <script>
 try {
 
-  const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem("jwt");
   const uuid = sessionStorage.getItem("uuid");
 
   if (!token || !uuid) {

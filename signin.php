@@ -21,13 +21,12 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
     <section class="inner-page page-content">
       <div class="container">
        <div class="content-center">
-            <h3>Login or Register</h3>
         <!-- login or register -->
         <section id="login" class="login">
   <div class="container" data-aos="fade-up">
 
     <div class="section-title">
-      <h2>Login</h2>
+      <h2>Login / Register</h2>
       <p>Enter your credentials to access your account.</p>
     </div>
 
@@ -47,7 +46,8 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
             </div>
           </div>
         </form>
-        <div class="separator mt-4 mb-3 text-center">OR</div>
+        <div class="separator mt-4 mb-3 text-center"></div>
+        <hr/>
         <!-- Botón para iniciar sesión con Facebook -->
         <div class="text-center">
          <!-- google -->

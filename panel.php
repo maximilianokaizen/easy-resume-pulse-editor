@@ -8,8 +8,8 @@ include_once 'init-panel.php';
 <script>
 try {
 
-  const token = sessionStorage.uuid;
-  const uuid = sessionStorage.token;
+  const token = sessionStorage.getItem("token");
+  const uuid = sessionStorage.getItem("uuid");
 
   if (!token || !uuid) {
     throw new Error('No se encontraron el token o el uuid en el almacenamiento.');

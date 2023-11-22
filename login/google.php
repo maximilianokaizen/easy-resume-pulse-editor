@@ -35,7 +35,6 @@ if ($env['ENVIRONMENT'] !== 'LOCAL'){
   $picture =  $claims['picture']->getValue();
   $given_name = $claims['given_name']->getValue();
   $family_name =  $claims['family_name']->getValue();
-  die('$email =>' . $email);
 }else{
   $email = 'rossi.maxi@gmail.com';
   $email_verified = true;

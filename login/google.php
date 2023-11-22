@@ -5,10 +5,8 @@ require_once('../api/lib/token/TokenManager.php');
 require_once('../api/internal/users/Users.php');
 
 use Lcobucci\JWT\Parser;
-use Ramsey\Uuid\Uuid;
 
-$uuid = Uuid::uuid4();
-$uuidString = $uuid->toString(); 
+$uuidString = generateUUIDv4();
 $minutes = 180;
 
 $envFile = __DIR__ . '/.env';
@@ -33,6 +31,7 @@ if ($env['ENVIRONMENT'] !== 'LOCAL'){
   $picture =  $claims['picture']->getValue();
   $given_name = $claims['given_name']->getValue();
   $family_name =  $claims['family_name']->getValue();
+  die('$email =>' . $email);
 }else{
   $email = 'rossi.maxi@gmail.com';
   $email_verified = true;
@@ -83,6 +82,14 @@ if (!$user->exist($email)) {
   }
 }
 
+function generateUUIDv4() {
+  return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+      mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+      mt_rand(0, 0x0fff) | 0x4000,
+      mt_rand(0, 0x3fff) | 0x8000,
+      mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+  );
+}
 
 
 

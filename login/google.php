@@ -4,6 +4,10 @@ require_once 'vendor/autoload.php';
 require_once('../api/lib/token/TokenManager.php');
 require_once('../api/internal/users/Users.php');
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 use Lcobucci\JWT\Parser;
 
 $uuidString = generateUUIDv4();

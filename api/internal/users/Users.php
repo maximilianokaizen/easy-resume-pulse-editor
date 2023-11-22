@@ -1,5 +1,4 @@
 <?php
-
 if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
     $basePath = '/home/easyre/public_html/en';
 } else {   

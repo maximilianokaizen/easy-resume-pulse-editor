@@ -55,7 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resumes = $db->executeQuery($query, [$userId]);
 
         if ($resumes === null || empty($resumes)) {
-            throw new Exception("No resumes found for this UUID.");
+            http_response_code(200);
+            die(json_encode(['success' => true, 'resumes' => []]));
         }
 
         http_response_code(200);

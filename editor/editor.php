@@ -1,3 +1,12 @@
+<?php
+if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
+    // prod
+    $baseUrl = 'https://easyresumepulse.com/en';
+} else {
+    // local    
+    $baseUrl = 'http://localhost:8080';
+}
+?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
   <head>
@@ -65,6 +74,19 @@
 								
 					<div class="btn-group me-3 float-end" role="group">
 
+						<button class="btn btn-primary btn-icon" id="btn-go-to-panel">
+
+							<span class="button-text">
+							  <!--<i class="la la-arrow-left"></i>--> <span>PANEL</span>
+							</span>	
+	
+						  </button>
+					
+					</div>	
+
+								
+					<div class="btn-group me-3 float-end" role="group">
+
 						<button class="btn btn-primary btn-icon" data-v-vvveb-shortcut="ctrl+e">
 
 							<span class="loading d-none">
@@ -83,7 +105,7 @@
 
 								
 					<div class="btn-group me-3 float-end" role="group">
-					
+
 						<button class="btn btn-primary btn-icon " title="Export (Ctrl + E)" id="save-btn">
 							<span class="loading d-none">
 							<i class="la la-save"></i>
@@ -1638,6 +1660,18 @@ $(function() {
 
 	/* end of -- generate PDF */
 
+	/* go to panel */
+	
+	document.getElementById('btn-go-to-panel').addEventListener('click', function(event) {
+		console.log('apa');
+		event.preventDefault();
+		const confirmation = confirm('Do you want to go back to the panel? Unsaved changes will be lost.');
+			if (confirmation) {
+				window.location.href = '<?=$baseUrl?>/panel.php';
+			} else {
+				console.log('El usuario canceló la acción...');
+			}
+		});
 	/* end of save resume */
 
 	Vvveb.Gui.init();

@@ -9,11 +9,8 @@ include_once 'init-panel.php';
 <body>
 <?php include_once 'header-panel.php'; ?>
   <main id="main">
-    
   <div class="container" data-aos="fade-up">
-
   </div>
-     
   </main><!-- End #main -->
   <?php include_once 'footer.php'; ?>
   <div id="preloader"></div>

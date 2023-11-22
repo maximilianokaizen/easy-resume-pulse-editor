@@ -17,7 +17,7 @@ const isSecure = window.location.protocol === 'https:';
 if (jwtToken && userUuid) {
     sessionStorage.setItem('jwt', jwtToken);
     sessionStorage.setItem('uuid', userUuid);
-    const redirectUrl = isSecure ? 'https://easyresume.com/en/panel.php' : 'http://localhost:8080/panel.php';
+    const redirectUrl = isSecure ? 'https://easyresume.com/en/user-panel.php' : 'http://localhost:8080/user-panel.php';
     window.location.href = redirectUrl;
 } else {
     const redirectUrl = isSecure ? 'https://easyresume.com/en/?err=1&code=003' : 'http://localhost:8080/index.php?err=1&code=003';

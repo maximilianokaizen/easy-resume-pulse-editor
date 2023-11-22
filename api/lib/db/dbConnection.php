@@ -76,6 +76,22 @@ class DatabaseConnector {
         }
     }
 
+    public function debugQuery(string $query, array $params = []) {
+        $debugQuery = $query;
+    
+        foreach ($params as &$param) {
+            if ($param === null) {
+                $param = 'NULL';
+            } else {
+                $param = "'" . $this->connection->escape_string($param) . "'";
+            }
+        }
+    
+        $debugQuery = vsprintf(str_replace('?', '%s', $debugQuery), $params);
+    
+        echo "Debug Query: " . $debugQuery;
+    }
+
     public function disconnect() {
         if ($this->isConnected()) {
             $this->connection->close();

@@ -1,50 +1,88 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require_once 'vendor/autoload.php'; 
 require_once('../api/lib/token/TokenManager.php');
-
-$client = new Google_Client();
-$client->setClientId('223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com');
-$client->setClientSecret('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');
-
-$token = $_POST['credential'];
+require_once('../api/internal/users/Users.php');
 
 use Lcobucci\JWT\Parser;
+use Ramsey\Uuid\Uuid;
 
-$token = (new Parser())->parse((string) $token); // Parses from a string
+$uuid = Uuid::uuid4();
+$uuidString = $uuid->toString(); 
+$minutes = 180;
 
-$claims = $token->getClaims();
+$envFile = __DIR__ . '/.env';
+$env = parse_ini_file($envFile);
 
-$email = $claims['email']->getValue();
-$email_verified =  $claims['email_verified']->getValue();
-$name = $claims['name']->getValue();
-$picture =  $claims['picture']->getValue();
-$given_name = $claims['given_name']->getValue();
-$family_name =  $claims['family_name']->getValue();
-die();
-/*
-{
-  "iss": "https://accounts.google.com",
-  "azp": "223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com",
-  "aud": "223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com",
-  "sub": "108061482042918611723",
-  "email": "maximilianokaizen@gmail.com",
-  "email_verified": true,
-  "nbf": 1700594478,
-  "name": "Maximiliano Rossi",
-  "picture": "https://lh3.googleusercontent.com/a/ACg8ocKyi8Jnc4Y3Bhyq1nQjizIDg7EbKbdz2a2e0n4bGdBW=s96-c",
-  "given_name": "Maximiliano",
-  "family_name": "Rossi",
-  "locale": "es-419",
-  "iat": 1700594778,
-  "exp": 1700598378,
-  "jti": "187415738fb18f7a1a8fe80fde24ff46e53f929c"
+if ($env['ENVIRONMENT'] !== 'LOCAL'){
+  $baseUrl = 'https://easyresumepulse.com/en';
+}else{
+  $baseUrl = 'http://localhost:8080';
 }
-*/
+
+if ($env['ENVIRONMENT'] !== 'LOCAL'){
+  $client = new Google_Client();
+  $client->setClientId('223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com');
+  $client->setClientSecret('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');
+  $token = $_POST['credential'];
+  $token = (new Parser())->parse((string) $token); // Parses from a string
+  $claims = $token->getClaims();
+  $email = $claims['email']->getValue();
+  $email_verified =  $claims['email_verified']->getValue();
+  $name = $claims['name']->getValue();
+  $picture =  $claims['picture']->getValue();
+  $given_name = $claims['given_name']->getValue();
+  $family_name =  $claims['family_name']->getValue();
+}else{
+  $email = 'rossi.maxi@gmail.com';
+  $email_verified = true;
+  $name = 'Maximiliano Rossi';
+  $picture =  '';
+  $given_name = 'Maximiliano';
+  $family_name =  'Rossi';
+}
+
+$user = new User();
+if (!$user->exist($email)) {
+  // register
+  $randomPassword = password_hash(base64_encode(random_bytes(8)), PASSWORD_DEFAULT);
+  $premium = false;
+  $plan = 'free';
+  $social = true;
+  $socialName = 'google';
+  $active = 1;
+  $registrationResult = $user->register(
+    $uuidString, 
+    $email,
+    $randomPassword, 
+    $given_name,
+    $family_name,
+    0, // premium
+    $plan,
+    1, // social
+    $socialName,
+    $active,
+  );
+  if ($registrationResult) {
+    // generate JWT for this user
+    $token = TokenManager::generateTokenSocial($uuidString, $minutes);
+    header('Location: ' . $baseUrl . '/provisionalLogin.php?token=' . $token . '&uuid=' . $uuidString);
+  }else{
+    header('Location: ' . $baseUrl . '/index.php?err=1&code=001');
+  }
+}else{
+  // registered user
+  // generate JWT for this user
+  $uuid = $user->getUuidByEmail($email);
+  $token = TokenManager::generateTokenSocial($uuid, $minutes);
+  $urlToRedirect = $baseUrl . '/provisionalLogin.php?token=' . $token . '&uuid=' . $uuid;
+  if ($uuid === NULL){
+    header('Location: ' . $baseUrl . '/index.php?err=1&code=002');
+  }else{
+    header('Location: ' . $urlToRedirect);
+  }
+}
+
 
 
 

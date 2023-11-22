@@ -13,7 +13,7 @@
           </li>
           <li><a class="nav-link scrollto" href="#contact">Feedback / Contact</a></li>
           <li><a class="getstarted scrollto btn-get-green" href="<?=$baseUrl?>/signin.php">Create Resume Now</a></li>
-          <li><a class="getstarted scrollto" href="<?=$baseUrl?>/signin.php">Sing in / Register</a></li>
+          <li><a class="getstarted scrollto show-ui" href="<?=$baseUrl?>/signin.php">Sing in / Register</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

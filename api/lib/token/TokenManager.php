@@ -37,6 +37,26 @@ class TokenManager
         }
     }
 
+    public static function generateTokenSocial(string $uuid, int $minutes): string
+    {
+        $envValues = self::getEnvValues();
+        $signer = new Sha256();
+        try {
+            $token = (new Builder())->setIssuer($envValues['ISSUER'])
+                ->setAudience($envValues['AUDIENCE'])
+                ->setId($envValues['JTI'], true)
+                ->setIssuedAt(time())
+                ->setNotBefore(time() + 60)
+                ->setExpiration(time() + $minutes)
+                ->set('uuid', $uuid)
+                ->sign($signer, $envValues['SIGNING_KEY'])
+                ->getToken();
+            return $token->__toString();
+        } catch (Throwable $e) {
+            throw new Exception('Error creating token: ' . $e->getMessage());
+        }
+    }
+
     public static function validateToken(string $tokenString): bool
     {
         $signer = new Sha256();
@@ -108,5 +128,5 @@ class TokenManager
             throw new Exception('Error parsing token: ' . $e->getMessage());
         }
     }
-    
+
 }

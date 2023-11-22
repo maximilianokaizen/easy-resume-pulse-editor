@@ -1554,7 +1554,7 @@ $(function() {
 		let baseUrl;
 
 		if (window.location.href.startsWith('https')) {
-			baseUrl = 'https://easyresumepulse.com/editor/api';
+			baseUrl = 'https://easyresumepulse.com/en/api';
 		} else {
 			baseUrl = 'http://localhost:8080';
 		}
@@ -1565,7 +1565,7 @@ $(function() {
 			window.location.href = baseUrl;
 		}
 				
-		fetch('https://easyresumepulse.com/editor/api/downloadPdf.php', {
+		fetch('https://easyresumepulse.com/en/api/downloadPdf.php', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

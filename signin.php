@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function() {
         email: email,
         password: password
       };
-      fetch('user-login.php', {
+      fetch('<?=$baseUrl?>/user-login.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
       last_name: lastName
     };
 
-    fetch('/new-user.php', {
+    fetch('<?=$baseUrl?>/new-user.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

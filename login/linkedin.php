@@ -9,6 +9,7 @@ require_once('../api/lib/token/TokenManager.php');
 require_once('../api/internal/users/Users.php');
 
 use Lcobucci\JWT\Parser;
+use League\OAuth2\Client\Provider\LinkedIn;
 
 $uuidString = generateUUIDv4();
 $minutes = 180;
@@ -22,13 +23,29 @@ if ($env['ENVIRONMENT'] !== 'LOCAL'){
   $baseUrl = 'http://localhost:8080';
 }
 
-if ($env['ENVIRONMENT'] !== 'LOCAL'){
- 
-}else{
-  
+$provider = new LinkedIn([
+    'clientId'     => $env['LINKEDIN_CLIENT'],
+    'clientSecret' => $env['LINKEDIN_SECRET'],
+    'redirectUri'  => $baseUrl . '/provisionalLogin.php',
+]);
+
+if (!isset($_GET['code'])) {
+    // Redirige al usuario a la URL de autorización de LinkedIn
+    $authUrl = $provider->getAuthorizationUrl();
+    header('Location: ' . $authUrl);
+    exit;
+} else {
+    // El usuario ha autorizado la aplicación, obtenemos el token de acceso
+    $token = $provider->getAccessToken('authorization_code', [
+        'code' => $_GET['code']
+    ]);
+
+    // Con el token, puedes obtener los detalles del usuario
+    $linkedinUser = $provider->getResourceOwner($token);
+    // ... Procesar datos del usuario (por ejemplo, guardar en la base de datos)
+    var_dump($linkedinUser->toArray()); // Muestra los datos del usuario de LinkedIn
 }
 
-die('dev');
 
 /*
 $user = new User();

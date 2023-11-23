@@ -24,8 +24,8 @@ if ($env['ENVIRONMENT'] !== 'LOCAL'){
 
 if ($env['ENVIRONMENT'] !== 'LOCAL'){
   $client = new Google_Client();
-  $client->setClientId('223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com');
-  $client->setClientSecret('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');
+  $client->setClientId($env['GOOGLE_CLIENT']);
+  $client->setClientSecret($env['GOOGLE_SECRET']);
   $token = $_POST['credential'];
   $token = (new Parser())->parse((string) $token); // Parses from a string
   $claims = $token->getClaims();

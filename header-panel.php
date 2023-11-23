@@ -9,11 +9,10 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="<?=$baseUrl?>">Home</a></li>
-          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+          <li><a class="nav-link scrollto" href="upgrate.php">Upgrade your account</a></li>
           </li>
           <li><a class="nav-link scrollto" href="#contact">Feedback / Contact</a></li>
-          <li><a class="getstarted scrollto btn-get-green" href="<?=$baseUrl?>/signin.php">Create Resume Now</a></li>
-          <li><a class="getstarted scrollto show-ui" href="#" id="signOut">Sign Out</a></li>
+          <li><a class="getstarted scrollto show-ui" href="#" id="signOut">Logout</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

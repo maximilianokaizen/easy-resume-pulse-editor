@@ -52,6 +52,15 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
         <div class="text-center">
          <!-- google -->
          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+         <?php
+          if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
+
+          } else {
+            echo '<a href="login/google.php">
+            <img src="assets/img/login-google.jpeg" alt="" />
+            </a>';
+          }
+        ?>
          <!-- end of google -->
         </div>
       </div>

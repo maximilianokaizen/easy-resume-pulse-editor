@@ -22,8 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uuid = sanitizeInput($jsonData['uuid'] ?? '');
         $token = sanitizeInput($jsonData['token']) ?? '';
         $templateId = sanitizeInput($jsonData['templateId']) ?? '';
-        
-        if (empty($uuid) || empty($token) || empty($templateId) ) {
+        $name = sanitizeInput($jsonData['name']) ?? '';
+
+        if (empty($uuid) || empty($token) || empty($templateId) || empty($name) ) {
             throw new Exception("Please provide both UUID, Token, TemplateId.");
         }
 
@@ -76,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'uuid' => $uuid,
             'user_id' => $user[0]['id'],
             'template_id' => $templateId,
+            'name' => $name,
             'html' => $html,
             'css' => '',
             'created_at' => date('Y-m-d H:i:s')
@@ -85,12 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $templateData['uuid'],
             $templateData['user_id'],
             $templateData['template_id'],
+            $templateData['name'],
             $templateData['html'],
             $templateData['css'],
             $templateData['created_at']
         ];
 
-        $query = "INSERT INTO resumes (uuid, user_id, template_id, html, css, created_at) VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO resumes (uuid, user_id, template_id, name, html, css, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
       
         try {
             $result = $db->executeQuery($query, $params);

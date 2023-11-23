@@ -35,32 +35,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $db = new DatabaseConnector();
+        $query = "DELETE FROM resumes WHERE uuid = ?";
 
-        /* get user */
-         try {
-            $db = new DatabaseConnector();
-            $query = "SELECT id FROM users WHERE uuid = ? AND user_active=1";
-            $user = $db->executeQuery($query, [$userUuid]);
-            if ($user === null || empty($user)) {
-                throw new Exception("No users found with this UUID.");
-            }
-        } catch (Exception $e) {
-            die(json_encode(['success' => false, 'error' => $e->getMessage()]));
-        }
+        $affectedRows = $db->executeQuery($query, [$uuid]);
 
-        $userId = $user[0]['id'];
-        /* end of get user */
-
-        $query = "SELECT id, uuid, name, created_at, modified_at FROM resumes WHERE user_id = ?";
-        $resumes = $db->executeQuery($query, [$userId]);
-
-        if ($resumes === null || empty($resumes)) {
-            http_response_code(200);
-            die(json_encode(['success' => true, 'resumes' => []]));
+        if ($affectedRows === 0) {
+            throw new Exception("No resume found for this UUID.");
         }
 
         http_response_code(200);
-        echo json_encode(['success' => true, 'resumes' => $resumes]);
+        echo json_encode(['success' => true, 'message' => 'Resume deleted successfully']);
 
     } catch (Exception $e) {
         http_response_code(500);

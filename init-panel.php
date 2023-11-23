@@ -7,8 +7,8 @@ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
     $baseUrl = 'http://localhost:8080';
 }
 echo '<script>
-    const jwtToken = sessionStorage.getItem(\'jwt\');
-    const userUuid = sessionStorage.getItem(\'uuid\');
+    jwtToken = sessionStorage.getItem(\'jwt\');
+    userUuid = sessionStorage.getItem(\'uuid\');
     if (!jwtToken || !userUuid) {
         window.location.href = \'index.php\'; 
     }

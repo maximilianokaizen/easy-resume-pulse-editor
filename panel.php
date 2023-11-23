@@ -5,49 +5,147 @@ include_once 'init-panel.php';
 <html lang="en">
 <head>
 <?php include_once 'head.php'; ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script>
+// Function to check if token and uuid exist
+function checkTokenAndUUID() {
+  const token = sessionStorage.getItem('jwt');
+  const uuid = sessionStorage.getItem('uuid');
 
-const token = sessionStorage.getItem('jwt');
-const uuid =  sessionStorage.getItem('uuid');
-
-try {
-  
   if (!token || !uuid) {
-    const redirectUrl = isSecure ? 'https://easyresumepulse.com/en/signout.php' : 'http://localhost:8080/signout.php';
+    const redirectUrl = isSecure ? '<?=$baseUrl?>/signout.php' : '<?=$baseUrl?>/signout.php';
     window.location.href = redirectUrl;
   }
 
-  const url = '<?=$baseUrl?>/api/resumes/listResumes.php';
-  const bodyData = {
-    token: token,
-    uuid: uuid
-  };
+  return { token, uuid };
+}
 
-  fetch(url, {
+// Function to get resumes
+function getResumes(token, uuid) {
+  const url = '<?=$baseUrl?>/api/resumes/listResumes.php';
+  const bodyData = { token, uuid };
+
+  return fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(bodyData)
   })
-  .then(response => response.json())
+  .then(response => response.json());
+}
+
+// Function to create a new resume
+function createResume() {
+  const nameInput = document.getElementById('nameInput');
+  const name = nameInput.value.trim();
+  const templateId = 2;
+
+  const token = sessionStorage.getItem('jwt');
+  const uuid = sessionStorage.getItem('uuid');
+
+  if (!token || !uuid) {
+    console.log('Token or UUID not found in storage.');
+    return;
+  }
+
+  if (name.length === 0 || name.length < 3) {
+    console.log('Please enter a valid name (minimum 3 characters).');
+    return;
+  }
+
+  const formData = {
+    name,
+    uuid,
+    token,
+    templateId
+  };
+
+  return fetch('<?=$baseUrl?>/api/resumes/createResume.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.json());
+}
+
+function deleteResume() {
+  const deleteResumeLinks = document.querySelectorAll('.resume-list-delete-link');
+  deleteResumeLinks.forEach(deleteLink => {
+    deleteLink.addEventListener('click', function(event) {
+      event.preventDefault();
+      const deleteResumeModal = new bootstrap.Modal(document.getElementById('deleteResumeModal'));
+      deleteResumeModal.show();
+      const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+      confirmDeleteBtn.addEventListener('click', function() {
+        const token = sessionStorage.getItem('jwt');
+        const uuid = sessionStorage.getItem('uuid');
+        if (!token || !uuid) {
+          console.log('Token or UUID not found in storage.');
+          return;
+        }
+        const resumeUuid = deleteLink.dataset.uuid; // Assuming you set the data-uuid attribute on the delete link
+        const deleteUrl = '<?=$baseUrl?>/api/resumes/deleteResume.php';
+        const formData = {
+          token: token,
+          uuid: uuid,
+          resumeUuid: resumeUuid // Sending the resume UUID to delete
+        };
+        fetch(deleteUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Resume successfully deleted.');
+            location.reload(); // Reload the page
+          } else {
+            console.error('Failed to delete the resume. Status:', response.status);
+          }
+        })
+        .catch(error => {
+          console.error('Error deleting the resume:', error);
+        });
+      });
+    });
+  });
+}
+
+
+// Check token and UUID
+const { token, uuid } = checkTokenAndUUID();
+
+// Get resumes
+getResumes(token, uuid)
   .then(data => {
-    if (data.success === true && data.resumes.length === 0){
+    if (data.success === true && data.resumes.length === 0) {
       const createMyFirstResume = document.getElementById('create-my-first-resume');
       createMyFirstResume.style.display = 'block';
     }
-    if (data.success === true && data.resumes.length >= 1){
-      console.log(data.resumes);
+    if (data.success === true && data.resumes.length >= 1) {
       const resumeListDiv = document.getElementById('resume-list');
       const ulElement = document.createElement('ul');
 
       data.resumes.forEach(resume => {
-        const resumeUuid  = resume.uuid;
+        const resumeUuid = resume.uuid;
+        const resumeName = resume.name;
         const liElement = document.createElement('li');
         const link = document.createElement('a');
-        link.href = `<?=$baseUrl?>/editor/editor.php?token=${token}&uuid=${resumeUuid}&template=2`;
-        link.textContent = `Resume ${resumeUuid}`; 
+        const deleteLink = document.createElement('a');
+
+        deleteLink.href = '<?=$baseUrl?>/api/resumes/deleteResume.php';
+        deleteLink.innerHTML = '<i class="fa fa-trash"></i>Delete this resume';
+        deleteLink.classList.add('resume-list-delete-link');
+        link.href = '<?=$baseUrl?>/editor/editor.php?token=' + token + '&uuid=' + resumeUuid + '&template=2';
+        link.textContent = resumeName;
+
         liElement.appendChild(link);
+        liElement.appendChild(deleteLink);
         ulElement.appendChild(liElement);
       });
 
@@ -55,63 +153,26 @@ try {
 
       const createMyFirstResume = document.getElementById('resume-list');
       createMyFirstResume.style.display = 'block';
+
+      deleteResume(); // Call function to handle delete resume action
     }
   })
   .catch(error => {
-    // Capturar y manejar errores de la petición
-    console.error('Error en la petición:', error);
+    console.error('Error in request:', error);
   });
-} catch (error) {
-  // Capturar y manejar errores generales
-  console.error('Error:', error);
-}
 
-// create new resume
-
+// Create new resume
 document.addEventListener('DOMContentLoaded', function() {
   const createResumeBtn = document.getElementById('createResumeBtn');
-  createResumeBtn.addEventListener('click', createResume);
-
-  function createResume() {
-    const nameInput = document.getElementById('nameInput');
-    const name = nameInput.value.trim();
-    const templateId = 2;
-    if (name.length === 0 || name.length < 3) {
-      console.log('Por favor, ingresa un nombre válido (mínimo 3 caracteres).');
-      return;
-    }
-
-    // Obtener el token y el uuid del Session Storage
-    const token = sessionStorage.getItem('jwt');
-    const uuid = sessionStorage.getItem('uuid');
-
-    if (!token || !uuid) {
-      console.log('No se encontró el token o el uuid en el almacenamiento.');
-      return;
-    }
-
-    const formData = {
-      name: name,
-      uuid: uuid,
-      token: token,
-      templateId : templateId
-    };
-
-    fetch('<?=$baseUrl?>/api/resumes/createResume.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Respuesta de la creación del currículum:', data);
-    })
-    .catch(error => {
-      console.error('Error al crear el currículum:', error);
-    });
-  }
+  createResumeBtn.addEventListener('click', function() {
+    createResume()
+      .then(data => {
+        location.reload();
+      })
+      .catch(error => {
+        console.error('Error creating resume:', error);
+      });
+  });
 });
 
 </script>
@@ -125,11 +186,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <form id="resumeForm">
       <label for="nameInput">Name:</label>
       <input type="text" id="nameInput" name="name">
-      <button type="button" id="createResumeBtn">Create My First Resume!</button>
+      <button type="button" id="createResumeBtn" class="green-button">Create My First Resume!</button>
     </form>
   </div>
    
   <div id="resume-list" style="display:none">
+   <h4>My Created Resumes</h4>
   </div>
 
   </div>
@@ -138,5 +200,25 @@ document.addEventListener('DOMContentLoaded', function() {
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   <?php include_once('footer_js_css.php') ?>
+
+  <!-- modal delete -->
+  <div class="modal fade" id="deleteResumeModal" tabindex="-1" aria-labelledby="deleteResumeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteResumeModalLabel">Confirm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Are you certain you wish to delete this resume? Please note that deleting this resume will permanently remove all its content, and this action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of modal -->
 </body>
 </html>

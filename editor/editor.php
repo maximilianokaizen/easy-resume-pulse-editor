@@ -6,6 +6,12 @@ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
     // local    
     $baseUrl = 'http://localhost:8080';
 }
+// required params
+if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
+    // Redireccionar a una página específica si falta alguno de los parámetros
+    header("Location:  $baseUrl");
+    exit(); // Asegurarse de detener la ejecución después de redirigir
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">

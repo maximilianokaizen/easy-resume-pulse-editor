@@ -1908,3 +1908,46 @@ section {
   min-height: 700px !important;
 }
 
+#resume-list{
+  
+}
+
+#resume-list ul{
+  
+}
+
+#resume-list ul li{
+
+}
+
+/* Estilos para la clase green-button */
+.green-button {
+  background-color: #4caf50 !important;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  border: none; /* Elimina el borde */
+}
+
+/* Estilos para cuando el cursor esté sobre el botón */
+.green-button:hover {
+  background-color: #45a049 !important; /* Color ligeramente más oscuro al pasar el cursor */
+}
+
+.resume-list-delete-link {
+  margin-left: 10px; /* Margen a la izquierda para separar del enlace principal */
+  color: #d9534f; /* Color rojo (cambia el color a tu preferencia) */
+  text-decoration: none; /* Elimina el subrayado predeterminado */
+  padding-right: 5px; /* Espacio entre el icono y el texto del enlace */
+}
+
+.resume-list-delete-link i {
+  margin-right: 5px; /* Margen entre el icono y el texto */
+}
+
+.resume-list-delete-link:hover {
+  color: #a94442; /* Cambia el color al pasar el cursor (rojo más oscuro) */
+}

@@ -17,20 +17,17 @@ namespace League\OAuth2\Client\Provider;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 use GuzzleHttp\Exception\BadResponseException;
-use InvalidArgumentException;
 use League\OAuth2\Client\Grant\AbstractGrant;
 use League\OAuth2\Client\Grant\GrantFactory;
-use League\OAuth2\Client\OptionProvider\OptionProviderInterface;
-use League\OAuth2\Client\OptionProvider\PostAuthOptionProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
-use League\OAuth2\Client\Token\AccessTokenInterface;
 use League\OAuth2\Client\Tool\ArrayAccessorTrait;
-use League\OAuth2\Client\Tool\GuardedPropertyTrait;
 use League\OAuth2\Client\Tool\QueryBuilderTrait;
 use League\OAuth2\Client\Tool\RequestFactory;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use RandomLib\Factory as RandomFactory;
+use RandomLib\Generator as RandomGenerator;
 use UnexpectedValueException;
 
 /**
@@ -41,11 +38,10 @@ use UnexpectedValueException;
 abstract class AbstractProvider
 {
     use ArrayAccessorTrait;
-    use GuardedPropertyTrait;
     use QueryBuilderTrait;
 
     /**
-     * @var string|null Key used in a token response to identify the resource owner.
+     * @var string Key used in a token response to identify the resource owner.
      */
     const ACCESS_TOKEN_RESOURCE_OWNER_ID = null;
 
@@ -58,19 +54,6 @@ abstract class AbstractProvider
      * @var string HTTP method used to fetch access tokens.
      */
     const METHOD_POST = 'POST';
-
-    /**
-     * @var string PKCE method used to fetch authorization token.
-     * The PKCE code challenge will be hashed with sha256 (recommended).
-     */
-    const PKCE_METHOD_S256 = 'S256';
-
-    /**
-     * @var string PKCE method used to fetch authorization token.
-     * The PKCE code challenge will be sent as plain text, this is NOT recommended.
-     * Only use `plain` if no other option is possible.
-     */
-    const PKCE_METHOD_PLAIN = 'plain';
 
     /**
      * @var string
@@ -93,11 +76,6 @@ abstract class AbstractProvider
     protected $state;
 
     /**
-     * @var string|null
-     */
-    protected $pkceCode = null;
-
-    /**
      * @var GrantFactory
      */
     protected $grantFactory;
@@ -113,9 +91,9 @@ abstract class AbstractProvider
     protected $httpClient;
 
     /**
-     * @var OptionProviderInterface
+     * @var RandomFactory
      */
-    protected $optionProvider;
+    protected $randomFactory;
 
     /**
      * Constructs an OAuth 2.0 service provider.
@@ -125,14 +103,16 @@ abstract class AbstractProvider
      *     Individual providers may introduce more options, as needed.
      * @param array $collaborators An array of collaborators that may be used to
      *     override this provider's default behavior. Collaborators include
-     *     `grantFactory`, `requestFactory`, and `httpClient`.
+     *     `grantFactory`, `requestFactory`, `httpClient`, and `randomFactory`.
      *     Individual providers may introduce more collaborators, as needed.
      */
     public function __construct(array $options = [], array $collaborators = [])
     {
-        // We'll let the GuardedPropertyTrait handle mass assignment of incoming
-        // options, skipping any blacklisted properties defined in the provider
-        $this->fillProperties($options);
+        foreach ($options as $option => $value) {
+            if (property_exists($this, $option)) {
+                $this->{$option} = $value;
+            }
+        }
 
         if (empty($collaborators['grantFactory'])) {
             $collaborators['grantFactory'] = new GrantFactory();
@@ -153,14 +133,14 @@ abstract class AbstractProvider
         }
         $this->setHttpClient($collaborators['httpClient']);
 
-        if (empty($collaborators['optionProvider'])) {
-            $collaborators['optionProvider'] = new PostAuthOptionProvider();
+        if (empty($collaborators['randomFactory'])) {
+            $collaborators['randomFactory'] = new RandomFactory();
         }
-        $this->setOptionProvider($collaborators['optionProvider']);
+        $this->setRandomFactory($collaborators['randomFactory']);
     }
 
     /**
-     * Returns the list of options that can be passed to the HttpClient
+     * Return the list of options that can be passed to the HttpClient
      *
      * @param array $options An array of options to set on this provider.
      *     Options include `clientId`, `clientSecret`, `redirectUri`, and `state`.
@@ -171,7 +151,7 @@ abstract class AbstractProvider
     {
         $client_options = ['timeout', 'proxy'];
 
-        // Only allow turning off ssl verification if it's for a proxy
+        // Only allow turning off ssl verification is it's for a proxy
         if (!empty($options['proxy'])) {
             $client_options[] = 'verify';
         }
@@ -249,26 +229,26 @@ abstract class AbstractProvider
     }
 
     /**
-     * Sets the option provider instance.
+     * Sets the instance of the CSPRNG random generator factory.
      *
-     * @param  OptionProviderInterface $provider
+     * @param  RandomFactory $factory
      * @return self
      */
-    public function setOptionProvider(OptionProviderInterface $provider)
+    public function setRandomFactory(RandomFactory $factory)
     {
-        $this->optionProvider = $provider;
+        $this->randomFactory = $factory;
 
         return $this;
     }
 
     /**
-     * Returns the option provider instance.
+     * Returns the current CSPRNG random generator factory instance.
      *
-     * @return OptionProviderInterface
+     * @return RandomFactory
      */
-    public function getOptionProvider()
+    public function getRandomFactory()
     {
-        return $this->optionProvider;
+        return $this->randomFactory;
     }
 
     /**
@@ -281,32 +261,6 @@ abstract class AbstractProvider
     public function getState()
     {
         return $this->state;
-    }
-
-    /**
-     * Set the value of the pkceCode parameter.
-     *
-     * When using PKCE this should be set before requesting an access token.
-     *
-     * @param string $pkceCode
-     * @return self
-     */
-    public function setPkceCode($pkceCode)
-    {
-        $this->pkceCode = $pkceCode;
-        return $this;
-    }
-
-    /**
-     * Returns the current value of the pkceCode parameter.
-     *
-     * This can be accessed by the redirect handler during authorization.
-     *
-     * @return string|null
-     */
-    public function getPkceCode()
-    {
-        return $this->pkceCode;
     }
 
     /**
@@ -345,30 +299,11 @@ abstract class AbstractProvider
      */
     protected function getRandomState($length = 32)
     {
-        // Converting bytes to hex will always double length. Hence, we can reduce
-        // the amount of bytes by half to produce the correct length.
-        return bin2hex(random_bytes($length / 2));
-    }
+        $generator = $this
+            ->getRandomFactory()
+            ->getMediumStrengthGenerator();
 
-    /**
-     * Returns a new random string to use as PKCE code_verifier and
-     * hashed as code_challenge parameters in an authorization flow.
-     * Must be between 43 and 128 characters long.
-     *
-     * @param  int $length Length of the random string to be generated.
-     * @return string
-     */
-    protected function getRandomPkceCode($length = 64)
-    {
-        return substr(
-            strtr(
-                base64_encode(random_bytes($length)),
-                '+/',
-                '-_'
-            ),
-            0,
-            $length
-        );
+        return $generator->generateString($length, RandomGenerator::CHAR_ALNUM);
     }
 
     /**
@@ -390,14 +325,6 @@ abstract class AbstractProvider
     protected function getScopeSeparator()
     {
         return ',';
-    }
-
-    /**
-     * @return string|null
-     */
-    protected function getPkceMethod()
-    {
-        return null;
     }
 
     /**
@@ -429,33 +356,9 @@ abstract class AbstractProvider
         // Store the state as it may need to be accessed later on.
         $this->state = $options['state'];
 
-        $pkceMethod = $this->getPkceMethod();
-        if (!empty($pkceMethod)) {
-            $this->pkceCode = $this->getRandomPkceCode();
-            if ($pkceMethod === static::PKCE_METHOD_S256) {
-                $options['code_challenge'] = trim(
-                    strtr(
-                        base64_encode(hash('sha256', $this->pkceCode, true)),
-                        '+/',
-                        '-_'
-                    ),
-                    '='
-                );
-            } elseif ($pkceMethod === static::PKCE_METHOD_PLAIN) {
-                $options['code_challenge'] = $this->pkceCode;
-            } else {
-                throw new InvalidArgumentException('Unknown PKCE method "' . $pkceMethod . '".');
-            }
-            $options['code_challenge_method'] = $pkceMethod;
-        }
-
-        // Business code layer might set a different redirect_uri parameter
-        // depending on the context, leave it as-is
-        if (!isset($options['redirect_uri'])) {
-            $options['redirect_uri'] = $this->redirectUri;
-        }
-
         $options['client_id'] = $this->clientId;
+        $options['redirect_uri'] = $this->redirectUri;
+        $options['state'] = $this->state;
 
         return $options;
     }
@@ -520,8 +423,7 @@ abstract class AbstractProvider
         $query = trim($query, '?&');
 
         if ($query) {
-            $glue = strstr($url, '?') === false ? '?' : '&';
-            return $url . $glue . $query;
+            return $url . '?' . $query;
         }
 
         return $url;
@@ -594,6 +496,34 @@ abstract class AbstractProvider
     }
 
     /**
+     * Returns the request body for requesting an access token.
+     *
+     * @param  array $params
+     * @return string
+     */
+    protected function getAccessTokenBody(array $params)
+    {
+        return $this->buildQueryString($params);
+    }
+
+    /**
+     * Builds request options used for requesting an access token.
+     *
+     * @param  array $params
+     * @return array
+     */
+    protected function getAccessTokenOptions(array $params)
+    {
+        $options = ['headers' => ['content-type' => 'application/x-www-form-urlencoded']];
+
+        if ($this->getAccessTokenMethod() === self::METHOD_POST) {
+            $options['body'] = $this->getAccessTokenBody($params);
+        }
+
+        return $options;
+    }
+
+    /**
      * Returns a prepared request for requesting an access token.
      *
      * @param array $params Query string parameters
@@ -603,7 +533,7 @@ abstract class AbstractProvider
     {
         $method  = $this->getAccessTokenMethod();
         $url     = $this->getAccessTokenUrl($params);
-        $options = $this->optionProvider->getAccessTokenOptions($this->getAccessTokenMethod(), $params);
+        $options = $this->getAccessTokenOptions($params);
 
         return $this->getRequest($method, $url, $options);
     }
@@ -611,10 +541,9 @@ abstract class AbstractProvider
     /**
      * Requests an access token using a specified grant and option set.
      *
-     * @param  mixed                $grant
-     * @param  array<string, mixed> $options
-     * @throws IdentityProviderException
-     * @return AccessTokenInterface
+     * @param  mixed $grant
+     * @param  array $options
+     * @return AccessToken
      */
     public function getAccessToken($grant, array $options = [])
     {
@@ -626,23 +555,15 @@ abstract class AbstractProvider
             'redirect_uri'  => $this->redirectUri,
         ];
 
-        if (!empty($this->pkceCode)) {
-            $params['code_verifier'] = $this->pkceCode;
-        }
-
         $params   = $grant->prepareRequestParameters($params, $options);
         $request  = $this->getAccessTokenRequest($params);
-        $response = $this->getParsedResponse($request);
-        if (false === is_array($response)) {
-            throw new UnexpectedValueException(
-                'Invalid response received from Authorization Server. Expected JSON.'
-            );
-        }
+        $response = $this->getResponse($request);
         $prepared = $this->prepareAccessTokenResponse($response);
         $token    = $this->createAccessToken($prepared, $grant);
 
         return $token;
     }
+
 
     /**
      * Returns a PSR-7 request instance that is not authenticated.
@@ -662,7 +583,7 @@ abstract class AbstractProvider
      *
      * @param  string $method
      * @param  string $url
-     * @param  AccessTokenInterface|string|null $token
+     * @param  AccessToken|string $token
      * @param  array $options Any of "headers", "body", and "protocolVersion".
      * @return RequestInterface
      */
@@ -676,7 +597,7 @@ abstract class AbstractProvider
      *
      * @param  string $method
      * @param  string $url
-     * @param  AccessTokenInterface|string|null $token
+     * @param  AccessToken|string|null $token
      * @param  array $options
      * @return RequestInterface
      */
@@ -692,41 +613,39 @@ abstract class AbstractProvider
         return $factory->getRequestWithOptions($method, $url, $options);
     }
 
+
     /**
      * Sends a request instance and returns a response instance.
-     *
-     * WARNING: This method does not attempt to catch exceptions caused by HTTP
-     * errors! It is recommended to wrap this method in a try/catch block.
      *
      * @param  RequestInterface $request
      * @return ResponseInterface
      */
-    public function getResponse(RequestInterface $request)
+    protected function sendRequest(RequestInterface $request)
     {
-        return $this->getHttpClient()->send($request);
+        try {
+            $response = $this->getHttpClient()->send($request);
+        } catch (BadResponseException $e) {
+            $response = $e->getResponse();
+        }
+        return $response;
     }
 
     /**
      * Sends a request and returns the parsed response.
      *
      * @param  RequestInterface $request
-     * @throws IdentityProviderException
      * @return mixed
      */
-    public function getParsedResponse(RequestInterface $request)
+    public function getResponse(RequestInterface $request)
     {
-        try {
-            $response = $this->getResponse($request);
-        } catch (BadResponseException $e) {
-            $response = $e->getResponse();
-        }
-
+        $response = $this->sendRequest($request);
         $parsed = $this->parseResponse($response);
 
         $this->checkResponse($response, $parsed);
 
         return $parsed;
     }
+
 
     /**
      * Attempts to parse a JSON response.
@@ -787,14 +706,6 @@ abstract class AbstractProvider
                 throw $e;
             }
 
-            if ($response->getStatusCode() == 500) {
-                throw new UnexpectedValueException(
-                    'An OAuth server error was encountered that did not contain a JSON body',
-                    0,
-                    $e
-                );
-            }
-
             return $content;
         }
     }
@@ -837,7 +748,7 @@ abstract class AbstractProvider
      *
      * @param  array $response
      * @param  AbstractGrant $grant
-     * @return AccessTokenInterface
+     * @return AccessToken
      */
     protected function createAccessToken(array $response, AbstractGrant $grant)
     {
@@ -879,15 +790,7 @@ abstract class AbstractProvider
 
         $request = $this->getAuthenticatedRequest(self::METHOD_GET, $url, $token);
 
-        $response = $this->getParsedResponse($request);
-
-        if (false === is_array($response)) {
-            throw new UnexpectedValueException(
-                'Invalid response received from Authorization Server. Expected JSON.'
-            );
-        }
-
-        return $response;
+        return $this->getResponse($request);
     }
 
     /**

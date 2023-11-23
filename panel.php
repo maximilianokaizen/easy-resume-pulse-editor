@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <div id="create-my-first-resume" style="display:none">
     <form id="resumeForm">
       <label for="nameInput">Name:</label>
-      <input type="text" id="nameInput" name="name">
+      <input type="text" id="nameInput" name="name" required>
       <button type="button" id="createResumeBtn" class="green-button">Create My First Resume!</button>
     </form>
   </div>

@@ -1593,7 +1593,7 @@ $(function() {
 			window.location.href = baseUrl;
 		}
 				
-		fetch('<?=$baseUrl?>/api/downloadPdf.php', {
+		fetch('https://easyresumepulse.com/en/api/downloadPdf.php', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

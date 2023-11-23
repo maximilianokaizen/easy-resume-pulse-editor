@@ -1515,7 +1515,7 @@ let saveReusableUrl = 'save.php?action=saveReusable';
 
 $(function() {
 	let pages;
-	const apiUrl =<?=$baseUrl?>'/api';
+	const apiUrl = '<?=$baseUrl?>/api';
 	const urlParams = new URLSearchParams(window.location.search);
 	const token = urlParams.get('token');
 	const templateId = urlParams.get('template');
@@ -1593,7 +1593,7 @@ $(function() {
 			window.location.href = baseUrl;
 		}
 				
-		fetch(<?=$baseUrl?>'/api/downloadPdf.php', {
+		fetch('<?=$baseUrl?>/api/downloadPdf.php', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

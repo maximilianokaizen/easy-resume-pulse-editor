@@ -27,11 +27,12 @@ class User
             'premium' => false,
             'plan' => 'free',
             'social' => false,
-            'socialName' => '',
+            'socialName' => 'website',
+            'social_name' => 'website',
             'active' => false,
             'plan_start' =>  date('Y-m-d H:i:s'),
         ];
-    
+        
         $userData = [
             'uuid' => sanitizeInput($uuid),
             'email' => sanitizeInput($email),
@@ -46,7 +47,13 @@ class User
             'active' => $active,
             'created_at' => date('Y-m-d H:i:s'),
         ];
-       
+        
+        if ($userData['social'] === true){
+            $userData['social'] = 1;
+        }else{
+            $userData['social'] = 0;
+        }
+
         $query = "INSERT INTO users (uuid, email, password, name, last_name, premium, plan, plan_start, social, social_name, user_active, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $params = [
@@ -97,6 +104,18 @@ class User
             return null; // No se encontró ningún usuario activo con este correo electrónico
         }
         return $result[0]['uuid'];
+    }
+
+    public function checkLogin(string $email, string $password): bool {
+        $query = "SELECT COUNT(*) as count FROM users WHERE email = ? AND password = ? AND user_active = 1";
+        $db = new DatabaseConnector();
+        $hashedPassword = md5($password);
+        $result = $db->executeQuery($query, [$email, $hashedPassword]);
+        if ($result === null || empty($result)) {
+            return false; // No matching user found or error occurred
+        }
+        $userCount = (int)$result[0]['count'];
+        return $userCount > 0;
     }
 
 }

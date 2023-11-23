@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $db = new DatabaseConnector();
 
         /* get user */
-         try {
+        try {
             $db = new DatabaseConnector();
             $query = "SELECT id FROM users WHERE uuid = ? AND user_active=1";
             $user = $db->executeQuery($query, [$userUuid]);
@@ -45,11 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new Exception("No users found with this UUID.");
             }
         } catch (Exception $e) {
-            die(json_encode(['success' => false, 'error' => $e->getMessage()]));
+            throw new Exception($e->getMessage());
         }
+        /* end of get user */
 
         $userId = $user[0]['id'];
-        /* end of get user */
 
         $query = "SELECT id, uuid, name, created_at, modified_at FROM resumes WHERE user_id = ?";
         $resumes = $db->executeQuery($query, [$userId]);
@@ -70,4 +70,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     http_response_code(405);
     echo json_encode(['success' => false, 'message' => 'Method not allowed. Expected a POST request.']);
 }
-?>

@@ -2,15 +2,15 @@
  <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="<?=$baseUrl?>">EasyResumePulse<span class="green-color">.com</span></a></h1>
+      <h1 class="logo"><a href="<?=$baseUrl?>">
+      <img src="/assets/logo-small.png" alt=""/>
+      EasyResumePulse<span class="green-color">.com</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="<?=$baseUrl?>">Home</a></li>
-          <li><a class="nav-link scrollto" href="upgrate.php">Upgrade your account</a></li>
-          </li>
           <li><a class="nav-link scrollto" href="#contact">Feedback / Contact</a></li>
           <li><a class="getstarted scrollto show-ui" href="#" id="signOut">Logout</a></li>
         </ul>

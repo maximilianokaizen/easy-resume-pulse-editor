@@ -23,7 +23,7 @@
           <div class="btn-wrap">
             <a href="#" class="btn-buy" style="font-weight: bold;">Get Started for Free</a>
           </div>
-          <p style="margin-top: 20px;">Our service is entirely free! We only offer the option for voluntary contributions to support server maintenance and related costs.</p>
+          <p style="margin-top: 20px;">Consider supporting our project! Your donation helps us maintain this service free and accessible to everyone. Your contribution supports server costs, development, and ongoing improvements, ensuring you can create and save your CVs at no cost. Every donation matters to continue providing you with the best possible experience.</p>
         </div>
       </div>
     </div>

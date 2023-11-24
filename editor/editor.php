@@ -29,6 +29,18 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 		display: none;
 	}
 	</style>
+
+	<!-- For IE 10+ and modern browsers -->
+<link rel="icon" type="image/x-icon" href="<?=$urlBase?>/assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="<?=$urlBase?>/assets/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="<?=$urlBase?>/assets/favicon-32x32.png">
+
+<!-- For Android -->
+<link rel="icon" type="image/png" sizes="192x192" href="<?=$urlBase?>/assets/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="<?=$urlBase?>/assets/android-chrome-512x512.png">
+
+<!-- For iOS -->
+<link rel="apple-touch-icon" href="<?=$urlBase?>/assets/apple-touch-icon.png">
     <link href="css/editor.css" rel="stylesheet">
   </head>
 <body>
@@ -82,7 +94,7 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 						<button class="btn btn-primary btn-icon" id="btn-go-to-panel">
 
 							<span class="button-text">
-							  <!--<i class="la la-arrow-left"></i>--> <span>PANEL</span>
+							  <i class="la la-home"></i> <span>PANEL</span>
 							</span>	
 	
 						  </button>
@@ -111,28 +123,21 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 								
 					<div class="btn-group me-3 float-end" role="group">
 
-						<button class="btn btn-primary btn-icon " title="Export (Ctrl + E)" id="save-btn">
+						<button class="btn btn-primary btn-icon " id="btn-download-pdf">
 							<span class="loading d-none">
 							<i class="la la-save"></i>
 							  <span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true">
 							  </span>
 							  <span>Saving </span> ... </span>
 							<span class="button-text">
-							  <i class="la la-save"></i> <span id="btn-download-pdf">Download PDF</span>
+							  <i class="la la-save"></i> <span>Download PDF</span>
 							</span>	
-	
 						  </button>
-
 					  </div>	
 
-
 					  <div class="float-end me-3">
-				
 					</div>	
-				
      				</div>
-
-
 				<div id="left-panel">
 
 					  <div id="filemanager"> 
@@ -1442,7 +1447,44 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 		</div>
 	</div>
 </div>
-	
+
+<!-- Modal -->
+<div class="modal fade" id="mensajeModal" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mensajeModalLabel">Saved!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="mensajeDelServidor">The Content was saved.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Do you want to go back to the panel? Unsaved changes will be lost.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmGoToPanel">Go to Panel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- jquery-->
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.hotkeys.js"></script>
@@ -1655,7 +1697,8 @@ $(function() {
 		})
 		.then(response => response.text())
 		.then(textResponse => {
-			console.log('Respuesta del servidor:', textResponse);
+			let myModal = new bootstrap.Modal(document.getElementById('mensajeModal'));
+    		myModal.show();
 		})
 		.catch(error => {
 			console.error('Error al descargar el PDF:', error);
@@ -1666,17 +1709,14 @@ $(function() {
 	/* end of -- generate PDF */
 
 	/* go to panel */
-	
 	document.getElementById('btn-go-to-panel').addEventListener('click', function(event) {
-		console.log('apa');
 		event.preventDefault();
-		const confirmation = confirm('Do you want to go back to the panel? Unsaved changes will be lost.');
-			if (confirmation) {
-				window.location.href = '<?=$baseUrl?>/panel.php';
-			} else {
-				console.log('El usuario canceló la acción...');
-			}
+		let confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+		confirmationModal.show();
+		document.getElementById('confirmGoToPanel').addEventListener('click', function() {
+			window.location.href = '<?=$baseUrl?>/panel.php';
 		});
+	});
 	/* end of save resume */
 
 	Vvveb.Gui.init();

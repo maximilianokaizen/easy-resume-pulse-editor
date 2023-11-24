@@ -1347,7 +1347,6 @@ section {
   overflow: hidden;
   background: #fefefe;
   box-shadow: 0px 5px 90px 0px rgba(110, 123, 131, 0.1);
-  height: 680px;
 }
 
 .pricing .box h3 {
@@ -1950,4 +1949,10 @@ section {
 
 .resume-list-delete-link:hover {
   color: #a94442; /* Cambia el color al pasar el cursor (rojo más oscuro) */
+}
+
+@media screen and (max-width: 500px) {
+  .logo-header {
+    display: none;
+  }
 }

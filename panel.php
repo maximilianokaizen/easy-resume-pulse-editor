@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <body>
 <?php include_once 'header-panel.php'; ?>
   <main id="main">
-  <div class="container" data-aos="fade-up" style="margin-top:100px;">
+  <div class="container" data-aos="fade-up" style="margin-top:100px;min-height:550px">
 
   <div id="create-my-first-resume" style="display:none">
     <form id="resumeForm">

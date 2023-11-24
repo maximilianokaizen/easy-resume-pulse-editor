@@ -1,3 +1,4 @@
+
  <!-- ======= Header ======= -->
  <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center justify-content-between">
@@ -10,7 +11,7 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="<?=$baseUrl?>">Home</a></li>
-          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+          <li id="pricingLink" style="display: none;"><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
           </li>
           <li><a class="getstarted scrollto btn-get-green" href="<?=$baseUrl?>/signin.php">Create Resume Now</a></li>
           <li><a class="getstarted scrollto show-ui" href="<?=$baseUrl?>/signin.php">Sing in / Register</a></li>
@@ -20,3 +21,12 @@
 
     </div>
 </header><!-- End Header -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Verifica si el elemento con el ID 'pricing' existe
+    if (document.getElementById('pricing')) {
+      // Si existe, muestra el enlace en la barra de navegación
+      document.getElementById('pricingLink').style.display = 'block';
+    }
+  });
+</script>

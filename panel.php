@@ -102,7 +102,6 @@ function deleteResume() {
         })
         .then(response => {
           if (response.status === 200) {
-            console.log('Resume successfully deleted.');
             location.reload(); // Reload the page
           } else {
             console.error('Failed to delete the resume. Status:', response.status);
@@ -139,8 +138,9 @@ getResumes(token, uuid)
         const deleteLink = document.createElement('a');
 
         deleteLink.href = '<?=$baseUrl?>/api/resumes/deleteResume.php';
-        deleteLink.innerHTML = '<i class="fa fa-trash"></i>Delete this resume';
+        deleteLink.innerHTML = '<i class="fa fa-trash"></i>Delete this resume' + resumeUuid ;
         deleteLink.classList.add('resume-list-delete-link');
+        deleteLink.dataset.uuid = resumeUuid;
         link.href = '<?=$baseUrl?>/editor/editor.php?token=' + token + '&uuid=' + resumeUuid + '&template=2';
         link.textContent = resumeName;
 
@@ -155,6 +155,41 @@ getResumes(token, uuid)
       createMyFirstResume.style.display = 'block';
 
       deleteResume(); // Call function to handle delete resume action
+    }
+    // Check if canCreate is true and resumes length is greater than 1
+    if (data.canCreate === true && data.resumes.length >= 1) {
+      const createOtherResume = document.getElementById('create-other-resume');
+      createOtherResume.style.display = 'block';
+
+      const createOtherResumeBtn = document.getElementById('createOtherResumeBtn');
+      createOtherResumeBtn.addEventListener('click', function() {
+        const OtherNameInput = document.getElementById('OtherNameInput');
+        const name = OtherNameInput.value.trim();
+        // fetch
+        let templateId = 2;
+        const formData = {
+          name,
+          uuid,
+          token,
+          templateId
+        };
+        
+        fetch('<?=$baseUrl?>/api/resumes/createResume.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success === true){
+            location.reload();
+          }
+          console.log('Server response:', data); // Log the data received from the server
+          return data; // Return the data for further handling if needed
+        });
+      });
     }
   })
   .catch(error => {
@@ -192,6 +227,14 @@ document.addEventListener('DOMContentLoaded', function() {
    
   <div id="resume-list" style="display:none">
    <h4>My Created Resumes</h4>
+  </div>
+
+  <div id="create-other-resume" style="display:none">
+    <form id="otherResumeForm">
+      <label for="OtherNameInput">Name:</label>
+      <input type="text" id="OtherNameInput" name="other-name" required>
+      <button type="button" id="createOtherResumeBtn" class="green-button">Create Other Resume!</button>
+    </form>
   </div>
 
   </div>

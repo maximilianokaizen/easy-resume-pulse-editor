@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $uuid = sanitizeInput($jsonData['uuid'] ?? '');
         $token = sanitizeInput($jsonData['token'] ?? '');
+        $uuidResume = sanitizeInput($jsonData['resumeUuid'] ?? '');
 
         if (empty($uuid) || empty($token)) {
             throw new Exception("Please provide UUID and Token.");
@@ -39,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $db = new DatabaseConnector();
         $query = "DELETE FROM resumes WHERE uuid = ?";
 
-        $affectedRows = $db->executeQuery($query, [$uuid]);
+        $affectedRows = $db->executeQuery($query, [$uuidResume]);
 
         if ($affectedRows === 0) {
             throw new Exception("No resume found for this UUID.");

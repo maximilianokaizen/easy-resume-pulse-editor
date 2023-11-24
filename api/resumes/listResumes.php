@@ -1,5 +1,10 @@
 <?php
 
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
+
 require_once('../lib/sanatize/sanatize.php');
 require_once('../lib/db/dbConnection.php');
 require_once('../lib/token/TokenManager.php');
@@ -35,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         /* get user */
         try {
             $db = new DatabaseConnector();
-            $query = "SELECT id FROM users WHERE uuid = ? AND user_active=1";
+            $query = "SELECT id,premium FROM users WHERE uuid = ? AND user_active=1";
             $user = $db->executeQuery($query, [$userUuid]);
             if ($user === null || empty($user)) {
                 throw new Exception("No users found with this UUID.");
@@ -44,6 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception($e->getMessage());
         }
         /* end of get user */
+
+        $userPremium = $user[0]['premium'];
+    
+        if ($userPremium >= 1){
+            $remainsResumes = true;
+        }else{
+            $remainsResumes = false;
+        }
 
         $userId = $user[0]['id'];
 
@@ -56,11 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         http_response_code(200);
-        echo json_encode(['success' => true, 'resumes' => $resumes]);
+        die(json_encode(['success' => true, 'resumes' => $resumes, 'canCreate' => $remainsResumes]));
 
     } catch (Exception $e) {
         http_response_code(500);
-        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        die(json_encode(['success' => false, 'error' => $e->getMessage()]));
     }
 } else {
     http_response_code(405);

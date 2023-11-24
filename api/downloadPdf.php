@@ -56,184 +56,99 @@ $dompdf->stream();
 
 function getTemplateCustomCss($template) {
     
-    return '
-    @media print {
-        body {
-          margin: 2cm;
-        }
-      }
+    return "
+    @import url(https://fonts.cdnfonts.com/css/glacial-indifference-2');
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
     
-      #template-container{
-        padding: 2px;
-        width: 780px;
-        margin: 36px; 
-        font-family: Arial, sans-serif;
-        margin: 0px auto;
-      }
+    @page {
+      size: A4;
+    }
     
-      #editable-page {
-        max-width: 21cm;
-        margin: 0 auto;
-      }
+    .mt-2 {
+      margin-top: 20px;
+    }
     
-      .editableBlock {
-        padding: 1cm;
-      }
+    .mt-3 {
+      margin-top: 30px;
+    }
     
-      h1 {
-        margin-bottom: 0.5cm;
-        font-size: 2.5em;
-        text-align: left; /* Cambiado a la izquierda */
-      }
+    .mb-2 {
+      margin-bottom: 20px;
+    }
     
-      h2 {
-        font-size: 1.5em;
-        margin-bottom: 0.5cm;
-        color: #555; /* Color gris para la descripción */
-      }
+    .container {
+        width: 780px; 
+        margin: 0 auto; 
+        box-sizing: border-box; 
+    }
     
-      h3 {
-        font-size: 1.2em;
-        margin-bottom: 0.3cm;
-        color: #888; /* Color gris más claro para los títulos de sección */
-      }
+    .box-1 {
+      width: 30%;
+      float: left;
+      height: 100%;
+      position: relative;
+      border-right: 2px solid #a6a6a64e;
+      padding-right: 37px;
+      box-sizing: border-box;
+    }
     
-      .job {
-        margin-bottom: 1cm;
-      }
+    .box-2 {
+      width: 60%;
+      float: right;
+      height: 100%;
+      position: relative;
+      padding-left: 37px;
+      box-sizing: border-box;
+    }
     
-      .job p {
-        margin: 0;
-      }
+    .subtitle {
+      margin-bottom: 20px;
+      margin-top: 40px;
+      font-family: 'Glacial Indifference', sans-serif;
+      letter-spacing: 3.5px;
+      font-weight: bold;
+    }
     
-      /* Estilos para la versión web */
-      .separator {
-        border-bottom: 1px dashed #ddd; /* Línea punteada en lugar de sólida */
-        margin-bottom: 20px; /* Ajusta el valor según tu preferencia */
-      }
+    .img-profile {
+      width: 188px;
+      height: 188px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
     
-      /* Estilos para la versión de impresión (PDF) */
-      @media print {
-        .separator {
-          border-bottom: 1px dashed #ddd; /* Línea punteada para la versión de impresión */
-        }
-      }
+    .list-contact {
+      list-style: none;
+      padding-left: 0;
+      font-family: 'Roboto', sans-serif;
+    }
     
-      .job ul {
-        list-style-type: disc;
-        margin-left: 20px;
-        color: #555; /* Puedes ajustar el color según tu preferencia */
-      }
+    .list-contact li {
+      margin-top: 5px;
+    }
     
-      .job li {
-        margin-bottom: 8px;
-      }
+    h1 {
+      font-size: 54px;
+      line-height: 30px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 100;
+    }
     
-      .contact-info {
-        float: right;
-        margin-top: -20px;
-        margin-right: -100px;
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-        font-size: 14px;
-        text-align: center; /* Centrar el texto */
-      }
+    .list-experience {
+      padding-left: 25px;
+      font-family: 'Roboto', sans-serif;
+    }
     
-      /* Estilos para la versión de impresión (PDF) */
-      @media print {
-        .contact-info {
-          float: none; /* Elimina la flotación para la versión de impresión */
-          margin-top: 0; /* Elimina el margen superior para la versión de impresión */
-          page-break-before: always; /* Inicia una nueva página antes de la sección de contacto */
-          float: right;
-          width: 250px;
-          margin-right: 10px;
-          font-size: 12px;
-          text-align: center; /* Centrar el texto */
-        }
-      }
-    
-      .contact-info ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-      }
-    
-      .contact-info li {
-        margin-bottom: 8px;
-      }
-    
-      .contact-info a {
-        color: #007bff; /* Color de enlace azul */
-        text-decoration: none;
-        font-weight: bold;
-      }
-    
-      .contact-info a:hover {
-        text-decoration: underline;
-      }
-    
-      #resume-description {
-        padding-top: 15px;
-        color: #777; /* Color gris para la descripción */
-        font-size : 24px;
-      }
-    
-      /* Estilos para el footer */
-      .footer {
-        width: 780px;
-        background-color: #eee; /* Gris más claro para el fondo del footer */
-        color: #333; /* Color más oscuro para el texto del footer */
-        text-align: center;
-        padding: 10px;
-        border-top: 1px solid #ccc; /* Borde superior del footer */
-        font-size: 12px;
-      }
-    
-      /* Estilos para la información de contacto en el footer */
-      .contact-info-footer {
-        text-align: center;
-      }
-    
-      .circle-container {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        overflow: hidden;
-        background-color: #fff; /* Color de fondo del círculo */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra alrededor del círculo */
-        margin-top: -20px;
-        margin-right: -100px;
-        float: right;
-        margin-top: 20px;
-        margin-right: -100px;
-      }
-    
-      /* Estilos para la versión de impresión (PDF) */
-      @media print {
-        .circle-container {
-          width: 120px;
-          height: 120px;
-          border-radius: 50%;
-          overflow: hidden;
-          background-color: #fff; /* Color de fondo del círculo */
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra alrededor del círculo */
-          margin-top: -20px;
-          margin-right: -100px;
-          float: right;
-          margin-top: -20px;
-          margin-right: 20px;
-        }
-      }
-    
-      .circle-container img {
-        display: block;
-        width: 200px;
-        height: auto;
-      }
-    ';
+    .separator,
+    hr {
+      margin: 18px 0;
+      border: none;
+      border-top: 1px solid #a6a6a64e;
+    }
+    ";
 }
 
 function insertCssIntoHtmlHead($htmlWithoutCss, $customCss) {

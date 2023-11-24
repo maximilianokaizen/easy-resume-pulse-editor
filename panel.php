@@ -138,7 +138,7 @@ getResumes(token, uuid)
         const deleteLink = document.createElement('a');
 
         deleteLink.href = '<?=$baseUrl?>/api/resumes/deleteResume.php';
-        deleteLink.innerHTML = '<i class="fa fa-trash"></i>Delete this resume' + resumeUuid ;
+        deleteLink.innerHTML = '<i class="fa fa-trash"></i>Delete this resume' ;
         deleteLink.classList.add('resume-list-delete-link');
         deleteLink.dataset.uuid = resumeUuid;
         link.href = '<?=$baseUrl?>/editor/editor.php?token=' + token + '&uuid=' + resumeUuid + '&template=2';
@@ -157,7 +157,7 @@ getResumes(token, uuid)
       deleteResume(); // Call function to handle delete resume action
     }
     // Check if canCreate is true and resumes length is greater than 1
-    if (data.canCreate === true && data.resumes.length >= 1) {
+    if (data.resumes.length >= 1 && data.resumes.length <= 8) {
       const createOtherResume = document.getElementById('create-other-resume');
       createOtherResume.style.display = 'block';
 

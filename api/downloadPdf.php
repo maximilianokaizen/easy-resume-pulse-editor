@@ -64,10 +64,6 @@ function getTemplateCustomCss($template) {
       padding: 0;
     }
     
-    @page {
-      size: A4;
-    }
-    
     .mt-2 {
       margin-top: 20px;
     }

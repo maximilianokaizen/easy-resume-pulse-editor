@@ -53,6 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $userPremium = $user[0]['premium'];
 
+        if ($userPremium >= 1){
+            $remainsResumes = true;
+        }else{
+            $remainsResumes = false;
+        }
+
         /* get html and css from template */
         try {
             $query = "SELECT html FROM templates WHERE id = ?";
@@ -92,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $result = $db->executeQuery($query, $params);
             if ($result === null) {
-                die(json_encode(['success' => true])); 
+                die(json_encode(['success' => true, 'canCreate' => $remainsResumes])); 
             }
         } catch (Exception $e) {
             die(json_encode(['success' => false, 'error' => $e->getMessage()]));

@@ -24,7 +24,7 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
     <base href="">
-    <title>VvvebJs</title>
+    <title>EasyResumePulse.com | Free Resume Creator</title>
     <style>
 	#filemanager{
 		display: none;

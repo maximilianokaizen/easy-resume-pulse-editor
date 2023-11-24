@@ -19633,3 +19633,10 @@ video, audio {
 
 .modal .modal-content {
     height: 100%; }
+
+    @media screen and (max-width: 480px) {
+      .logo-header {
+        display: none;
+      }
+    }
+    

@@ -1,1 +1,101 @@
-<html><head><title>My first website</title><link href='https://fonts.cdnfonts.com/css/glacial-indifference-2' rel='stylesheet'><link rel='preconnect' href='https://fonts.googleapis.com'><link rel='preconnect' href='https://fonts.gstatic.com' crossorigin><link href='https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap' rel='stylesheet'><link rel='preconnect' href='https://fonts.googleapis.com'><link rel='preconnect' href='https://fonts.gstatic.com' crossorigin><link href='https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap' rel='stylesheet'><link rel='stylesheet' href='styles.css'></head><body><div class='container'><div class='box-1'><img src='https://cdn-images.livecareer.es/pages/foto_cv_lc_es_7.jpg' class='img-profile'><h5 class='subtitle'>DATOS DE CONTACTO</h5><ul class='list-contact'><li>26 años.</li><li>email@hotmail.com</li><li>Tel: 3416759988</li><li>Calle Cualquiera 123</li><li>Cualquier Lugar</li></ul><h5 class='subtitle'>EDUCACION</h5><ul class='list-contact'><li><b>Contador Publico</b></li><li>Universidad UTN</li><li>2014-2018</li></ul><ul class='list-contact'><li><b>Bachiller administrativo publico</b></li><li>Universidad UTN</li><li>2014-2018</li></ul><h5 class='subtitle'>CURSOS E IDIOMAS</h5><ul class='list-contact'><li><b>Idioma Ingles</b></li><li>Nivel oral y escrito avanzado.</li></ul><ul class='list-contact'><li><b>Curso de Marketing Digital</b></li><li>Manejo de redes sociales y calendario de posteos</li></ul></div><div class='box-2'><h1>Miranda</h1><h1>Naser</h1><h5 class='subtitle'>CONTADORA PUBLICA</h5><ul class='list-contact'><li>Me considero una persona proactiva y responsable, con buenas relaciones interpersonales. Busco un puesto que me desafíe a continuar creciendo.</li></ul><h5 class='subtitle'>EXPERIENCIA LABORAL</h5><ul class='list-experience'><li><b>Analista contable</b><p>Empresa Increíble, Enero 2021 - presente</p><hr><p>Seguimiento de presupuesto. Revisión de Idoneidad de varios documentos. Manejo de presupuestos internos.</p></li><li class='mt-3'><b>Contadora junior</b><p>Empresa Increíble, Septiembre 2019 - Enero 2021</p><hr><p>Seguimiento de presupuesto. Revisión de Idoneidad de varios documentos. Manejo de presupuestos internos.</p></li><li class='mt-3'><b>Pasantia de contadora</b><p>Empresa Increíble, Septiembre 2018 - Septiembre 2019</p><hr><p>Recepción de clientes.<br>Manejo de conmutador.<br>Atención a inspecciones.</p></li></ul></div></div></body></html>
+<html>
+  <head>
+    <title>John Wick's Resume</title>
+    <link
+      href="https://fonts.cdnfonts.com/css/glacial-indifference-2"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://easyresumepulse.com/en/editor/themes/2/styles.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="box-1">
+        <h5 class="subtitle">CONTACT INFORMATION</h5>
+        <ul class="list-contact">
+          <li>35 years old.</li>
+          <li>johnwick@gmail.com</li>
+          <li>Tel: 1234567890</li>
+          <li>123 Continental Blvd</li>
+          <li>New York City, NY</li>
+        </ul>
+        <h5 class="subtitle">EDUCATION</h5>
+        <ul class="list-contact">
+          <li><b>Master Assassin Training</b></li>
+          <li>International Assassin Guild</li>
+          <li>2005-2009</li>
+        </ul>
+        <ul class="list-contact">
+          <li><b>High School Diploma</b></li>
+          <li>Assassin Academy</li>
+          <li>2000-2004</li>
+        </ul>
+        <h5 class="subtitle">COURSES AND LANGUAGES</h5>
+        <ul class="list-contact">
+          <li><b>Language: Russian</b></li>
+          <li>Fluent in speaking and writing.</li>
+        </ul>
+        <ul class="list-contact">
+          <li><b>Combat Training</b></li>
+          <li>Hand-to-hand combat and firearms proficiency.</li>
+        </ul>
+      </div>
+      <div class="box-2">
+        <h1>John</h1>
+        <h1>Wick</h1>
+        <h5 class="subtitle">MASTER ASSASSIN</h5>
+        <ul class="list-contact">
+          <li>
+            I am a highly skilled and disciplined professional with extensive
+            experience in handling complex tasks. Seeking opportunities that
+            challenge my expertise and abilities.
+          </li>
+        </ul>
+        <h5 class="subtitle">WORK EXPERIENCE</h5>
+        <ul class="list-experience">
+          <li>
+            <b>Assassin Specialist</b>
+            <p>Continental Corporation, January 2014 - Present</p>
+            <hr />
+            <p>
+              Execution of high-profile contracts. Management of critical
+              missions and operations.
+            </p>
+          </li>
+          <li class="mt-3">
+            <b>Senior Hitman</b>
+            <p>Underworld Syndicate, August 2010 - December 2013</p>
+            <hr />
+            <p>
+              Coordinated hits and strategic eliminations. Led teams for
+              specialized missions.
+            </p>
+          </li>
+          <li class="mt-3">
+            <b>Apprentice Assassin</b>
+            <p>Assassin Academy, July 2009 - July 2010</p>
+            <hr />
+            <p>
+              Intensive training in combat techniques and stealth operations.
+              Mentored by seasoned assassins.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

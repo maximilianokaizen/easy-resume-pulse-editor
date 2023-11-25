@@ -25,7 +25,7 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
     <base href="">
     <title>EasyResumePulse.com | Free Resume Creator</title>
     <style>
-	#filemanager{
+	#filemanager, #components-tabs, #elements-tabs{
 		display: none;
 	}
 	</style>
@@ -1656,6 +1656,7 @@ $(function() {
 			// Manejar el error en caso de que ocurra
 		});
 		*/
+		/*
 		.then(response => response.blob())
 		.then(blob => {
 			const url = window.URL.createObjectURL(new Blob([blob]));
@@ -1673,7 +1674,7 @@ $(function() {
 			//this.querySelector('.loading').classList.add('d-none');
 			//this.querySelector('.button-text').classList.remove('d-none');
 		});
-		
+		*/
 	});
 
 	/* end of -- generate PDF */

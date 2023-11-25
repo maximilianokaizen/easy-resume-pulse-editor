@@ -248,16 +248,15 @@ function createTemplateElement(template) {
   templateDiv.style.height = '450px';
   templateDiv.style.backgroundImage = `url(<?=$baseUrl?>/themes/${template.id}.png)`;
   templateDiv.style.backgroundSize = 'cover';
-  templateDiv.style.backgroundPosition = 'center';
   templateDiv.style.cursor = 'pointer'; // Cambiar el cursor al pasar el mouse
-  templateDiv.style.border = '1px solid black'; // Borde inicial negro
+  templateDiv.style.border = '1px solid #2487ce'; // Borde inicial azul claro
 
-  templateDiv.addEventListener('mouseover', function () {
-    templateDiv.style.borderColor = 'gray'; // Cambia a gris al pasar el mouse
+  templateDiv.addEventListener('click', function () {
+    templateDiv.style.borderColor = '#145d8e'; // Al hacer clic, borde más oscuro
   });
 
   templateDiv.addEventListener('mouseout', function () {
-    templateDiv.style.borderColor = 'black'; // Vuelve a negro al salir el mouse
+    templateDiv.style.borderColor = '#2487ce'; // Restaura el color del borde al salir el mouse
   });
 
   const headerContainer = document.createElement('div');

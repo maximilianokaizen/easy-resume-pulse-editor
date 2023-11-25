@@ -251,6 +251,9 @@ function createTemplateElement(template) {
   templateDiv.style.backgroundPosition = 'center';
   templateDiv.style.cursor = 'pointer'; // Cambiar el cursor al pasar el mouse
 
+  const headerContainer = document.createElement('div');
+  headerContainer.classList.add('header-templates-choice'); // Clase para el contenedor del título y checkbox
+
   const checkboxContainer = document.createElement('div');
   checkboxContainer.classList.add('form-check', 'd-flex', 'align-items-center'); // Flexbox para alinear checkbox y nombre
 
@@ -276,8 +279,9 @@ function createTemplateElement(template) {
 
   checkboxContainer.appendChild(templateCheckbox);
   checkboxContainer.appendChild(templateName);
+  headerContainer.appendChild(checkboxContainer);
 
-  templateDiv.appendChild(checkboxContainer);
+  templateDiv.appendChild(headerContainer);
   templateLi.appendChild(templateDiv);
 
   // Evento para manejar clics en el div de la plantilla
@@ -310,6 +314,7 @@ function createTemplateElement(template) {
   return templateLi;
 }
 
+ 
 
 function setSelectedTemplateId(templateId) {
   selectedTemplateId = templateId;

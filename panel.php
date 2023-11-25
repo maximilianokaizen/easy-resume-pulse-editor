@@ -244,13 +244,19 @@ function createTemplateElement(template) {
 
   const templateDiv = document.createElement('div');
   templateDiv.id = 'header-template-list'; // ID para el contenedor del nombre y el checkbox
+  templateDiv.style.width = '450px';
+  templateDiv.style.height = '450px';
+  templateDiv.style.backgroundImage = `url(<?=$baseUrl?>/themes/${template.id}.png)`;
+  templateDiv.style.backgroundSize = 'cover';
+  templateDiv.style.backgroundPosition = 'center';
+  templateDiv.style.cursor = 'pointer'; // Cambiar el cursor al pasar el mouse
 
   const checkboxContainer = document.createElement('div');
   checkboxContainer.classList.add('form-check', 'd-flex', 'align-items-center'); // Flexbox para alinear checkbox y nombre
 
   const templateCheckbox = document.createElement('input');
   templateCheckbox.type = 'checkbox';
-  templateCheckbox.value = template.templateId; 
+  templateCheckbox.value = template.templateId;
   templateCheckbox.classList.add('form-check-input', 'me-3'); // Estilo para el checkbox
 
   const templateName = document.createElement('p');
@@ -271,26 +277,21 @@ function createTemplateElement(template) {
   checkboxContainer.appendChild(templateCheckbox);
   checkboxContainer.appendChild(templateName);
 
-  const templateContent = document.createElement('div');
-  templateContent.classList.add('d-flex', 'flex-column');
+  templateDiv.appendChild(checkboxContainer);
+  templateLi.appendChild(templateDiv);
 
-  templateContent.appendChild(checkboxContainer);
-
-  const templateImage = document.createElement('img');
-
-  templateImage.src = `<?=$baseUrl?>/themes/${template.id}.png`;
-  templateImage.alt = template.name; 
-  templateImage.classList.add('img-fluid', 'template-image');
-  templateImage.style.width = '450px'; 
-  templateImage.addEventListener('click', function () {
+  // Evento para manejar clics en el div de la plantilla
+  templateDiv.addEventListener('click', function () {
     const allCheckboxes = document.querySelectorAll('.form-check-input');
     allCheckboxes.forEach(checkbox => {
       checkbox.checked = false;
     });
     templateCheckbox.checked = true;
-    selectedTemplateId = templateCheckbox.value; 
+    const selectedTemplateId = templateCheckbox.value;
     sessionStorage.setItem('selectedTemplateId', selectedTemplateId);
   });
+
+  // Evento para manejar el cambio en el checkbox
   templateCheckbox.addEventListener('click', function () {
     const allCheckboxes = document.querySelectorAll('.form-check-input');
     allCheckboxes.forEach(checkbox => {
@@ -299,18 +300,16 @@ function createTemplateElement(template) {
       }
     });
     if (templateCheckbox.checked) {
-      selectedTemplateId = templateCheckbox.value; // Almacenar el templateId seleccionado
+      const selectedTemplateId = templateCheckbox.value; // Almacenar el templateId seleccionado
       sessionStorage.setItem('selectedTemplateId', selectedTemplateId);
     } else {
-      selectedTemplateId = null;
       sessionStorage.removeItem('selectedTemplateId');
     }
   });
-  templateContent.appendChild(templateImage);
-  templateDiv.appendChild(templateContent);
-  templateLi.appendChild(templateDiv);
+
   return templateLi;
 }
+
 
 function setSelectedTemplateId(templateId) {
   selectedTemplateId = templateId;

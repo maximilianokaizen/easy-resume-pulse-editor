@@ -20,6 +20,7 @@ use Dompdf\Dompdf;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $html = $_POST['htmlContent'];
+  die($_POST['htmlContent']);
   $dompdf = new Dompdf();
   $dompdf->loadHtml($html);
   $dompdf->setPaper('A4', 'landscape');

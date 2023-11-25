@@ -35,6 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $htmlWithoutCss = $requestData['htmlContent'];
   $template = $requestData['template'];
 
+  die($htmlWithoutCss);
+  
   $customCss = getTemplateCustomCss($template);
   $htmlWithCss = insertCssIntoHtmlHead($htmlWithoutCss, $customCss);
   

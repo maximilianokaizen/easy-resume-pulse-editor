@@ -17,7 +17,6 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display&amp;display=swap"
       rel="stylesheet"
     />
-
  <link
       rel="stylesheet"
       href="https://easyresumepulse.com/en/editor/themes/5/styles.css"

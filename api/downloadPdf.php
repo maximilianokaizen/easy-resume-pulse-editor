@@ -37,12 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $customCss = getTemplateCustomCss($template);
   $htmlWithCss = insertCssIntoHtmlHead($htmlWithoutCss, $customCss);
-
+  $htmlWithCss = deleteFromElement($htmlWithCss, 'delete-this-css');
   die($htmlWithCss);
 
   $dompdf = new Dompdf();
   $dompdf->loadHtml($htmlWithCss);
-  //$dompdf->loadHtml($htmlWithoutCss);
   $dompdf->setPaper('A4', 'landscape');
   $dompdf->render();
   $dompdf->stream();
@@ -65,3 +64,17 @@ function insertCssIntoHtmlHead($htmlWithoutCss, $customCss) {
     return "<style>$customCss</style>" . $htmlWithoutCss;
 }
 
+function deleteFromElement($html, $id) {
+  $dom = new DOMDocument();
+  $dom->loadHTML($html);
+  $elements = $dom->getElementById($id);
+  if ($elements) {
+      foreach ($elements as $element) {
+          $currentValue = $element->nodeValue;
+          $newValue = str_replace($stringToDelete, '', $currentValue);
+          $element->nodeValue = $newValue;
+      }
+  }
+  $modifiedHtml = $dom->saveHTML();
+  return $modifiedHtml;
+}

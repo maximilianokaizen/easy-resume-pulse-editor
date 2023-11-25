@@ -35,33 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $htmlWithoutCss = $requestData['htmlContent'];
   $template = $requestData['template'];
 
-  $customCss = getTemplateCustomCss($template);
-  $htmlWithCss = insertCssIntoHtmlHead($htmlWithoutCss, $customCss);
-
-  die($htmlWithCss);
-
   $dompdf = new Dompdf();
-  $dompdf->loadHtml($htmlWithCss);
-  //$dompdf->loadHtml($htmlWithoutCss);
+  $dompdf->loadHtml($htmlWithoutCss);
   $dompdf->setPaper('A4', 'landscape');
   $dompdf->render();
   $dompdf->stream();
 }
 
-function getTemplateCustomCss($templateId) {
-    $template = new Template();
-    $css = $template->getCss(intval($templateId));
-    return $css;
-}
-
-function insertCssIntoHtmlHead($htmlWithoutCss, $customCss) {
-    $headPattern = '/<head.*?>(.*?)<\/head>/is'; 
-    if (preg_match($headPattern, $htmlWithoutCss, $matches)) {
-        $headContent = $matches[1]; 
-        $modifiedHeadContent = "<style>$customCss</style>" . $headContent;
-        $htmlWithCss = preg_replace($headPattern, "<head>$modifiedHeadContent</head>", $htmlWithoutCss); 
-        return $htmlWithCss;
-    }
-    return "<style>$customCss</style>" . $htmlWithoutCss;
-}
 

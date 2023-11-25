@@ -1608,31 +1608,39 @@ $(function() {
 		.then(response => response.text())
 		.then(textResponse => {
 			console.log('Respuesta del servidor:', textResponse);
-			// Resto del código para descargar el PDF y manejar la interfaz de usuario
+				fetch('https://easyresumepulse.com/en/api/downloadProdPdf.php', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					htmlContent: textResponse,
+					token: token,
+					template : templateId,
+				})
+			})
+			.then(response => response.blob())
+			.then(blob => {
+				const url = window.URL.createObjectURL(new Blob([blob]));
+				const link = document.createElement('a');
+				link.href = url;
+				link.setAttribute('download', 'generated-pdf.pdf');
+				document.body.appendChild(link);
+				link.click();
+				link.parentNode.removeChild(link);
+				this.querySelector('.loading').classList.add('d-none');
+				this.querySelector('.button-text').classList.remove('d-none');
+			})
+			.catch(error => {
+				//console.error('Error al descargar el PDF:', error);
+				//this.querySelector('.loading').classList.add('d-none');
+				//this.querySelector('.button-text').classList.remove('d-none');
+			});
 		})
 		.catch(error => {
 			console.error('Error al descargar el PDF:', error);
 			// Manejar el error en caso de que ocurra
 		})
-		/*
-		.then(response => response.blob())
-		.then(blob => {
-			const url = window.URL.createObjectURL(new Blob([blob]));
-			const link = document.createElement('a');
-			link.href = url;
-			link.setAttribute('download', 'generated-pdf.pdf');
-			document.body.appendChild(link);
-			link.click();
-			link.parentNode.removeChild(link);
-			this.querySelector('.loading').classList.add('d-none');
-			this.querySelector('.button-text').classList.remove('d-none');
-		})
-		*/
-		.catch(error => {
-			//console.error('Error al descargar el PDF:', error);
-			//this.querySelector('.loading').classList.add('d-none');
-			//this.querySelector('.button-text').classList.remove('d-none');
-		});
 	});
 
 	/* end of -- generate PDF */

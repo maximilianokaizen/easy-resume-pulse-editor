@@ -29,22 +29,6 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 		display: none;
 	}
 	</style>
-
-	<!-- For IE 10+ and modern browsers -->
-<link rel="icon" type="image/x-icon" href="<?=$urlBase?>/assets/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="<?=$urlBase?>/assets/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="<?=$urlBase?>/assets/favicon-32x32.png">
-
-<!-- For Android -->
-<link rel="icon" type="image/png" sizes="192x192" href="<?=$urlBase?>/assets/android-chrome-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="<?=$urlBase?>/assets/android-chrome-512x512.png">
-
-<!-- For iOS -->
-<link rel="apple-touch-icon" href="<?=$urlBase?>/assets/apple-touch-icon.png">
-    <link href="css/editor.css" rel="stylesheet">
-  </head>
-<body>
-
 	<div id="vvveb-builder">
 				<div id="top-panel">
 					<!-- logo -->

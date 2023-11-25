@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $userId = $user[0]['id'];
 
-        $query = "SELECT id, uuid, name, created_at, modified_at FROM resumes WHERE user_id = ?";
+        $query = "SELECT id, uuid, name, template_id AS template, created_at, modified_at FROM resumes WHERE user_id = ?";
         $resumes = $db->executeQuery($query, [$userId]);
 
         if ($resumes === null || empty($resumes)) {

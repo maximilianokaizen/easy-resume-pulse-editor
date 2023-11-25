@@ -1567,6 +1567,7 @@ $(function() {
 			if (!isNaN(templateId) && templateId !== null) {
 			const dynamicUrl = `themes/${templateId}/index.php`;
 			const dynamicCSS = `themes/${templateId}/styles.css`;
+			console.log('dynamicCSS =>', dynamicCSS);
 			pages = [
 				{
 					name: "resume",
@@ -1678,11 +1679,8 @@ $(function() {
 	/* end of -- generate PDF */
 
 	/* save resume */
-
 	document.getElementById('btn-save-resume').addEventListener('click', function(event) {
-
 		let htmlContent = Vvveb.Builder.getHtml();
-
 		fetch(apiUrl + '/resumes/saveResume.php', {
 			method: 'POST',
 			headers: {
@@ -1702,11 +1700,8 @@ $(function() {
 		.catch(error => {
 			console.error('Error al descargar el PDF:', error);
 		});
-
 	});
-
 	/* end of -- generate PDF */
-
 	/* go to panel */
 	document.getElementById('btn-go-to-panel').addEventListener('click', function(event) {
 		event.preventDefault();
@@ -1717,15 +1712,10 @@ $(function() {
 		});
 	});
 	/* end of save resume */
-
 	Vvveb.Gui.init();
-	
 	if (window.location.hash.indexOf("no-right-panel") != -1) {
 		Vvveb.Gui.toggleRightColumn();
 	}
-
-
-
 });
 
 

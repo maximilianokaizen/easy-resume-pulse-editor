@@ -7,6 +7,9 @@ include_once 'init-panel.php';
 <?php include_once 'head.php'; ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script>
+
+let selectedTemplateId = null;
+
 // Function to check if token and uuid exist
 function checkTokenAndUUID() {
   const token = sessionStorage.getItem('jwt');
@@ -39,8 +42,7 @@ function getResumes(token, uuid) {
 function createResume() {
   const nameInput = document.getElementById('nameInput');
   const name = nameInput.value.trim();
-  const templateId = 2;
-
+  const templateId = selectedTemplateId || 2; 
   const token = sessionStorage.getItem('jwt');
   const uuid = sessionStorage.getItem('uuid');
 
@@ -136,12 +138,11 @@ getResumes(token, uuid)
         const liElement = document.createElement('li');
         const link = document.createElement('a');
         const deleteLink = document.createElement('a');
-
         deleteLink.href = '<?=$baseUrl?>/api/resumes/deleteResume.php';
         deleteLink.innerHTML = '<i class="fa fa-trash"></i>Delete this resume' ;
         deleteLink.classList.add('resume-list-delete-link');
         deleteLink.dataset.uuid = resumeUuid;
-        link.href = '<?=$baseUrl?>/editor/editor.php?token=' + token + '&uuid=' + resumeUuid + '&template=2';
+        link.href = '<?=$baseUrl?>/editor/editor.php?token=' + token + '&uuid=' + resumeUuid + '&template=' + resume.template;
         link.textContent = resumeName;
 
         liElement.appendChild(link);
@@ -166,7 +167,7 @@ getResumes(token, uuid)
         const OtherNameInput = document.getElementById('OtherNameInput');
         const name = OtherNameInput.value.trim();
         // fetch
-        let templateId = 2;
+        let templateId = selectedTemplateId || 2; // Si no hay uno seleccionado, usa 2 como predeterminado
         const formData = {
           name,
           uuid,
@@ -198,7 +199,6 @@ getResumes(token, uuid)
 
 // Create new resume
 document.addEventListener('DOMContentLoaded', function() {
-  const createResumeBtn = document.getElementById('createResumeBtn');
   createResumeBtn.addEventListener('click', function() {
     createResume()
       .then(data => {
@@ -209,6 +209,113 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  let { token, uuid } = checkTokenAndUUID();
+  const baseUrl = '<?=$baseUrl?>'; 
+  const url = `<?=$baseUrl?>/api/templates/listTemplates.php?token=${token}`;
+  return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      let templatesListContainer = document.getElementById('templates-list');
+      templatesListContainer.innerHTML = ''; 
+      data.template.forEach(template => {
+        const templateElement = createTemplateElement(template);
+        templateElement.addEventListener('click', function() {
+          console.log(template.id);
+          setSelectedTemplateId(template.id);
+          createResume();
+        });
+        templatesListContainer.appendChild(templateElement);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching templates:', error);
+      throw error; 
+    });
+});
+
+
+// RENDER TEMPLATES
+
+function createTemplateElement(template) {
+  const templateLi = document.createElement('li');
+  templateLi.classList.add('template-list-element', 'd-inline-block', 'mr-5'); // Añade clases personalizadas
+
+  const templateDiv = document.createElement('div');
+  templateDiv.id = 'header-template-list'; // ID para el contenedor del nombre y el checkbox
+
+  const checkboxContainer = document.createElement('div');
+  checkboxContainer.classList.add('form-check', 'd-flex', 'align-items-center'); // Flexbox para alinear checkbox y nombre
+
+  const templateCheckbox = document.createElement('input');
+  templateCheckbox.type = 'checkbox';
+  templateCheckbox.value = template.templateId; 
+  templateCheckbox.classList.add('form-check-input', 'me-3'); // Estilo para el checkbox
+
+  const templateName = document.createElement('p');
+  templateName.textContent = template.name;
+  templateName.classList.add('mb-0', 'me-3'); // Estilo para el nombre
+
+  // Hacer clic en el nombre selecciona/deselecciona el checkbox
+  templateName.addEventListener('click', function () {
+    templateCheckbox.checked = !templateCheckbox.checked;
+
+    if (templateCheckbox.checked) {
+      sessionStorage.setItem('selectedTemplateId', templateCheckbox.value);
+    } else {
+      sessionStorage.removeItem('selectedTemplateId');
+    }
+  });
+
+  checkboxContainer.appendChild(templateCheckbox);
+  checkboxContainer.appendChild(templateName);
+
+  const templateContent = document.createElement('div');
+  templateContent.classList.add('d-flex', 'flex-column');
+
+  templateContent.appendChild(checkboxContainer);
+
+  const templateImage = document.createElement('img');
+
+  templateImage.src = `<?=$baseUrl?>/themes/${template.id}.png`;
+  templateImage.alt = template.name; 
+  templateImage.classList.add('img-fluid', 'template-image');
+  templateImage.style.width = '350px'; 
+  templateImage.style.height = '350px'; 
+  templateImage.addEventListener('click', function () {
+    const allCheckboxes = document.querySelectorAll('.form-check-input');
+    allCheckboxes.forEach(checkbox => {
+      checkbox.checked = false;
+    });
+    templateCheckbox.checked = true;
+    selectedTemplateId = templateCheckbox.value; 
+    sessionStorage.setItem('selectedTemplateId', selectedTemplateId);
+  });
+  templateCheckbox.addEventListener('click', function () {
+    const allCheckboxes = document.querySelectorAll('.form-check-input');
+    allCheckboxes.forEach(checkbox => {
+      if (checkbox !== templateCheckbox) {
+        checkbox.checked = false;
+      }
+    });
+    if (templateCheckbox.checked) {
+      selectedTemplateId = templateCheckbox.value; // Almacenar el templateId seleccionado
+      sessionStorage.setItem('selectedTemplateId', selectedTemplateId);
+    } else {
+      selectedTemplateId = null;
+      sessionStorage.removeItem('selectedTemplateId');
+    }
+  });
+  templateContent.appendChild(templateImage);
+  templateDiv.appendChild(templateContent);
+  templateLi.appendChild(templateDiv);
+  return templateLi;
+}
+
+function setSelectedTemplateId(templateId) {
+  selectedTemplateId = templateId;
+}
 
 </script>
 </head>
@@ -236,6 +343,10 @@ document.addEventListener('DOMContentLoaded', function() {
       <button type="button" id="createOtherResumeBtn" class="green-button">Create Other Resume!</button>
     </form>
   </div>
+
+  <div id="templates-list"></div>
+  
+  <div id="alertContainer"></div>
 
   </div>
   </main><!-- End #main -->

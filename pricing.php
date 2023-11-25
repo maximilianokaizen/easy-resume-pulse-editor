@@ -20,9 +20,6 @@
           <li>Receive tips and suggestions for improving your resume content</li>
           <li>Effortlessly highlight your skills, experiences, and achievements</li>
           </ul>
-          <div class="btn-wrap">
-            <a href="#" class="btn-buy" style="font-weight: bold;">Get Started for Free</a>
-          </div>
           <p style="margin-top: 20px;">Consider supporting our project! Your donation helps us maintain this service free and accessible to everyone. Your contribution supports server costs, development, and ongoing improvements, ensuring you can create and save your CVs at no cost. Every donation matters to continue providing you with the best possible experience.</p>
           <a href="https://www.buymeacoffee.com/easyresumepulse" target="_blank" class="btn-buy" style="font-weight: bold;">Support the project :D</a>
           <br/><br/>        

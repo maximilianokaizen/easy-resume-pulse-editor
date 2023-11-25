@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $htmlWithCss = insertCssIntoHtmlHead($htmlWithoutCss, $customCss);
   
   die($htmlWithCss);
+  
   $dompdf = new Dompdf();
   $dompdf->loadHtml($htmlWithCss);
   //$dompdf->loadHtml($htmlWithoutCss);

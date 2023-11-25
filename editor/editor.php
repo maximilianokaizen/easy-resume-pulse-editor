@@ -1656,7 +1656,6 @@ $(function() {
 			// Manejar el error en caso de que ocurra
 		});
 		*/
-		/*
 		.then(response => response.blob())
 		.then(blob => {
 			const url = window.URL.createObjectURL(new Blob([blob]));
@@ -1674,7 +1673,6 @@ $(function() {
 			//this.querySelector('.loading').classList.add('d-none');
 			//this.querySelector('.button-text').classList.remove('d-none');
 		});
-		*/
 	});
 
 	/* end of -- generate PDF */

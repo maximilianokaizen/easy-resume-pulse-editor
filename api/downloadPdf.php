@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $htmlWithCss = insertCssIntoHtmlHead($htmlWithoutCss, $customCss);
   
   $dompdf = new Dompdf();
-  //$dompdf->loadHtml($htmlWithCss);
-  $dompdf->loadHtml($htmlWithoutCss);
+  $dompdf->loadHtml($htmlWithCss);
+  //$dompdf->loadHtml($htmlWithoutCss);
   $dompdf->setPaper('A4', 'landscape');
   $dompdf->render();
   $dompdf->stream();

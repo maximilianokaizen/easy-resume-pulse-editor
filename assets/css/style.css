@@ -1970,4 +1970,9 @@ section {
 
 #templates-list{
   padding-bottom: 100px;
+  padding-top: 50px;
+}
+.header-template-choices{
+  position: relative;
+  top: -20px;
 }

@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $template = $requestData['template'];
 
   $footerHtml = "
-  <div class='footer-kaizen' style='width: 100%;text-align:center;padding:10px 0;font-size:12px; margin: 0px auto'>
-  Generated with easyresumepulse.com. | Created by kaizenpulse.com
+  <div class='footer-kaizen' style='width: 100%;text-align:center;padding:10px 0;font-size:16px; margin: 0px auto'>
+  Generated with easyresumepulse.com | Created by kaizenpulse.com
 </div>
   ";
 

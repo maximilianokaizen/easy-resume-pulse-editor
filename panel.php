@@ -282,6 +282,7 @@ function createTemplateElement(template) {
   templateImage.alt = template.name; 
   templateImage.classList.add('img-fluid', 'template-image');
   templateImage.style.width = '450px'; 
+  templateImage.style.heigth = '450px'; 
   templateImage.addEventListener('click', function () {
     const allCheckboxes = document.querySelectorAll('.form-check-input');
     allCheckboxes.forEach(checkbox => {

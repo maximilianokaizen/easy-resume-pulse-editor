@@ -1554,7 +1554,7 @@ $(function() {
 			// new resume
 			if (!isNaN(templateId) && templateId !== null) {
 			const dynamicUrl = `<?=$baseUrl?>/api/resumes/loadResume.php?resumeId=` + resumeId + '&token=' + token + '&uuid=' + uuid;
-			const dynamicCSS = `<?=$baseUrl?>/themes/${templateId}/styles.css`;
+			const dynamicCSS = `<?=$baseUrl?>/editor/themes/${templateId}/styles.css`;
 			console.log('dynamicUrl =>', dynamicUrl);
 			console.log('dynamicCSS =>', dynamicCSS);
 			pages = [

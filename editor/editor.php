@@ -1634,7 +1634,7 @@ $(function() {
 				template : templateId,
 			})
 		})
-		/*
+		
 		.then(response => response.text())
 		.then(textResponse => {
 			console.log('Respuesta del servidor:', textResponse);
@@ -1644,7 +1644,7 @@ $(function() {
 			console.error('Error al descargar el PDF:', error);
 			// Manejar el error en caso de que ocurra
 		});
-		*/
+		/*
 		.then(response => response.blob())
 		.then(blob => {
 			const url = window.URL.createObjectURL(new Blob([blob]));
@@ -1657,6 +1657,7 @@ $(function() {
 			this.querySelector('.loading').classList.add('d-none');
 			this.querySelector('.button-text').classList.remove('d-none');
 		})
+		*/
 		.catch(error => {
 			//console.error('Error al descargar el PDF:', error);
 			//this.querySelector('.loading').classList.add('d-none');

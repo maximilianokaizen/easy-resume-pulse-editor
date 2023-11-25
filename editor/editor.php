@@ -1607,7 +1607,7 @@ $(function() {
 		})
 		.then(response => response.text())
 		.then(textResponse => {
-			//console.log('Respuesta del servidor:', textResponse);
+			console.log('Respuesta del servidor:', textResponse);
 				fetch('https://easyresumepulse.com/en/api/downloadProdPdf.php', {
 				method: 'POST',
 				headers: {

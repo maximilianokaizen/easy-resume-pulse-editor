@@ -35,15 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $htmlWithoutCss = $requestData['htmlContent'];
   $template = $requestData['template'];
 
-  $footerHtml = "
-  <div class='footer-kaizen' style='width: 100%;text-align:center;padding:10px 0;font-size:16px; margin: 0px auto'>
-  Generated with easyresumepulse.com | Created by kaizenpulse.com
-</div>
-  ";
-
   $customCss = getTemplateCustomCss($template);
   $htmlWithCss = insertCssIntoHtmlHead($htmlWithoutCss, $customCss);
-  $htmlWithCss =  $htmlWithCss . $footerHtml;
+  $htmlWithCss = addFooter($htmlWithCss);
   die($htmlWithCss);
 
   $dompdf = new Dompdf();
@@ -83,4 +77,14 @@ function deleteFromElement($html, $id) {
   }
   $modifiedHtml = $dom->saveHTML();
   return $modifiedHtml;
+}
+
+function addFooter($html) {
+  $footer = "
+  <div class='footer-kaizen' style='width: 100%;text-align:center;padding:10px 0;font-size:16px; margin: 0px auto'>
+  Generated with easyresumepulse.com | Created by kaizenpulse.com
+  </div>
+  </body></html>";
+  $result = str_replace("</body></html>", $footer, $html);
+  return $result;
 }

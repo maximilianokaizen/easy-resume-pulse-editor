@@ -1,116 +1,116 @@
 
-@import url("https://fonts.cdnfonts.com/css/glacial-indifference-2");
+      @import url("https://fonts.cdnfonts.com/css/glacial-indifference-2");
 
-body {
-  margin: 0;
-  padding: 0;
-}
+      body {
+        margin: 0;
+        padding: 0;
+      }
 
-@page {
-  size: A4;
-}
+      @page {
+        size: A4;
+      }
 
-.mt-2 {
-  margin-top: 20px;
-}
+      .mt-2 {
+        margin-top: 20px;
+      }
 
-.mt-3 {
-  margin-top: 30px;
-}
+      .mt-3 {
+        margin-top: 30px;
+      }
 
-.mb-2 {
-  margin-bottom: 20px;
-}
+      .mb-2 {
+        margin-bottom: 20px;
+      }
 
-.container {
-  width: 780px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
+      .container {
+        width: 780px;
+        margin: 0 auto;
+        box-sizing: border-box;
+      }
 
-.box-1 {
-  width: 30%;
-  float: left;
-  height: 100%;
-  position: relative;
-  padding-right: 37px;
-  box-sizing: border-box;
-}
+      .box-1 {
+        width: 30%;
+        float: left;
+        height: 100%;
+        position: relative;
+        padding-right: 37px;
+        box-sizing: border-box;
+      }
 
-.box-2 {
-  width: 60%;
-  float: right;
-  height: 100%;
-  position: relative;
-  padding-left: 37px;
-  box-sizing: border-box;
-  margin-right: 60px;
-}
+      .box-2 {
+        width: 60%;
+        float: right;
+        height: 100%;
+        position: relative;
+        padding-left: 37px;
+        box-sizing: border-box;
+        margin-right: 75px;
+      }
 
-.subtitle {
-  margin-bottom: 20px;
-  margin-top: 40px;
-  font-family: "Glacial Indifference", sans-serif;
-  letter-spacing: 3.5px;
-  font-weight: bold;
-}
+      .subtitle {
+        margin-bottom: 20px;
+        margin-top: 40px;
+        font-family: "Glacial Indifference", sans-serif;
+        letter-spacing: 3.5px;
+        font-weight: bold;
+      }
 
-.img-profile {
-  width: 188px;
-  height: 188px;
-  border-radius: 50%;
-  margin-bottom: 15px;
-}
+      .img-profile {
+        width: 188px;
+        height: 188px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+      }
 
-.list-contact {
-  list-style: none;
-  padding-left: 0;
-  font-family: "Roboto", sans-serif;
-}
+      .list-contact {
+        list-style: none;
+        padding-left: 0;
+        font-family: "Roboto", sans-serif;
+      }
 
-.list-contact li {
-  margin-top: 5px;
-}
+      .list-contact li {
+        margin-top: 5px;
+      }
 
-h1 {
-  font-size: 54px;
-  line-height: 30px;
-  font-family: "Playfair Display", serif;
-  font-weight: 100;
-}
+      h1 {
+        font-size: 54px;
+        line-height: 30px;
+        font-family: "Playfair Display", serif;
+        font-weight: 100;
+      }
 
-.list-experience {
-  padding-left: 25px;
-  font-family: "Roboto", sans-serif;
-}
+      .list-experience {
+        padding-left: 25px;
+        font-family: "Roboto", sans-serif;
+      }
 
-.separator,
-hr {
-  margin: 18px 0;
-  border: none;
-  border-top: 1px solid #a6a6a64e;
-}
+      .separator,
+      hr {
+        margin: 18px 0;
+        border: none;
+        border-top: 1px solid #a6a6a64e;
+      }
 
-.container > .box-2 {
-  background-color: #f0f4ff; /* Cambio de color de fondo a un tono de azul claro */
-}
+      .container > .box-2 {
+        background-color: #f0f4ff; /* Cambio de color de fondo a un tono de azul claro */
+      }
 
-.subtitle,
-h1 {
-  color: #1f3a93; /* Cambio de color de subtítulos y títulos a azul oscuro */
-}
+      .subtitle,
+      h1 {
+        color: #1f3a93; /* Cambio de color de subtítulos y títulos a azul oscuro */
+      }
 
-hr {
-  border-top: 1px solid #1f3a93; /* Cambio del color de las líneas hr a azul oscuro */
-}
-/* Modificaciones de colores */
-.container > .box-2 {
-  /* ... otros estilos ... */
-  color: #333; /* Color del texto en tono de gris oscuro */
-}
+      hr {
+        border-top: 1px solid #1f3a93; /* Cambio del color de las líneas hr a azul oscuro */
+      }
+      /* Modificaciones de colores */
+      .container > .box-2 {
+        /* ... otros estilos ... */
+        color: #333; /* Color del texto en tono de gris oscuro */
+      }
 
-.box-1 {
-  /* ... otros estilos ... */
-  background-color: #cfe2f3 !important; /* Color de fondo dentro de la paleta de colores (azul claro) */
-  padding-left: 8px;
-}
+      .box-1 {
+        /* ... otros estilos ... */
+        background-color: #cfe2f3 !important; /* Color de fondo dentro de la paleta de colores (azul claro) */
+        padding-left: 8px;
+      }

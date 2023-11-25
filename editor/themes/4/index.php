@@ -17,16 +17,17 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display&amp;display=swap"
       rel="stylesheet"
     />
-    <link
+
+ <link
       rel="stylesheet"
-      href="https://easyresumepulse.com/en/editor/themes/4/styles.css"
+      href="https://easyresumepulse.com/en/editor/themes/2/styles.css"
       id="delete-this-css"
     />
   </head>
   <body>
     <div class="container">
       <div class="box-1">
-        <h5 class="subtitle">CONTACT INFORMATION</h5>
+        <h5 class="subtitle">CONTACT<br/> INFORMATION</h5>
         <ul class="list-contact">
           <li>35 years old.</li>
           <li>johnwick@gmail.com</li>
@@ -71,7 +72,6 @@
           <li>
             <b>Assassin Specialist</b>
             <p>Continental Corporation, January 2014 - Present</p>
-            <hr />
             <p>
               Execution of high-profile contracts. Management of critical
               missions and operations.
@@ -80,7 +80,7 @@
           <li class="mt-3">
             <b>Senior Hitman</b>
             <p>Underworld Syndicate, August 2010 - December 2013</p>
-            <hr />
+    
             <p>
               Coordinated hits and strategic eliminations. Led teams for
               specialized missions.
@@ -89,7 +89,7 @@
           <li class="mt-3">
             <b>Apprentice Assassin</b>
             <p>Assassin Academy, July 2009 - July 2010</p>
-            <hr />
+           
             <p>
               Intensive training in combat techniques and stealth operations.
               Mentored by seasoned assassins.

@@ -1,24 +1,11 @@
-<!DOCTYPE html>
 <html>
   <head>
     <style>
+      @import url("https://fonts.cdnfonts.com/css/glacial-indifference-2");
+
       body {
         margin: 0;
         padding: 0;
-        font-family: "Roboto", sans-serif;
-        background-color: #f5f5f5; /* Fondo blanco */
-        color: #333; /* Color principal de texto */
-        padding-bottom: 100px; /* Padding al final del documento */
-      }
-
-      .container {
-        width: 780px;
-        margin: 0 auto;
-        overflow: hidden;
-        box-sizing: border-box;
-        background-color: #fff; /* Fondo blanco */
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
       }
 
       @page {
@@ -37,31 +24,54 @@
         margin-bottom: 20px;
       }
 
+      .container {
+        width: 780px;
+        margin: 0 auto;
+        box-sizing: border-box;
+      }
+
       .box-1 {
         width: 30%;
         float: left;
-        background-color: #cfe7f7; /* Azul claro */
-        height: 100vh; /* 100% de altura de la ventana */
-        padding-bottom: 100px; /* Padding al final */
-        padding-left: 20px;
+        height: 100%;
+        position: relative;
+        border-right: 2px solid #a6a6a64e;
+        padding-right: 37px;
+        box-sizing: border-box;
       }
 
       .box-2 {
         width: 60%;
         float: right;
+        height: 100%;
+        position: relative;
+        padding-left: 37px;
         box-sizing: border-box;
-        height: 1200px; /* Establece un alto fijo */
-        padding-left: 0px !important;
-        padding-right: 60px !important;
-        margin-right: 20px;
       }
 
       .subtitle {
         margin-bottom: 20px;
         margin-top: 40px;
+        font-family: "Glacial Indifference", sans-serif;
         letter-spacing: 3.5px;
         font-weight: bold;
-        color: #1a5276; /* Azul oscuro */
+      }
+
+      .img-profile {
+        width: 188px;
+        height: 188px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+      }
+
+      .list-contact {
+        list-style: none;
+        padding-left: 0;
+        font-family: "Roboto", sans-serif;
+      }
+
+      .list-contact li {
+        margin-top: 5px;
       }
 
       h1 {
@@ -69,21 +79,11 @@
         line-height: 30px;
         font-family: "Playfair Display", serif;
         font-weight: 100;
-        color: #1a5276; /* Azul oscuro */
-      }
-
-      .list-contact {
-        list-style: none;
-        padding-left: 0;
-      }
-
-      .list-contact li {
-        margin-top: 5px;
-        color: #3a679d; /* Azul medio */
       }
 
       .list-experience {
         padding-left: 25px;
+        font-family: "Roboto", sans-serif;
       }
 
       .separator,
@@ -91,19 +91,6 @@
         margin: 18px 0;
         border: none;
         border-top: 1px solid #a6a6a64e;
-      }
-
-      /* Nuevos estilos para los t&Atilde;&shy;tulos, subt&Atilde;&shy;tulos y textos de "WORK EXPERIENCE" */
-      .work-experience-title {
-        color: #555; /* Color gris oscuro para el t&Atilde;&shy;tulo de "WORK EXPERIENCE" */
-      }
-
-      .work-experience-subtitle {
-        color: #777; /* Color gris medio para los subt&Atilde;&shy;tulos dentro de "WORK EXPERIENCE" */
-      }
-
-      .work-experience-text {
-        color: #000; /* Color gris claro para los textos dentro de "WORK EXPERIENCE" */
       }
     </style>
     <title>John Wick's Resume</title>
@@ -163,8 +150,8 @@
         </ul>
       </div>
       <div class="box-2">
-        <h1>El</h1>
-        <h1>Massi</h1>
+        <h1>John</h1>
+        <h1>Wick</h1>
         <h5 class="work-experience-title">WORK EXPERIENCE</h5>
         <ul class="list-experience">
           <li>

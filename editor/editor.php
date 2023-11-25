@@ -1628,7 +1628,6 @@ $(function() {
 			this.querySelector('.loading').classList.add('d-none');
 			this.querySelector('.button-text').classList.remove('d-none');
 		})
-		*/
 		.catch(error => {
 			//console.error('Error al descargar el PDF:', error);
 			//this.querySelector('.loading').classList.add('d-none');

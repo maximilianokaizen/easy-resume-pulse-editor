@@ -29,6 +29,10 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 		display: none;
 	}
 	</style>
+    <link href="css/editor.css" rel="stylesheet">
+  </head>
+<body>
+
 	<div id="vvveb-builder">
 				<div id="top-panel">
 					<!-- logo -->

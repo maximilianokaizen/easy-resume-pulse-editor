@@ -35,9 +35,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $htmlWithoutCss = $requestData['htmlContent'];
   $template = $requestData['template'];
 
+  $footerCss = "
+  <style>
+  .footer-kaizen {
+    width: 100%;
+    border-top: 1px solid #ccc; /* Línea bordeada en la parte superior */
+    text-align: center; /* Centrado del texto */
+    padding: 10px 0; /* Espaciado interno */
+    font-size: 12px; /* Tamaño de fuente */
+    color: #666; /* Color de texto */
+  }
+</style>
+  ";
+
+  $footerHtml = "
+  <div class='footer-kaizen'>
+  Generated with easyresumepulse.com. | Created by kaizenpulse.com
+</div>
+  ";
+
   $customCss = getTemplateCustomCss($template);
   $htmlWithCss = insertCssIntoHtmlHead($htmlWithoutCss, $customCss);
-  $htmlWithCss = deleteFromElement($htmlWithCss, 'delete-this-css');
+  $htmlWithCss =  $htmlWithCss . $footerHtml;
+  $htmlWithCss = insertCssIntoHtmlHead($htmlWithCss, $footerCss);
   die($htmlWithCss);
 
   $dompdf = new Dompdf();

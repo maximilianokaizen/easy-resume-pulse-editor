@@ -250,14 +250,14 @@ function createTemplateElement(template) {
   templateDiv.style.backgroundSize = 'cover';
   templateDiv.style.backgroundPosition = 'center';
   templateDiv.style.cursor = 'pointer'; // Cambiar el cursor al pasar el mouse
-  templateDiv.style.border = '1px solid blue'; // Añade borde azul
+  templateDiv.style.border = '1px solid black'; // Borde inicial negro
 
   templateDiv.addEventListener('mouseover', function () {
-    templateDiv.style.borderColor = 'darkblue'; // Cambia el color del borde al pasar el mouse
+    templateDiv.style.borderColor = 'gray'; // Cambia a gris al pasar el mouse
   });
 
   templateDiv.addEventListener('mouseout', function () {
-    templateDiv.style.borderColor = 'blue'; // Restaura el color del borde al salir el mouse
+    templateDiv.style.borderColor = 'black'; // Vuelve a negro al salir el mouse
   });
 
   const headerContainer = document.createElement('div');
@@ -323,7 +323,6 @@ function createTemplateElement(template) {
   return templateLi;
 }
 
- 
 
 function setSelectedTemplateId(templateId) {
   selectedTemplateId = templateId;

@@ -35,13 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $htmlWithoutCss = $requestData['htmlContent'];
   $template = $requestData['template'];
 
-  die($htmlWithoutCss);
-  
   $customCss = getTemplateCustomCss($template);
   $htmlWithCss = insertCssIntoHtmlHead($htmlWithoutCss, $customCss);
   
   $dompdf = new Dompdf();
-  $dompdf->loadHtml($htmlWithCss);
+  //$dompdf->loadHtml($htmlWithCss);
+  $dompdf->loadHtml($htmlWithoutCss);
   $dompdf->setPaper('A4', 'landscape');
   $dompdf->render();
   $dompdf->stream();

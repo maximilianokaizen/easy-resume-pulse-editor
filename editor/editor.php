@@ -1605,6 +1605,7 @@ $(function() {
 				template : templateId,
 			})
 		})
+		/*
 		.then(response => response.text())
 		.then(textResponse => {
 			console.log('Respuesta del servidor:', textResponse);
@@ -1614,7 +1615,7 @@ $(function() {
 			console.error('Error al descargar el PDF:', error);
 			// Manejar el error en caso de que ocurra
 		})
-		/*
+		*/
 		.then(response => response.blob())
 		.then(blob => {
 			const url = window.URL.createObjectURL(new Blob([blob]));

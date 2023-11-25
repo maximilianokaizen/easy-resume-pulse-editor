@@ -20,7 +20,7 @@
 
  <link
       rel="stylesheet"
-      href="https://easyresumepulse.com/en/editor/themes/2/styles.css"
+      href="https://easyresumepulse.com/en/editor/themes/4/styles.css"
       id="delete-this-css"
     />
   </head>

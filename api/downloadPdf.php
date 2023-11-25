@@ -34,8 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $token = $requestData['token'];
   $htmlWithoutCss = $requestData['htmlContent'];
   $template = $requestData['template'];
-  
-  die($htmlWithoutCss);
 
   $customCss = getTemplateCustomCss($template);
   $htmlWithCss = insertCssIntoHtmlHead($htmlWithoutCss, $customCss);

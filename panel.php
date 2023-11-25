@@ -250,6 +250,15 @@ function createTemplateElement(template) {
   templateDiv.style.backgroundSize = 'cover';
   templateDiv.style.backgroundPosition = 'center';
   templateDiv.style.cursor = 'pointer'; // Cambiar el cursor al pasar el mouse
+  templateDiv.style.border = '1px solid blue'; // Añade borde azul
+
+  templateDiv.addEventListener('mouseover', function () {
+    templateDiv.style.borderColor = 'darkblue'; // Cambia el color del borde al pasar el mouse
+  });
+
+  templateDiv.addEventListener('mouseout', function () {
+    templateDiv.style.borderColor = 'blue'; // Restaura el color del borde al salir el mouse
+  });
 
   const headerContainer = document.createElement('div');
   headerContainer.classList.add('header-templates-choice'); // Clase para el contenedor del título y checkbox

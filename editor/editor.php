@@ -1553,8 +1553,9 @@ $(function() {
 	if (resumeId === null) {
 			// new resume
 			if (!isNaN(templateId) && templateId !== null) {
-			const dynamicUrl = `themes/${templateId}/index.php`;
-			const dynamicCSS = `themes/${templateId}/styles.css`;
+			const dynamicUrl = `<?=$baseUrl?>/api/resumes/loadResume.php?resumeId=` + resumeId + '&token=' + token + '&uuid=' + uuid;
+			const dynamicCSS = `<?=$baseUrl?>/themes/${templateId}/styles.css`;
+			console.log('dynamicUrl =>', dynamicUrl);
 			console.log('dynamicCSS =>', dynamicCSS);
 			pages = [
 				{
@@ -1571,38 +1572,7 @@ $(function() {
 	}
 
 	let firstPage = Object.keys(pages)[0];
-	
 		Vvveb.Builder.init(pages[firstPage]["url"], function() {
-			fetch(apiUrl + '/resumes/getResume.php', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				uuid: uuid,
-				token: token,
-			})
-		})
-		.then(response => {
-			if (response.ok) {
-				return response.json();
-			} else {
-				throw new Error('La solicitud no pudo ser completada correctamente.');
-			}
-		})
-		.then(jsonResponse => {
-			if (jsonResponse.success === true){
-				// set content
-				const iframe = document.getElementById('iframe1');
-				iframe.contentDocument.documentElement.innerHTML = jsonResponse.resume.html;
-			} else {
-				console.log('Error: success es falso en la respuesta');
-			}
-		})
-		.catch(error => {
-			console.error('Error al descargar el PDF:', error);
-			// Manejar el error en caso de que ocurra
-		});
 	});
 	
 	/* download PDF */
@@ -1623,7 +1593,8 @@ $(function() {
 			window.location.href = baseUrl;
 		}
 				
-		fetch('https://easyresumepulse.com/en/api/downloadPdf.php', {
+		//fetch('https://easyresumepulse.com/en/api/downloadPdf.php', {
+		fetch('http://localhost:8080/api/downloadPdf.php', {	
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -1634,7 +1605,7 @@ $(function() {
 				template : templateId,
 			})
 		})
-		
+		/*
 		.then(response => response.text())
 		.then(textResponse => {
 			console.log('Respuesta del servidor:', textResponse);
@@ -1644,7 +1615,7 @@ $(function() {
 			console.error('Error al descargar el PDF:', error);
 			// Manejar el error en caso de que ocurra
 		});
-		/*
+		*/
 		.then(response => response.blob())
 		.then(blob => {
 			const url = window.URL.createObjectURL(new Blob([blob]));
@@ -1657,7 +1628,6 @@ $(function() {
 			this.querySelector('.loading').classList.add('d-none');
 			this.querySelector('.button-text').classList.remove('d-none');
 		})
-		*/
 		.catch(error => {
 			//console.error('Error al descargar el PDF:', error);
 			//this.querySelector('.loading').classList.add('d-none');

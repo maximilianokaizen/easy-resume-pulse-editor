@@ -18,10 +18,6 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display&amp;display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://easyresumepulse.com/en/editor/themes/2/styles.css"
-    />
      <link
       rel="stylesheet"
       href="https://easyresumepulse.com/en/editor/themes/3/styles.css"

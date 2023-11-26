@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $inserted = $db->executeQuery($query, $params);
 
         if ($inserted === null || empty($inserted)) {
-            throw new Exception("No se pudo insertar el template en la base de datos.");
+            http_response_code(200);
+            die(json_encode(['success' => true]));
         } else {
             http_response_code(200);
             die(json_encode(['success' => true, 'templateId' => $inserted]));

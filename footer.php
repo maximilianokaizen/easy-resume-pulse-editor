@@ -10,6 +10,7 @@
         <p>
           <strong>Email:</strong> hello@easyresumepulse.com<br>
         </p>
+        <p>Created by <a href="https://kaizenpulse.com/index-en.html" target="_blank"> KaizenPulse </a></p>
       </div>
 
       <div class="col-lg-2 col-md-6 footer-links">

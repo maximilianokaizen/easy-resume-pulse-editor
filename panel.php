@@ -132,29 +132,35 @@ getResumes(token, uuid)
       const resumeListDiv = document.getElementById('resume-list');
       const ulElement = document.createElement('ul');
 
-      data.resumes.forEach(resume => {
+    data.resumes.forEach(resume => {
         const resumeUuid = resume.uuid;
         const resumeName = resume.name;
+
         const liElement = document.createElement('li');
+        liElement.classList.add('resume-item');
+
+        const linkContainer = document.createElement('div');
+        linkContainer.classList.add('resume-link');
         const link = document.createElement('a');
-        const deleteLink = document.createElement('a');
-        deleteLink.href = '<?=$baseUrl?>/api/resumes/deleteResume.php';
-        deleteLink.innerHTML = '<i class="fa fa-trash"></i>' ;
-        deleteLink.classList.add('resume-list-delete-link');
-        deleteLink.dataset.uuid = resumeUuid;
         link.href = '<?=$baseUrl?>/editor/editor.php?token=' + token + '&uuid=' + resumeUuid + '&template=' + resume.template;
         link.textContent = resumeName;
+        linkContainer.appendChild(link);
 
-        liElement.appendChild(link);
+        const deleteLink = document.createElement('a');
+        deleteLink.href = '<?=$baseUrl?>/api/resumes/deleteResume.php';
+        deleteLink.innerHTML = '<i class="fa fa-trash"></i>';
+        deleteLink.classList.add('resume-list-delete-link');
+        deleteLink.dataset.uuid = resumeUuid;
+
+        liElement.appendChild(linkContainer);
         liElement.appendChild(deleteLink);
-        ulElement.appendChild(liElement);
-      });
+        document.getElementById('resume-list').appendChild(liElement);
 
       resumeListDiv.appendChild(ulElement);
-
+    });
       const createMyFirstResume = document.getElementById('resume-list');
       createMyFirstResume.style.display = 'block';
-
+      
       deleteResume(); // Call function to handle delete resume action
     }
     // Check if canCreate is true and resumes length is greater than 1
@@ -166,6 +172,9 @@ getResumes(token, uuid)
       createOtherResumeBtn.addEventListener('click', function() {
         const OtherNameInput = document.getElementById('OtherNameInput');
         const name = OtherNameInput.value.trim();
+        if (name === ''){
+          return;
+        }
         // fetch
         let templateId = selectedTemplateId || 2; // Si no hay uno seleccionado, usa 2 como predeterminado
         const formData = {
@@ -222,9 +231,9 @@ document.addEventListener('DOMContentLoaded', function() {
       data.template.forEach(template => {
         const templateElement = createTemplateElement(template);
         templateElement.addEventListener('click', function() {
-          console.log(template.id);
           setSelectedTemplateId(template.id);
           createResume();
+          return;
         });
         templatesListContainer.appendChild(templateElement);
       });
@@ -338,7 +347,7 @@ function setSelectedTemplateId(templateId) {
     <form id="resumeForm">
       <label for="nameInput">Name:</label>
       <input type="text" id="nameInput" name="name" required>
-      <button type="button" id="createResumeBtn" class="green-button">Create My First Resume!</button>
+      <button type="button" id="createResumeBtn" class="green-button">Go!</button>
     </form>
   </div>
    
@@ -350,7 +359,7 @@ function setSelectedTemplateId(templateId) {
     <form id="otherResumeForm">
       <label for="OtherNameInput">Name:</label>
       <input type="text" id="OtherNameInput" name="other-name" required>
-      <button type="button" id="createOtherResumeBtn" class="green-button">Create Other Resume!</button>
+      <button type="button" id="createOtherResumeBtn" class="green-button">Go!</button>
     </form>
   </div>
 

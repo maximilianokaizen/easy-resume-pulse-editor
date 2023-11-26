@@ -1473,6 +1473,24 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="mobileWarningModal" tabindex="-1" aria-labelledby="mobileWarningModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mobileWarningModalLabel">Warning!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>The editor is optimized for use on a laptop or desktop PC. We recommend using these devices to edit your resume.</p>
+      </div>
+      <div class="modal-footer">
+	  <button type="button" class="btn btn-primary" id="acceptButton">Accept and Back To Panel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- jquery-->
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.hotkeys.js"></script>
@@ -1543,6 +1561,22 @@ let saveReusableUrl = 'save.php?action=saveReusable';
 
 
 $(function() {
+
+	  function checkScreenWidth() {
+		const screenWidth = window.innerWidth;
+		if (screenWidth < 600) {
+			const mobileWarningModal = new bootstrap.Modal(document.getElementById('mobileWarningModal'));
+			mobileWarningModal.show();
+		}
+	}
+
+	window.addEventListener('DOMContentLoaded', checkScreenWidth);
+	window.addEventListener('resize', checkScreenWidth);
+
+	document.getElementById('acceptButton').addEventListener('click', function() {
+    	window.location.href = '<?=$baseUrl?>/panel.php';
+  	});
+
 	let pages;
 	const apiUrl = '<?=$baseUrl?>/api';
 	const urlParams = new URLSearchParams(window.location.search);

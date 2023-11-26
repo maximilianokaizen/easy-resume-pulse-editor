@@ -1978,3 +1978,27 @@ section {
   position: relative;
   top: -40px;
 }
+#resume-list{
+  margin-bottom: 40px;
+}
+
+#resume-list ul{
+  padding : 0px;
+  margin : 0px;
+  list-style: none;
+}
+
+.resume-list-delete-link-text{
+ 
+}
+
+.resume-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px; /* Por ejemplo */
+}
+
+.resume-link {
+  width: 100px; /* Ancho de la columna para el texto variable */
+}

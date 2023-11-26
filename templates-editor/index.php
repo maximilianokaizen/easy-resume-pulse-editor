@@ -94,8 +94,7 @@
     // TEST PDF
 
     document.getElementById('generatePdf').addEventListener('click', function() {
-      const htmlContent = document.getElementById('htmlContent').value;
-
+      const htmlContent = tinymce.get('htmlContent').getContent();
       const xhr = new XMLHttpRequest();
       xhr.open('POST', 'https://easyresumepulse.com/en/api/TestTemplate.php');
       xhr.setRequestHeader('Content-Type', 'application/json');
@@ -128,13 +127,13 @@
 
 
     document.getElementById('previewTheme').addEventListener('click', function() {
-      const htmlContent = document.getElementById('htmlContent').value;
+      const htmlContent = tinymce.get('htmlContent').getContent();
       const previewFrame = document.getElementById('previewFrame');
       previewFrame.srcdoc = htmlContent;
     });
 
     document.getElementById('createTemplate').addEventListener('click', function() {
-      const htmlContent = document.getElementById('htmlContent').value;
+      const htmlContent = tinymce.get('htmlContent').getContent();
       const cssStart = htmlContent.indexOf('<style>');
       const cssEnd = htmlContent.indexOf('</style>');
       const css = htmlContent.substring(cssStart + 7, cssEnd);

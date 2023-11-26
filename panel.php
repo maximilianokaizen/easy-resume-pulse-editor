@@ -209,6 +209,13 @@ getResumes(token, uuid)
 // Create new resume
 document.addEventListener('DOMContentLoaded', function() {
   createResumeBtn.addEventListener('click', function() {
+    const nameInput = document.getElementById('nameInput');
+    const resumeName = nameInput.value.trim();
+    if ( resumeName == '' || resumeName.length <= 2 ) {
+      const deleteResumeModal = new bootstrap.Modal(document.getElementById('validateNameModal'));
+      deleteResumeModal.show();
+      return;
+    }
     createResume()
       .then(data => {
         location.reload();
@@ -243,7 +250,6 @@ document.addEventListener('DOMContentLoaded', function() {
       throw error; 
     });
 });
-
 
 // RENDER TEMPLATES
 
@@ -392,6 +398,25 @@ function setSelectedTemplateId(templateId) {
     </div>
   </div>
 </div>
+
+<!-- modal delete -->
+<div class="modal fade" id="validateNameModal" tabindex="-1" aria-labelledby="deleteResumeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="validateNameModalLabel">Create Resume</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        The resume name can't are empty. 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- end of modal -->
 </body>
 </html>

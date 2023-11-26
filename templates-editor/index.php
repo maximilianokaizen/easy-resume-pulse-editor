@@ -121,16 +121,11 @@
       const css = htmlContent.substring(cssStart + 7, cssEnd);
       const html = htmlContent;
       const templateName = document.getElementById('templateName').value;
-
       const requestData = {
         html: html,
         css: css,
         templateName: templateName
       };
-
-      console.log('requestData =>', requestData);
-      
-      return;
       fetch('https://easyresumepulse.com/en/api/templates/saveFromEditor.php', {
         method: 'POST',
         headers: {

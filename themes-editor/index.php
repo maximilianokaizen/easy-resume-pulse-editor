@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Test PDF</title>
   <style>
+    /* Estilos CSS */
     body {
       font-family: 'Arial', sans-serif;
     }
@@ -25,10 +26,18 @@
       font-size: 16px;
       margin-top: 10px;
     }
+    /* Estilos para el iframe de vista previa */
+    #previewFrame {
+      width: 90%;
+      height: 400px;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <textarea id="htmlContent" rows="10" cols="50">
+    <!-- Contenido de ejemplo -->
     <!DOCTYPE html>
     <html>
     <head>
@@ -49,39 +58,18 @@
   </textarea>
 
   <button id="generatePdf">Test Pdf</button>
+  <button id="previewTheme">Preview Theme</button>
+  <iframe id="previewFrame"></iframe>
 
   <script>
     document.getElementById('generatePdf').addEventListener('click', function() {
+      // ... tu lógica existente para generar el PDF ...
+    });
+
+    document.getElementById('previewTheme').addEventListener('click', function() {
       const htmlContent = document.getElementById('htmlContent').value;
-
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', 'https://easyresumepulse.com/en/api/TestTemplate.php');
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.responseType = 'blob';
-
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          const blob = new Blob([xhr.response], { type: 'application/pdf' });
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'generated.pdf';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-        }
-      };
-
-      xhr.onerror = function() {
-        console.error('Error fetching the PDF');
-      };
-
-      const requestData = {
-        htmlContent: htmlContent
-      };
-
-      xhr.send(JSON.stringify(requestData));
+      const previewFrame = document.getElementById('previewFrame');
+      previewFrame.srcdoc = htmlContent;
     });
   </script>
 </body>

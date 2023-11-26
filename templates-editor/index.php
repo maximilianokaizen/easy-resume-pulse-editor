@@ -65,7 +65,7 @@
    
   <input type="text" id="templateName" placeholder="Template Name">
   <br/>
-  
+
   <button id="generatePdf">Test Pdf</button>
   <button id="previewTheme">Preview Theme</button>
   <button id="createTemplate">Create Template!</button>
@@ -119,7 +119,7 @@
       const cssStart = htmlContent.indexOf('<style>');
       const cssEnd = htmlContent.indexOf('</style>');
       const css = htmlContent.substring(cssStart + 7, cssEnd);
-      const html = htmlContent.substring(0, cssStart) + htmlContent.substring(cssEnd + 8);
+      const html = htmlContent;
       const templateName = document.getElementById('templateName').value;
 
       const requestData = {

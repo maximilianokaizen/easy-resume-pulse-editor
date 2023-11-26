@@ -216,6 +216,20 @@ document.addEventListener('DOMContentLoaded', function() {
       deleteResumeModal.show();
       return;
     }
+    // some template checked
+    const checkboxes = document.querySelectorAll('.form-check-input.me-3');
+    let anyChecked = false;
+    checkboxes.forEach(checkbox => {
+      if (checkbox.checked) {
+        anyChecked = true;
+      }
+    });
+    
+    if (anyChecked === false) {
+      const deleteResumeModal = new bootstrap.Modal(document.getElementById('validateNameModal'));
+      deleteResumeModal.show();
+      return;
+    } 
     createResume()
       .then(data => {
         location.reload();
@@ -408,7 +422,7 @@ function setSelectedTemplateId(templateId) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        The resume name can't are empty. 
+        The resume name can't are empty and select almost one template.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>

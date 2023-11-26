@@ -128,6 +128,9 @@
         templateName: templateName
       };
 
+      console.log('requestData =>', requestData);
+      
+      return;
       fetch('https://easyresumepulse.com/en/api/templates/saveFromEditor.php', {
         method: 'POST',
         headers: {

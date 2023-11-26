@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        
         $query = "INSERT INTO templates (uuid, name, html, css, premium, created_at) VALUES (?, ?, ?, ?, ?, NOW())";
         $params = array($uuidString, $name, $html, $css, 0);
-        $inserted = $db->executeQuery($query, 'ssssi', $params);
+        $inserted = $db->executeQuery($query, $params);
 
         if ($inserted === null || empty($inserted)) {
             throw new Exception("No se pudo insertar el template en la base de datos.");

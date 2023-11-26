@@ -71,7 +71,8 @@
      })
      .then(response => response.json())
      .then(result => {
-       if (result === true) {
+       console.log('result =>', result);
+       if (result.success === true) {
          form.style.display = 'none';
          thankYouMessage.style.display = 'block';
        }

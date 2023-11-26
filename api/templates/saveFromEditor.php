@@ -14,9 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Error al decodificar el JSON: " . json_last_error_msg());
         }
 
-        $name = sanitizeInput($jsonData['templateName']);
-        $html = sanitizeInput($jsonData['html']);
-        $css = sanitizeInput($jsonData['css']);
+        $name = $jsonData['templateName'];
+        $html = $jsonData['html'];
+        $css = $jsonData['css'];
         $uuidString = generateUUIDv4();
 
         $db = new DatabaseConnector();

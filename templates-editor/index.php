@@ -40,25 +40,6 @@
       font-size: 16px;
     }
   </style>
-
-  <!-- Place the first <script> tag in your HTML's <head> -->
-<script src="https://cdn.tiny.cloud/1/udmojy176j2qur9i9xd0vhn545k2yh41e7prx8y2r98foje1/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-
-<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
-<script>
-  tinymce.init({
-    selector: 'textarea',
-    plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-  });
-</script>
 </head>
 <body>
   <textarea id="htmlContent" rows="10" cols="50">
@@ -94,7 +75,8 @@
     // TEST PDF
 
     document.getElementById('generatePdf').addEventListener('click', function() {
-      const htmlContent = tinymce.get('htmlContent').getContent();
+      const htmlContent = document.getElementById('htmlContent').value;
+
       const xhr = new XMLHttpRequest();
       xhr.open('POST', 'https://easyresumepulse.com/en/api/TestTemplate.php');
       xhr.setRequestHeader('Content-Type', 'application/json');
@@ -127,13 +109,13 @@
 
 
     document.getElementById('previewTheme').addEventListener('click', function() {
-      const htmlContent = tinymce.get('htmlContent').getContent();
+      const htmlContent = document.getElementById('htmlContent').value;
       const previewFrame = document.getElementById('previewFrame');
       previewFrame.srcdoc = htmlContent;
     });
 
     document.getElementById('createTemplate').addEventListener('click', function() {
-      const htmlContent = tinymce.get('htmlContent').getContent();
+      const htmlContent = document.getElementById('htmlContent').value;
       const cssStart = htmlContent.indexOf('<style>');
       const cssEnd = htmlContent.indexOf('</style>');
       const css = htmlContent.substring(cssStart + 7, cssEnd);

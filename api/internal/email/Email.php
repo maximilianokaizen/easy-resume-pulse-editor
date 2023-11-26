@@ -28,7 +28,7 @@ class Email
         try {
             $to = "rossi.maxi@gmail.com, kaizenpulse@gmail.com";
             $headers = "From: kaizenpulse@gmail.com"; 
-            $message_email = "Nombre: $name\nCorreo electrónico: $email\nAsunto: $subject\nMensaje: $message";
+            $message_email = $content;
  
             if (mail($to, $subject, $content, $headers)) {
                 return true;

@@ -139,7 +139,7 @@ getResumes(token, uuid)
         const link = document.createElement('a');
         const deleteLink = document.createElement('a');
         deleteLink.href = '<?=$baseUrl?>/api/resumes/deleteResume.php';
-        deleteLink.innerHTML = '<i class="fa fa-trash"></i>Delete this resume' ;
+        deleteLink.innerHTML = '<i class="fa fa-trash"></i>' ;
         deleteLink.classList.add('resume-list-delete-link');
         deleteLink.dataset.uuid = resumeUuid;
         link.href = '<?=$baseUrl?>/editor/editor.php?token=' + token + '&uuid=' + resumeUuid + '&template=' + resume.template;

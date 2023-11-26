@@ -33,6 +33,12 @@
       border: 1px solid #ccc;
       margin-top: 20px;
     }
+    input[type="text"] {
+      width: 90%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -59,6 +65,7 @@
 
   <button id="generatePdf">Test Pdf</button>
   <button id="previewTheme">Preview Theme</button>
+  <button id="createTemplate">Create Template!</button>
   <iframe id="previewFrame"></iframe>
 
   <script>
@@ -96,13 +103,45 @@
 
       xhr.send(JSON.stringify(requestData));
     });
-    
+
 
     document.getElementById('previewTheme').addEventListener('click', function() {
       const htmlContent = document.getElementById('htmlContent').value;
       const previewFrame = document.getElementById('previewFrame');
       previewFrame.srcdoc = htmlContent;
     });
+
+    document.getElementById('createTemplate').addEventListener('click', function() {
+      const htmlContent = document.getElementById('htmlContent').value;
+      const cssStart = htmlContent.indexOf('<style>');
+      const cssEnd = htmlContent.indexOf('</style>');
+      const css = htmlContent.substring(cssStart + 7, cssEnd);
+      const html = htmlContent.substring(0, cssStart) + htmlContent.substring(cssEnd + 8);
+      const templateName = document.getElementById('templateName').value;
+
+      const requestData = {
+        html: html,
+        css: css,
+        templateName: templateName
+      };
+
+      fetch('https://easyresumepulse.com/en/api/templates/saveFromEditor.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Template created:', data);
+        // Puedes manejar la respuesta aquí
+      })
+      .catch(error => {
+        console.error('Error creating template:', error);
+      });
+    });
+    
   </script>
 </body>
 </html>

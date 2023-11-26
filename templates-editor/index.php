@@ -121,27 +121,49 @@
       const css = htmlContent.substring(cssStart + 7, cssEnd);
       const html = htmlContent;
       const templateName = document.getElementById('templateName').value;
+
+      if (templateName === '') {
+        alert('Please enter a template name.'); // Validar si el campo está vacío
+        return;
+      }
+
       const requestData = {
         html: html,
         css: css,
         templateName: templateName
       };
-      fetch('https://easyresumepulse.com/en/api/templates/saveFromEditor.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Template created:', data);
-        // Puedes manejar la respuesta aquí
-      })
-      .catch(error => {
-        console.error('Error creating template:', error);
-      });
+
+
+      const confirmed = confirm('Do you want to create the template?');
+      if (confirmed) {
+        const htmlContent = document.getElementById('htmlContent').value;
+        const cssStart = htmlContent.indexOf('<style>');
+        const cssEnd = htmlContent.indexOf('</style>');
+        const css = htmlContent.substring(cssStart + 7, cssEnd);
+        const html = htmlContent;
+        const requestData = {
+          html: html,
+          css: css,
+          templateName: templateName
+        };
+        fetch('https://easyresumepulse.com/en/api/templates/saveFromEditor.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Template created:', data);
+          // Puedes manejar la respuesta aquí
+        })
+        .catch(error => {
+          console.error('Error creating template:', error);
+        });
+      }
     });
+
     
   </script>
 </body>

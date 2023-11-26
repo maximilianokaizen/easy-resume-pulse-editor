@@ -387,7 +387,7 @@ function setSelectedTemplateId(templateId) {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">I understend, Delete</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">I understand, Delete.</button>
       </div>
     </div>
   </div>

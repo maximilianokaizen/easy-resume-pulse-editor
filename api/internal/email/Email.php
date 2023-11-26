@@ -7,12 +7,12 @@ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
 
 $emailPath = $basePath . '/api/internal/email/';
 
-require_once($basePath . '/api/lib/sanatize/sanatize.php');
-require_once($basePath . '/api/lib/token/TokenManager.php');
-require_once($emailPath . '/vendor/autoload.php');
+//require_once($basePath . '/api/lib/sanatize/sanatize.php');
+//require_once($basePath . '/api/lib/token/TokenManager.php');
+//require_once($emailPath . '/vendor/autoload.php');
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+//use PHPMailer\PHPMailer\PHPMailer;
+//use PHPMailer\PHPMailer\Exception;
 
 class Email
 {
@@ -22,29 +22,21 @@ class Email
         return parse_ini_file($envFile);
     }
 
-    public function sendEmail($recipient, $subject, $content)
+    public function sendEmail($recipient, $subject = 'Contact from EasyResumePulse', $content = '')
     {
         $envValues = self::getEnvValues();
-        $mail = new PHPMailer(true);
-
         try {
-            // Gmail SMTP server configuration
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = $envValues['EMAIL_ACCOUNT']; 
-            $mail->Password = $envValues['EMAIL_PASSWORD']; 
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-            // Email setup
-            $mail->setFrom($envValues['EMAIL_ACCOUNT'], 'Sender');
-            $mail->addAddress($recipient);
-            $mail->isHTML(true);
-            $mail->Subject = $subject;
-            $mail->Body = $content;
-            $mail->send();
-            return true;
+            $to = "rossi.maxi@gmail.com, kaizenpulse@gmail.com";
+            $headers = "From: kaizenpulse@gmail.com"; 
+            $message_email = "Nombre: $name\nCorreo electrónico: $email\nAsunto: $subject\nMensaje: $message";
+ 
+            if (mail($to, $subject, $content, $headers)) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception $e) {
+            // TODO LOG
             return false;
         }
     }

@@ -62,7 +62,7 @@
       email: email
     };
 
-    fetch('<?=$baseUrl?>contact-footer.php', {
+    fetch('<?=$baseUrl?>/contact-footer.php', {
        method: 'POST',
        body: JSON.stringify(data),
        headers: {

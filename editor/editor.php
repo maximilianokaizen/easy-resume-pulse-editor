@@ -1579,6 +1579,7 @@ $(function() {
 
 	  function checkScreenWidth() {
 		const screenWidth = window.innerWidth;
+		alert(screenWidth);
 		if (screenWidth < 800) {
 			const mobileWarningModal = new bootstrap.Modal(document.getElementById('mobileWarningModal'));
 			mobileWarningModal.show();

@@ -12,11 +12,11 @@ try {
     if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
         throw new Exception("Error al decodificar el JSON: " . json_last_error_msg());
     }
-    $email = $jsonData['email'];
+    $contactEmail = $jsonData['email'];
     $email = new Email();
     $recipient = 'rossi.maxi@gmail.com';
     $subject = 'Hello World';
-    $content = '<p>Helllooooo from ' . $email . '</p>';
+    $content = '<p>Helllooooo from ' .  $contactEmail . '</p>';
     $result = $email->sendEmail($recipient, $subject, $content);
     die(json_encode(['success' => true]));
     } catch (Exception $e) {

@@ -386,8 +386,8 @@ function setSelectedTemplateId(templateId) {
       Are you certain you wish to delete this resume? Please note that deleting this resume will permanently remove all its content, and this action cannot be undone.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">I understend, Delete</button>
       </div>
     </div>
   </div>

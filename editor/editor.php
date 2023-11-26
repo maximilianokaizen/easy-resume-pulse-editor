@@ -1579,7 +1579,6 @@ $(function() {
 
 	  function checkScreenWidth() {
 		const screenWidth = window.innerWidth;
-		alert(screenWidth);
 		if (screenWidth < 800) {
 			const mobileWarningModal = new bootstrap.Modal(document.getElementById('mobileWarningModal'));
 			mobileWarningModal.show();
@@ -1605,8 +1604,8 @@ $(function() {
 			if (!isNaN(templateId) && templateId !== null) {
 			const dynamicUrl = `<?=$baseUrl?>/api/resumes/loadResume.php?resumeId=` + resumeId + '&token=' + token + '&uuid=' + uuid;
 			const dynamicCSS = `<?=$baseUrl?>/editor/themes/${templateId}/styles.css`;
-			console.log('dynamicUrl =>', dynamicUrl);
-			console.log('dynamicCSS =>', dynamicCSS);
+			//console.log('dynamicUrl =>', dynamicUrl);
+			//console.log('dynamicCSS =>', dynamicCSS);
 			pages = [
 				{
 					name: "resume",

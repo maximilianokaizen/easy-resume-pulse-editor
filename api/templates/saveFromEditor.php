@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-require_once('../lib/sanitize/sanitize.php');
+require_once('../lib/sanatize/sanatize.php');
 require_once('../lib/db/dbConnection.php');
 require_once('../lib/token/TokenManager.php');
 

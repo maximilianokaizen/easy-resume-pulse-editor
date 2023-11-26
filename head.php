@@ -8,7 +8,7 @@
 
   <!-- For IE 9 and below -->
 <!--[if IE]>
-  <link rel="shortcut icon" href="<?=$urlBase?>/assets/favicon.ico">
+  <link rel="shortcut icon" href="<?=$urlBase?>/en/assets/favicon.ico">
 <![endif]-->
 
 <!-- For IE 10+ and modern browsers -->

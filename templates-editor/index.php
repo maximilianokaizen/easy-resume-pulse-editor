@@ -62,7 +62,10 @@
     </body>
     </html>
   </textarea>
-
+   
+  <input type="text" id="templateName" placeholder="Template Name">
+  <br/>
+  
   <button id="generatePdf">Test Pdf</button>
   <button id="previewTheme">Preview Theme</button>
   <button id="createTemplate">Create Template!</button>

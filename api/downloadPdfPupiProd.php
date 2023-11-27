@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($jsonData === false) {
         throw new Exception('Error al codificar a JSON: ' . json_last_error_msg());
     }
-    
+
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonData);
@@ -113,7 +113,7 @@ function insertCssIntoHtmlHead($htmlWithoutCss, $customCss) {
 
 function addFooter($html) {
     $footer = "
-    <div class='footer-kaizen' style='width: 100%;text-align:center;padding:10px 0;font-size:16px; margin: 0px auto'>
+    <div class='footer-kaizen' style='width: 100%;text-align:center;padding:10px 0;font-size:16px; margin: 0px auto;margin-top: 100px !important;'>
     Generated with https://easyresumepulse.com | Created by https://kaizenpulse.com/index-en.html
     </div>
     </body></html>";

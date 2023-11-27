@@ -37,7 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $url = 'http://easyresumecreator.online/pdf';
     $jsonData = array('html' => $htmlWithCss);
+    $jsonData = json_encode($jsonData);
 
+    if ($jsonData === false) {
+        throw new Exception('Error al codificar a JSON: ' . json_last_error_msg());
+    }
+    
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonData);

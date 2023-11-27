@@ -37,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $url = 'http://easyresumecreator.online/pdf';
 
+    $jsonData = array('html' => $htmlWithCss);
+    
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonData);

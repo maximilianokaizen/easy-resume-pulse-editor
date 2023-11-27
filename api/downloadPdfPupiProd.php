@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pdfFilePath = '/home/easyre/public_html/en/resumes/' . $pdfFileName;
 
     $url = 'http://easyresumecreator.online/pdf';
-    die($htmlWithCss);
     $jsonData = array('html' => $htmlWithCss);
 
     $curl = curl_init($url);

@@ -175,22 +175,24 @@
       },
       body: JSON.stringify({ html: htmlContent })
     })
-    .then(response => response.blob())
-    .then(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'generated.pdf';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
+    .then(response => response.json())
+    .then(data => {
+      if (data.success === false) {
+        alert('Ocurrió un error al generar el PDF.');
+      } else {
+        if (data.filePath) {
+          window.open(data.filePath, '_blank'); // Abre en una nueva ventana
+          // Opción alternativa: descarga automáticamente
+          // window.location.href = data.filePath;
+        } else {
+          alert('No se ha proporcionado la ruta del archivo.');
+        }
+      }
     })
     .catch(error => {
       console.error('Error fetching the PDF:', error);
     });
   });
-
   </script>
 </body>
 </html>

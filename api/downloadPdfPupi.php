@@ -20,10 +20,19 @@ $response = curl_exec($curl);
 // Verificar si la solicitud fue exitosa
 $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 if ($httpCode === 200) {
-    // Guardar el PDF en un archivo en la ruta especificada
-    $pdfFilePath = '/home/easyre/public_html/en/resumes/generated_pdf.pdf';
-    file_put_contents($pdfFilePath, $response);
-    echo 'PDF generado y guardado en: ' . $pdfFilePath;
+    try {
+        // Guardar el PDF en un archivo en la ruta especificada
+        $pdfFilePath = '/home/easyre/public_html/en/resumes/generated_pdf.pdf';
+        $success = file_put_contents($pdfFilePath, $response);
+        
+        if ($success !== false) {
+            echo 'PDF generado y guardado en: ' . $pdfFilePath;
+        } else {
+            throw new Exception('Error al guardar el archivo.');
+        }
+    } catch (Exception $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
 } else {
     echo 'Error al obtener el PDF. Código de estado HTTP: ' . $httpCode;
 }

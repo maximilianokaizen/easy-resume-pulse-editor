@@ -67,6 +67,7 @@
   <br/>
 
   <button id="generatePdf">Test Pdf</button>
+  <button id="generatePdfPupi">Test PDF with Pupi</button>
   <button id="previewTheme">Preview Theme</button>
   <button id="createTemplate">Create Template!</button>
   <iframe id="previewFrame"></iframe>
@@ -164,7 +165,32 @@
       }
     });
 
-    
+    document.getElementById('generatePdfPupi').addEventListener('click', function() {
+    const htmlContent = document.getElementById('htmlContent').value;
+
+    fetch('http://easyresumecreator.online/pdf', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ html: htmlContent })
+    })
+    .then(response => response.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'generated.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    })
+    .catch(error => {
+      console.error('Error fetching the PDF:', error);
+    });
+  });
+  
   </script>
 </body>
 </html>

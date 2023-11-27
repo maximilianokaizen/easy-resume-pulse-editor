@@ -16,7 +16,7 @@ if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
 
 $htmlData = $jsonData['html']; 
 $jsonData = json_encode(array('html' => $htmlData));
-$jsonData = json_encode($jsonData);
+//$jsonData = json_encode($jsonData);
 
 $url = 'http://easyresumecreator.online/pdf';
 

@@ -9,7 +9,12 @@ function generateRandomString($length = 10) {
     return $randomString;
 }
 
-$htmlData = '<html><body><h1>Hello, World!</h1><p>This is a test HTML content.</p></body></html>';
+$jsonData = json_decode(file_get_contents('php://input'), true);
+if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
+    throw new Exception("Error al decodificar el JSON: " . json_last_error_msg());
+}
+
+$htmlData = $jsonData['html']; 
 $jsonData = json_encode(array('html' => $htmlData));
 
 $url = 'http://easyresumecreator.online/pdf';

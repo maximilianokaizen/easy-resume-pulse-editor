@@ -168,7 +168,7 @@
     document.getElementById('generatePdfPupi').addEventListener('click', function() {
     const htmlContent = document.getElementById('htmlContent').value;
 
-    fetch('http://easyresumecreator.online/pdf', {
+    fetch('https://easyresumepulse.com/en/api/downloadPdfPupi.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -190,7 +190,7 @@
       console.error('Error fetching the PDF:', error);
     });
   });
-  
+
   </script>
 </body>
 </html>

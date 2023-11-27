@@ -123,7 +123,20 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 					
 					</div>	
 
-								
+					<div class="btn-group me-3 float-end" role="group">
+
+					<button class="btn btn-primary btn-icon " id="btn-download-pdf">
+						<span class="loading d-none">
+						<i class="la la-save"></i>
+						<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true">
+						</span>
+						<span>Saving </span> ... </span>
+						<span class="button-text">
+						<i class="la la-save"></i> <span>Download PDF</span>
+						</span>	
+					</button>
+					</div>	
+						
 					<div class="btn-group me-3 float-end" role="group">
 
 						<button class="btn btn-primary btn-icon " id="btn-download-pdf-pupi">

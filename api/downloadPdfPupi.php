@@ -16,7 +16,6 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
 // Ejecutar la solicitud cURL
 $response = curl_exec($curl);
-var_dump($response);die();
 
 // Verificar si la solicitud fue exitosa
 $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);

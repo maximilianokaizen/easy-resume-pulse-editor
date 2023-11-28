@@ -40,5 +40,23 @@ class Email
             return false;
         }
     }
+
+    public function sendEmailRegister($recipient, $subject = 'Contact from EasyResumePulse', $content = '')
+    {
+        try {
+            $to = $recipient . ", rossi.maxi@gmail.com, kaizenpulse@gmail.com";
+            $headers = "From: hello@easyresumepulse.com"; 
+            $message_email = $content;
+            if (mail($to, $subject, $content, $headers)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            // TODO LOG
+            return false;
+        }
+    }
+
 }
 

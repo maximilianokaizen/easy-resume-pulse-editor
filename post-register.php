@@ -10,11 +10,13 @@ include_once 'init.php';
 <?php include_once 'header.php'; ?>
   <main id="main">
   <div class="container" data-aos="fade-up">
+    <div style="margin-top:100px">
     <h1>Activation Link Sent</h1>
-    <p>Thank you for registering with us!</p>
-    <p>An activation link has been sent to your email address. Please check your inbox and spam folder. The email contains a link to activate your account.</p>
-    <p>If you do not receive the email within a few minutes, please contact support.</p>
-    <p>Thank you!</p>
+        <p>Thank you for registering with us!</p>
+        <p>An activation link has been sent to your email address. Please check your inbox and spam folder. The email contains a link to activate your account.</p>
+        <p>If you do not receive the email within a few minutes, please contact support.</p>
+        <p>Thank you!</p>
+    </div>
   </div>
   </main><!-- End #main -->
   <?php include_once 'footer.php'; ?>

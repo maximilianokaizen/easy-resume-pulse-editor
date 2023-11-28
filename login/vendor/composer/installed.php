@@ -19,6 +19,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'facebook/graph-sdk' => array(
+            'pretty_version' => '4.0.23',
+            'version' => '4.0.23.0',
+            'reference' => 'c82611e05596622c9bd7abfa1cea1512d885c95e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../facebook/graph-sdk',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'google/apiclient' => array(
             'pretty_version' => '1.1.3',
             'version' => '1.1.3.0',

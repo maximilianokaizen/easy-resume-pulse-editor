@@ -3,6 +3,7 @@
         "php": ">=7.4",
         "google/apiclient": "1.1.3",
         "lcobucci/jwt": "^3.0",
-        "league/oauth2-client": "^1.0.0"
+        "league/oauth2-client": "^1.0.0",
+        "facebook/graph-sdk": "^4.0"
     }
 }

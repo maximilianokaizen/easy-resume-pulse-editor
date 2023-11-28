@@ -46,12 +46,6 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
         </form>
         <div class="separator mt-4 mb-3 text-center"></div>
         <hr/>
-        <!-- Botón para iniciar sesión con Facebook -->
-
-        <div id="fb-root"></div>
-        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0&appId=870799537749809" nonce="sSmWdNn8"></script>
-        <div class="fb-login-button" data-width="100" data-size="" data-button-type="" data-layout="" data-auto-logout-link="true" data-use-continue-as="false"></div>
-
         <div class="text-center">
         <h5>Login / Register with social media</h5>
         <h6><b>Hey there!</b> Using your social media account for both registration and login is not only faster but also highly recommended for a smoother experience. Feel free to log in or sign up effortlessly using your preferred social platform!</h6>
@@ -65,29 +59,6 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
           }
         ?>
          <!-- end of google -->
-         <!-- facebook -->
-
-         <p id="profile"></p>
-
-      <script>
-        <!-- Add the Facebook SDK for Javascript -->
-        (function(d, s, id){
-                              var js, fjs = d.getElementsByTagName(s)[0];
-                              if (d.getElementById(id)) {return;}
-                              js = d.createElement(s); js.id = id;
-                              js.src = "https://connect.facebook.net/en_US/sdk.js";
-                              fjs.parentNode.insertBefore(js, fjs);
-                            }(document, 'script', 'facebook-jssdk')
-        );
-        window.fbAsyncInit = function() {
-            FB.init({
-                      appId            : '870799537749809',
-                      xfbml            : true,
-                      version          : 'v18.0'
-                    });
-            };
-      </script>
-
          <hr/>
          <h5>Create your account using your email.</h5>
          <form action="create-new-user.php" method="post" role="form" class="php-login-form" id="create-new-user-form">

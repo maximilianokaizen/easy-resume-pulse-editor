@@ -1,11 +1,13 @@
 <?php
 
+/*
 declare(strict_types=1);
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+*/
 
 require_once('api/lib/sanatize/sanatize.php');
 require_once('api/lib/token/TokenManager.php');
@@ -13,15 +15,6 @@ require_once('api/internal/users/Users.php');
 include_once('api/internal/email/Email.php');
 
 $email = new Email();
-
-/*
-$recipient = 'rossi.maxi@gmail.com';
-$subject = 'Hello World';
-$content = '<p>Helllooooo</p>';
-
-$result = $email->sendEmail($recipient, $subject, $content);
-echo $result;
-*/
 
 if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
     $baseUrl = 'https://easyresumepulse.com/en';
@@ -71,8 +64,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             if ($registrationResult) {
                 $emailText = generateActivationEmailHTML($email, $activationCode);
-                $urlToRedirect = $baseUrl . '/post-register.php';
-                die(json_encode(['success' => true, 'code' => '001', 'url' => $urlToRedirect]));
+
+                $recipient = 'hello@easyresumepulse.com';
+                $subject = 'Registration in easyresumepulse.com';
+                $content = $emailText;
+                $resultEmail = $email->sendEmail($recipient, $subject, $content);
+                if ($resultEmail){
+                    $urlToRedirect = $baseUrl . '/post-register.php';
+                    die(json_encode(['success' => true, 'code' => '001', 'url' => $urlToRedirect]));
+                }else{
+                    die(json_encode(['success' => true, 'code' => '003']));
+                }
+               
             }else{
                 die(json_encode(['success' => true, 'code' => '002']));
             }

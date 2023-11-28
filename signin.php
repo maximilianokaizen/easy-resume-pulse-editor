@@ -83,7 +83,7 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
             FB.init({
                       appId            : '870799537749809',
                       xfbml            : true,
-                      version          : 'v2.10'
+                      version          : 'v18.0'
                     });
             };
       </script>

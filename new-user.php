@@ -64,18 +64,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             if ($registrationResult) {
                 $emailText = generateActivationEmailHTML($email, $activationCode);
-
                 $recipient = 'hello@easyresumepulse.com';
                 $subject = 'Registration in easyresumepulse.com';
                 $content = $emailText;
-                $resultEmail = $email->sendEmail($recipient, $subject, $content);
-                if ($resultEmail){
-                    $urlToRedirect = $baseUrl . '/post-register.php';
-                    die(json_encode(['success' => true, 'code' => '001', 'url' => $urlToRedirect]));
-                }else{
-                    die(json_encode(['success' => true, 'code' => '003']));
+                try {
+                    $resultEmail = $email->sendEmail($recipient, $subject, $content);
+                    if ($resultEmail) {
+                        $urlToRedirect = $baseUrl . '/post-register.php';
+                        die(json_encode(['success' => true, 'code' => '001', 'url' => $urlToRedirect]));
+                    } else {
+                        die(json_encode(['success' => false, 'code' => '003', 'error' => 'Error sending email']));
+                    }
+                } catch (Exception $e) {
+                    die(json_encode(['success' => false, 'code' => '004', 'error' => $e->getMessage()]));
                 }
-               
             }else{
                 die(json_encode(['success' => true, 'code' => '002']));
             }

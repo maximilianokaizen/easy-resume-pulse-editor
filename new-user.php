@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $plan = 'free';
         $social = false;
         $socialName = 'website';
-        $active = 0;
+        $active = 1;
         $uuidString = generateUUIDv4($email);
         $activationCode = generateActivationCode($email);
         
@@ -63,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $active,
             );
             if ($registrationResult) {
+                /*
                 $emailText = generateActivationEmailHTML($email, $activationCode);
                 $recipient = 'hello@easyresumepulse.com';
                 $subject = 'Registration in easyresumepulse.com';
@@ -78,6 +79,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } catch (Exception $e) {
                     die(json_encode(['success' => false, 'code' => '004', 'error' => $e->getMessage()]));
                 }
+                */
+                $urlToRedirect = $baseUrl . '/post-register.php';
+                die(json_encode(['success' => true, 'code' => '001', 'url' => $urlToRedirect]));
             }else{
                 die(json_encode(['success' => true, 'code' => '002']));
             }

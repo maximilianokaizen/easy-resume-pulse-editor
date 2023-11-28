@@ -8,25 +8,6 @@ include_once 'init.php';
 </head>
 <body>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<script>
-  function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-   function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-</script>
 <div id="g_id_onload"
 data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com"
         data-ux_mode="redirect"
@@ -70,7 +51,6 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
         <h5>Login / Register with social media</h5>
         <h6><b>Hey there!</b> Using your social media account for both registration and login is not only faster but also highly recommended for a smoother experience. Feel free to log in or sign up effortlessly using your preferred social platform!</h6>
          <!-- google -->
-         <div id="my-signin2"></div>
          <?php
           if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
           } else {
@@ -236,7 +216,6 @@ document.addEventListener('DOMContentLoaded', function() {
     return emailRegex.test(email);
   }
 });
-<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </script>
 </body>
 </html>

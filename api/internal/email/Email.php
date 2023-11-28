@@ -41,9 +41,10 @@ class Email
         }
     }
 
-    public function sendEmailRegister($recipient, $subject = 'Contact from EasyResumePulse', $content = '')
+    public function sendEmailRegister($recipient, $subject = 'Registration easyresumepulse.com', $content = '')
     {
         try {
+            $from = 'hello@easyresumepulse.com';
             $to = $recipient;
             $headers = "From: $from\r\n";
             $headers .= "Reply-To: $from\r\n";

@@ -123,8 +123,9 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 					
 					</div>	
 
+					<!--
 					<div class="btn-group me-3 float-end" role="group">
-
+					
 					<button class="btn btn-primary btn-icon " id="btn-download-pdf">
 						<span class="loading d-none">
 						<i class="la la-save"></i>
@@ -136,7 +137,8 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 						</span>	
 					</button>
 					</div>	
-						
+					-->
+					
 					<div class="btn-group me-3 float-end" role="group">
 
 						<button class="btn btn-primary btn-icon " id="btn-download-pdf-pupi">

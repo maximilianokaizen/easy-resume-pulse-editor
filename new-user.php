@@ -14,7 +14,7 @@ require_once('api/lib/token/TokenManager.php');
 require_once('api/internal/users/Users.php');
 include_once('api/internal/email/Email.php');
 
-$email = new Email();
+$Email = new Email();
 
 if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
     $baseUrl = 'https://easyresumepulse.com/en';
@@ -63,13 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $active,
             );
             if ($registrationResult) {
-                //$emailText = generateActivationEmailHTML($email, $activationCode);
-                $emailText = 'sape';
+                $emailText = generateActivationEmailHTML($email, $activationCode);
                 $recipient = 'hello@easyresumepulse.com';
                 $subject = 'Registration in easyresumepulse.com';
                 $content = $emailText;
                 try {
-                    $resultEmail = $email->sendEmail($recipient, $subject, $content);
+                    $resultEmail = $Email->sendEmail($recipient, $subject, $content);
                     if ($resultEmail) {
                         $urlToRedirect = $baseUrl . '/post-register.php';
                         die(json_encode(['success' => true, 'code' => '001', 'url' => $urlToRedirect]));

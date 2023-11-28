@@ -44,7 +44,10 @@ class Email
     public function sendEmailRegister($recipient, $subject = 'Contact from EasyResumePulse', $content = '')
     {
         try {
-            $to = $recipient . ", rossi.maxi@gmail.com, kaizenpulse@gmail.com";
+            $to = $recipient;
+            $headers = "From: $from\r\n";
+            $headers .= "Reply-To: $from\r\n";
+            $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
             $headers = "From: hello@easyresumepulse.com"; 
             $message_email = $content;
             if (mail($to, $subject, $content, $headers)) {

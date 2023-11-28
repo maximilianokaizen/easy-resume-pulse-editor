@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $subject = 'Registration in easyresumepulse.com';
                 $content = $emailText;
                 try {
-                    $resultEmail = $Email->sendEmailRegister($recipient, $subject, $content);
+                    $resultEmail = $Email->sendEmailRegister($email, $subject, $content);
                     if ($resultEmail) {
                         $urlToRedirect = $baseUrl . '/post-register.php';
                         die(json_encode(['success' => true, 'code' => '001', 'url' => $urlToRedirect]));

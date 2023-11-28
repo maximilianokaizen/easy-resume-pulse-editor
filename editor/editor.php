@@ -138,7 +138,6 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 					</button>
 					</div>	
 					-->
-					
 					<div class="btn-group me-3 float-end" role="group">
 
 						<button class="btn btn-primary btn-icon " id="btn-download-pdf-pupi">
@@ -1641,6 +1640,7 @@ $(function() {
 	
 	/* download PDF */
 
+	/*
 	document.getElementById('btn-download-pdf').addEventListener('click', function() {
 
 		let baseUrl;
@@ -1706,7 +1706,7 @@ $(function() {
 			// Manejar el error en caso de que ocurra
 		})
 	});
-
+	*/
 	/* end of -- generate PDF */
 
 

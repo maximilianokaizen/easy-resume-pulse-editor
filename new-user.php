@@ -11,6 +11,18 @@ error_reporting(E_ALL);
 require_once('api/lib/sanatize/sanatize.php');
 require_once('api/lib/token/TokenManager.php');
 require_once('api/internal/users/Users.php');
+include_once('api/internal/email/Email.php');
+
+$email = new Email();
+
+/*
+$recipient = 'rossi.maxi@gmail.com';
+$subject = 'Hello World';
+$content = '<p>Helllooooo</p>';
+
+$result = $email->sendEmail($recipient, $subject, $content);
+echo $result;
+*/
 
 if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
     $baseUrl = 'https://easyresumepulse.com/en';
@@ -38,10 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $plan = 'free';
         $social = false;
         $socialName = 'website';
-        $active = 1;
-        $uuidString = generateUUIDv4();
-
-
+        $active = 0;
+        $uuidString = generateUUIDv4($email);
+        $activationCode = generateActivationCode($email);
+        
         if ($user->exist($email)) {
             die(json_encode(['success' => true, 'code' => '000']));
         }else{
@@ -52,19 +64,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $password, 
                 $given_name,
                 $last_name,
-                false, // premium
+                false,
                 $plan,
-                false, // social
+                false,
                 $socialName,
                 $active,
             );
             if ($registrationResult) {
-                // TODO
-                // SEND EMAIL 
-                $minutes = 180;
-                $uuid = $user->getUuidByEmail($email);
-                $token = TokenManager::generateTokenSocial($uuid, $minutes);
-                $urlToRedirect = $baseUrl . '/provisionalLogin.php?token=' . $token . '&uuid=' . $uuid;
+                $emailText = generateActivationEmailHTML($email, $registrationResult);
+                $urlToRedirect = $baseUrl . '/post-register.php';
                 die(json_encode(['success' => true, 'code' => '001', 'url' => $urlToRedirect]));
             }else{
                 die(json_encode(['success' => true, 'code' => '002']));
@@ -90,4 +98,37 @@ function generateUUIDv4() {
         mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
     );
 }
-  
+
+function generateActivationCode($email) {
+    $envValues = getEnvValues();
+    $additionalString =  $envValues['KEY_GEN'];
+    $combinedString = $email . $additionalString;
+    $activationCode = md5($combinedString);
+    return $activationCode;
+}
+
+function getEnvValues(): array
+{
+    $envFile = __DIR__ . '/.env';
+    return parse_ini_file($envFile);
+}
+
+function generateActivationEmailHTML($email, $hash) {
+    $activationLink = "https://easyresumepulse.com/en/activate-user.php?email=" . urlencode($email) . "&hash=" . $hash;
+    $html = '<!DOCTYPE html>';
+    $html .= '<html>';
+    $html .= '<head>';
+    $html .= '<title>Account Activation</title>';
+    $html .= '</head>';
+    $html .= '<body>';
+    $html .= '<p>Hi,</p>';
+    $html .= '<p>To activate your account, please click on the following link:</p>';
+    $html .= '<p>';
+    $html .= '<a href="' . $activationLink . '">Activate Account</a>';
+    $html .= '</p>';
+    $html .= '<p>Thank you.</p>';
+    $html .= '</body>';
+    $html .= '</html>';
+    return $html;
+}
+

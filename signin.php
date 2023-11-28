@@ -60,6 +60,39 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
           }
         ?>
          <!-- end of google -->
+         <!-- facebook -->
+
+         <p id="profile"></p>
+
+      <script>
+        <!-- Add the Facebook SDK for Javascript -->
+        (function(d, s, id){
+                              var js, fjs = d.getElementsByTagName(s)[0];
+                              if (d.getElementById(id)) {return;}
+                              js = d.createElement(s); js.id = id;
+                              js.src = "https://connect.facebook.net/en_US/sdk.js";
+                              fjs.parentNode.insertBefore(js, fjs);
+                            }(document, 'script', 'facebook-jssdk')
+        );
+        window.fbAsyncInit = function() {
+            FB.init({
+                      appId            : '870799537749809',
+                      xfbml            : true,
+                      version          : 'v2.10'
+                    });
+            FB.login(function(response) {
+                      if (response.authResponse) {
+                           console.log('Welcome!  Fetching your information.... ');
+                           FB.api('/me', {fields: 'name, email'}, function(response) {
+                               document.getElementById("profile").innerHTML = "Good to see you, " + response.name + ". i see your email address is " + response.email
+                           });
+                      } else { 
+                      <!-- If you are not logged in, the login dialog will open for you to login asking for permission to get your public profile and email -->
+                      console.log('User cancelled login or did not fully authorize.'); }
+                });
+            };
+      </script>
+      
          <hr/>
          <h5>Create your account using your email.</h5>
          <form action="create-new-user.php" method="post" role="form" class="php-login-form" id="create-new-user-form">

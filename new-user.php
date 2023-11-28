@@ -63,7 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $active,
             );
             if ($registrationResult) {
-                $emailText = generateActivationEmailHTML($email, $activationCode);
+                //$emailText = generateActivationEmailHTML($email, $activationCode);
+                $emailText = 'sape';
                 $recipient = 'hello@easyresumepulse.com';
                 $subject = 'Registration in easyresumepulse.com';
                 $content = $emailText;

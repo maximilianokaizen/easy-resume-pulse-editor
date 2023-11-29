@@ -50,6 +50,7 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
         <h5>Login / Register with social media</h5>
         <h6><b>Hey there!</b> Using your social media account for both registration and login is not only faster but also highly recommended for a smoother experience. Feel free to log in or sign up effortlessly using your preferred social platform!</h6>
          <!-- google -->
+         <br/>
          <div id="g_id_onload"
          data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercontent.com"
          data-ux_mode="redirect"

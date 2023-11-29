@@ -273,8 +273,8 @@ function createTemplateElement(template) {
 
   const templateDiv = document.createElement('div');
   templateDiv.id = 'header-template-list'; // ID para el contenedor del nombre y el checkbox
-  templateDiv.style.width = '320px';
-  templateDiv.style.height = '180px';
+  templateDiv.style.width = '362px';
+  templateDiv.style.height = '512px';
   templateDiv.style.borderRadius = '10px';
   templateDiv.style.backgroundImage = `url(<?=$baseUrl?>/themes/${template.id}.png)`;
   templateDiv.style.backgroundSize = 'cover';

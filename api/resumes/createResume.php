@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
 
         /* check name in created resumes */
-        $query = "SELECT id FROM resumes WHERE name = '?'";
+        $query = "SELECT id FROM resumes WHERE name = ?";
 
         try {
             $result = $db->executeQuery($query, $nameParams);

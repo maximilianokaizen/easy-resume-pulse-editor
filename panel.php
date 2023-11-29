@@ -275,6 +275,7 @@ function createTemplateElement(template) {
   templateDiv.id = 'header-template-list'; // ID para el contenedor del nombre y el checkbox
   templateDiv.style.width = '181px';
   templateDiv.style.height = '256px';
+  templateDiv.style.borderRadius = '10px';
   templateDiv.style.backgroundImage = `url(<?=$baseUrl?>/themes/${template.id}.png)`;
   templateDiv.style.backgroundSize = 'cover';
   templateDiv.style.cursor = 'pointer'; // Cambiar el cursor al pasar el mouse

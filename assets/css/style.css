@@ -1973,9 +1973,12 @@ section {
   padding-top: 50px;
 }
 
+#otherResumeForm{
+  margin-bottom: 30px;
+}
 .header-templates-choice{
   position: relative;
-  top: -40px;
+  top: -60px;
 }
 #resume-list{
   margin-bottom: 40px;

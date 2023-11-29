@@ -73,6 +73,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $html = $template[0]['html'];
         /* end of get template*/
 
+        $nameParams = [
+            'name' => $name
+        ];
+
+        /* check name in created resumes */
+        $query = "SELECT id FROM resumes WHERE name = '?'";
+
+        try {
+            $result = $db->executeQuery($query, $nameParams);
+            if ($result !== null) {
+                die(json_encode(['success' => true, 'canCreate' => $remainsResumes])); 
+            }
+        } catch (Exception $e) {
+            die(json_encode(['success' => false, 'error' => $e->getMessage()]));
+        }
+
         $templateData = [
             'uuid' => generateUUIDv4(),
             'user_id' => $user[0]['id'],

@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try { 
             $result = $db->executeQuery($query, [$name]);
-            if ($result !== null) {
+            if (count($result) > 0) {
                 die(json_encode(['success' => true, 'canCreate' => $remainsResumes])); 
             }
         } catch (Exception $e) {

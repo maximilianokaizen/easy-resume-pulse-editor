@@ -38,9 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Error validating token (02): " . $e->getMessage());
         }
 
+        $db = new DatabaseConnector();
+
         /* get user */
         try {
-            $db = new DatabaseConnector();
             $query = "SELECT id,uuid,premium FROM users WHERE uuid = ? AND user_active=1";
             $user = $db->executeQuery($query, [$userUuid]);
             if ($user === null || empty($user)) {
@@ -73,15 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $html = $template[0]['html'];
         /* end of get template*/
 
-        $nameParams = [
-            'name' => $name
-        ];
-
         /* check name in created resumes */
         $query = "SELECT id FROM resumes WHERE name = ?";
 
-        try {
-            $result = $db->executeQuery($query, $nameParams);
+        try { 
+            $result = $db->executeQuery($query, [$name]);
             if ($result !== null) {
                 die(json_encode(['success' => true, 'canCreate' => $remainsResumes])); 
             }

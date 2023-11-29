@@ -278,7 +278,7 @@ function createTemplateElement(template) {
   templateDiv.style.backgroundImage = `url(<?=$baseUrl?>/themes/${template.id}.png)`;
   templateDiv.style.backgroundSize = 'cover';
   templateDiv.style.cursor = 'pointer'; // Cambiar el cursor al pasar el mouse
-  templateDiv.style.border = '1px solid #2487ce'; // Borde inicial azul claro
+  templateDiv.style.border = '1px solid rgb(46 46 46)'; // Borde inicial azul claro
 
   templateDiv.addEventListener('click', function () {
     templateDiv.style.borderColor = '#145d8e'; // Al hacer clic, borde más oscuro

@@ -273,13 +273,14 @@ function createTemplateElement(template) {
 
   const templateDiv = document.createElement('div');
   templateDiv.id = 'header-template-list'; // ID para el contenedor del nombre y el checkbox
-  templateDiv.style.width = '500px';
-  templateDiv.style.height = '500px';
+  templateDiv.style.width = '181px';
+  templateDiv.style.height = '256px';
   templateDiv.style.backgroundImage = `url(<?=$baseUrl?>/themes/${template.id}.png)`;
   templateDiv.style.backgroundSize = 'cover';
   templateDiv.style.cursor = 'pointer'; // Cambiar el cursor al pasar el mouse
   templateDiv.style.border = '1px solid rgb(46 46 46)'; // Borde inicial azul claro
 
+  /*
   templateDiv.addEventListener('click', function () {
     templateDiv.style.borderColor = '#145d8e'; // Al hacer clic, borde más oscuro
   });
@@ -287,7 +288,7 @@ function createTemplateElement(template) {
   templateDiv.addEventListener('mouseout', function () {
     templateDiv.style.borderColor = '#2487ce'; // Restaura el color del borde al salir el mouse
   });
-
+*/
   const headerContainer = document.createElement('div');
   headerContainer.classList.add('header-templates-choice'); // Clase para el contenedor del título y checkbox
 

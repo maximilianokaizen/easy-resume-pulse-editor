@@ -147,7 +147,7 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 							  </span>
 							  <span>Saving </span> ... </span>
 							<span class="button-text">
-							  <i class="la la-save"></i> <span>Download PDF (Server #2)</span>
+							  <i class="la la-save"></i> <span>Download PDF</span>
 							</span>	
 						  </button>
 					  </div>	

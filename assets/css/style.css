@@ -1932,7 +1932,7 @@ section {
 
 /* Estilos para cuando el cursor esté sobre el botón */
 .green-button:hover {
-  background-color: #45a049 !important; /* Color ligeramente más oscuro al pasar el cursor */
+  background-color: #1c72af !important; /* Color ligeramente más oscuro al pasar el cursor */
 }
 
 .resume-list-delete-link {

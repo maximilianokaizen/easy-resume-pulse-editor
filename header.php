@@ -10,11 +10,15 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="<?=$baseUrl?>">Home</a></li>
+          <li><a class="nav-link scrollto active" href="<?=$baseUrl?>"><i class="lni lni-home"></i> &nbsp; Home</a></li>
           <li id="pricingLink" style="display: none;"><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
           </li>
-          <li><a class="getstarted scrollto btn-get-green" href="<?=$baseUrl?>/signin.php">Create Resume Now</a></li>
-          <li><a class="getstarted scrollto show-ui" href="<?=$baseUrl?>/signin.php">Sing in / Register</a></li>
+          <li><a class="getstarted scrollto btn-get-green" href="<?=$baseUrl?>/signin.php">
+            <i class="lni lni-plus"></i> &nbsp; Create Resume Now
+        </a></li>
+          <li><a class="getstarted scrollto show-ui" href="<?=$baseUrl?>/signin.php">
+            <i class="lni lni-user"></i> &nbsp; Sign in / Register
+        </a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

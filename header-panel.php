@@ -10,9 +10,9 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="https://www.buymeacoffee.com/easyresumepulse" target="_blank">Support the project</a></li>
+          <li><a class="nav-link scrollto active" href="https://www.buymeacoffee.com/easyresumepulse" target="_blank"> Support the project <i class="lni lni-heart"></i> </a></li>
           <li><a class="getstarted scrollto show-ui" href="#" id="signOut">
-            <i class="lni lni-exit"></i> &nbsp; Logout
+             Logout
         </a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

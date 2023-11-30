@@ -1818,7 +1818,7 @@ $(function() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ html: htmlContent, template: templateId, width : dimensiones.width, height :  dimensiones.height + 100})
+        body: JSON.stringify({ html: htmlContent, template: templateId, width : dimensiones.width, height :  dimensiones.height + 150})
     })
         .then(response => response.json())
         .then(data => {

@@ -2024,3 +2024,16 @@ section {
 #login{
   padding: 0px 0 !important;
 }
+
+.hero-image-left {
+  /* Estilos para la clase hero-image-left en dispositivos más grandes */
+  /* Por ejemplo: */
+  display: block; /* o los estilos específicos que tenga la clase */
+}
+
+/* Media query para dispositivos móviles y tablets */
+@media screen and (max-width: 1400px) {
+  .hero-image-left {
+    display: none; /* Oculta la clase hero-image-left en dispositivos con ancho máximo de 768px */
+  }
+}

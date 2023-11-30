@@ -1971,6 +1971,7 @@ section {
 #templates-list{
   padding-bottom: 100px;
   padding-top: 50px;
+  clear: both;
 }
 
 #otherResumeForm{

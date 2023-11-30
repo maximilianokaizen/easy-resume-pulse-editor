@@ -80,7 +80,7 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 					
 					<div class="btn-group me-3" role="group">
 					
-
+	
 					  <button class="btn btn-light" title="Preview" id="preview-btn" type="button" data-bs-toggle="button" aria-pressed="false" data-vvveb-action="preview">
                 <i class="icon-eye-outline"></i>
 					  </button>
@@ -107,6 +107,20 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 								
 					<div class="btn-group me-3 float-end" role="group">
 
+					
+					<button class="btn btn-primary btn-icon" id="btn-download-pdf-pupi-image">
+							<span class="loading d-none">
+								<i class="la la-image"></i>
+								<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span>
+								<span>Generating Image... </span>
+							</span>
+							<span class="button-text">
+								<i class="la la-image"></i> <span>Download Image</span>
+							</span>
+						</button>
+						&nbsp;
+						&nbsp;
+						&nbsp;
 						<button class="btn btn-primary btn-icon" data-v-vvveb-shortcut="ctrl+e">
 
 							<span class="loading d-none">
@@ -123,21 +137,7 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 					
 					</div>	
 
-					<!--
-					<div class="btn-group me-3 float-end" role="group">
-					
-					<button class="btn btn-primary btn-icon " id="btn-download-pdf">
-						<span class="loading d-none">
-						<i class="la la-save"></i>
-						<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true">
-						</span>
-						<span>Saving </span> ... </span>
-						<span class="button-text">
-						<i class="la la-save"></i> <span>Download PDF (Server #1) FAST</span>
-						</span>	
-					</button>
-					</div>	
-					-->
+			
 					<div class="btn-group me-3 float-end" role="group">
 
 						<button class="btn btn-primary btn-icon " id="btn-download-pdf-pupi">
@@ -155,6 +155,25 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 					  <div class="float-end me-3">
 					</div>	
      				</div>
+
+
+					 <div class="btn-group me-3 float-end" role="group">
+						<button class="btn btn-primary btn-icon" id="btn-download-pdf-pupi">
+							<span class="loading d-none">
+								<i class="la la-save"></i>
+								<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span>
+								<span>Saving ... </span>
+							</span>
+							<span class="button-text">
+								<i class="la la-download"></i> <span>Download PDF</span>
+							</span>
+						</button>
+					</div>
+
+					
+
+
+
 				<div id="left-panel">
 
 					  <div id="filemanager"> 
@@ -1759,6 +1778,58 @@ $(function() {
 	loadingSpan.classList.remove('d-none');
 	buttonText.classList.add('d-none');
 	});
+
+	/* download as image */
+	
+	document.getElementById('btn-download-pdf-pupi-image').addEventListener('click', function () {
+    let htmlContent = Vvveb.Builder.getHtml();
+
+    fetch('https://easyresumepulse.com/en/api/downloadPdfPupiProdImage.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ html: htmlContent, template: templateId })
+    })
+        .then(response => response.json())
+        .then(data => {
+            const button = document.getElementById('btn-download-pdf-pupi-image');
+            const loadingSpan = button.querySelector('.loading');
+            const buttonText = button.querySelector('.button-text');
+
+            if (data.success === false) {
+                alert('An error occurred while generating the image.');
+            } else {
+                if (data.filePath) {
+                    window.open(data.filePath, '_blank'); // Abre en una nueva ventana
+                    // Opción alternativa: descarga automáticamente
+                    // window.location.href = data.filePath;
+                } else {
+                    alert('The file path was not provided.');
+                }
+            }
+
+            loadingSpan.classList.add('d-none');
+            buttonText.classList.remove('d-none');
+        })
+        .catch(error => {
+            console.error('Error fetching the image:', error);
+            const button = document.getElementById('btn-download-pdf-pupi-image');
+            const loadingSpan = button.querySelector('.loading');
+            const buttonText = button.querySelector('.button-text');
+            loadingSpan.classList.add('d-none');
+            buttonText.classList.remove('d-none');
+        });
+
+    // Mostrar "Generating Image" durante la solicitud
+    const button = document.getElementById('btn-download-pdf-pupi-image');
+    const loadingSpan = button.querySelector('.loading');
+    const buttonText = button.querySelector('.button-text');
+    loadingSpan.classList.remove('d-none');
+    buttonText.classList.add('d-none');
+});
+
+	/* end of download as image */
 
 	/* save resume */
 	document.getElementById('btn-save-resume').addEventListener('click', function(event) {

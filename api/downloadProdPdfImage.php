@@ -20,6 +20,7 @@ $height = $jsonData['height'];
 
 $jsonData = json_encode(array('url' => $url, 'width' => $width, 'height' => $height));
 
+print_r($jsonData);die();
 $url = 'http://easyresumecreator.online/image';
 
 $curl = curl_init($url);

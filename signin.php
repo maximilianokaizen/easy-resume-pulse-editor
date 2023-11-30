@@ -21,7 +21,7 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
       <div class="container">
        <div class="content-center">
         <!-- login or register -->
-        <section id="login" class="login" style="padding 40 0px">
+        <section id="login" class="login">
   <div class="container" data-aos="fade-up">
 
     <div class="section-title">

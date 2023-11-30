@@ -14,11 +14,13 @@ if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
     throw new Exception("Error al decodificar el JSON: " . json_last_error_msg());
 }
 
-//$urlToSave = $jsonData['url']; 
-$urlToSave = 'https://easyresumepulse.com/en/test.php';
-$jsonData = json_encode(array('url' => $urlToSave));
+$html = $jsonData['html']; 
+$width = $jsonData['url']; 
+$height = $jsonData['height']; 
 
-$url = 'http://easyresumecreator.online/getimage';
+$jsonData = json_encode(array('url' => $url, 'width' => $width, 'height' => $height));
+
+$url = 'http://easyresumecreator.online/image';
 
 $curl = curl_init($url);
 curl_setopt($curl, CURLOPT_POST, true);

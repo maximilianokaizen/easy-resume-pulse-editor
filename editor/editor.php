@@ -1729,6 +1729,31 @@ $(function() {
 	/* end of -- generate PDF */
 
 
+	function obtenerDimensionesDelHTML(html) {
+		// Crear un elemento div temporal para medir el tamaño del contenido HTML
+		let tempDiv = document.createElement('div');
+		tempDiv.innerHTML = html;
+
+		// Establecer estilos para evitar cambios en las dimensiones
+		tempDiv.style.position = 'absolute';
+		tempDiv.style.visibility = 'hidden';
+		tempDiv.style.display = 'inline';
+
+		// Agregar el div temporal al DOM para obtener su tamaño
+		document.body.appendChild(tempDiv);
+
+		// Obtener las dimensiones del contenido HTML
+		let width = tempDiv.offsetWidth;
+		let height = tempDiv.offsetHeight;
+
+		// Eliminar el div temporal después de obtener las dimensiones
+		document.body.removeChild(tempDiv);
+
+		// Devolver las dimensiones obtenidas
+		return { width, height };
+		}
+
+
 	/* download with pupi */
 
 	document.getElementById('btn-download-pdf-pupi').addEventListener('click', function() {
@@ -1783,19 +1808,17 @@ $(function() {
 	
 	document.getElementById('btn-download-pdf-pupi-image').addEventListener('click', function () {
     let htmlContent = Vvveb.Builder.getHtml();
+	let dimensiones = obtenerDimensionesDelHTML(htmlContent);
 
-	const body = document.querySelector('body');
-	const rect = body.getBoundingClientRect();
-
-	console.log('Ancho:', rect.width);
-	console.log('Alto:', rect.height);
+	console.log('Ancho del contenido:', dimensiones.width);
+	console.log('Alto del contenido:', dimensiones.height);
 
     fetch('https://easyresumepulse.com/en/api/downloadProdPdfImage.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ html: htmlContent, template: templateId })
+        body: JSON.stringify({ html: htmlContent, template: templateId, width : dimensiones.width, height :  dimensiones.height})
     })
         .then(response => response.json())
         .then(data => {

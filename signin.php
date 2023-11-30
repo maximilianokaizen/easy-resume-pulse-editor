@@ -40,7 +40,9 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
               <input type="password" class="form-control" name="password" id="password" placeholder="Your Password" required>
             </div>
             <div class="col-12">
-              <button type="submit" class="btn btn-primary">Login</button>
+              <button type="submit" class="btn btn-primary">
+                Login
+              </button>
             </div>
           </div>
         </form>

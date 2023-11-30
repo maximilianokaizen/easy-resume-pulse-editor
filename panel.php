@@ -172,9 +172,25 @@ getResumes(token, uuid)
       createOtherResumeBtn.addEventListener('click', function() {
         const OtherNameInput = document.getElementById('OtherNameInput');
         const name = OtherNameInput.value.trim();
-        if (name === ''){
+        if ( name == '' || name.length <= 2 ) {
+          const deleteResumeModal = new bootstrap.Modal(document.getElementById('validateNameModal'));
+          deleteResumeModal.show();
           return;
         }
+        // some template checked
+    const checkboxes = document.querySelectorAll('.form-check-input.me-3');
+    let anyChecked = false;
+    checkboxes.forEach(checkbox => {
+      if (checkbox.checked) {
+        anyChecked = true;
+      }
+    });
+    
+    if (anyChecked === false) {
+      const deleteResumeModal = new bootstrap.Modal(document.getElementById('validateNameModal'));
+      deleteResumeModal.show();
+      return;
+    } 
         // fetch
         let templateId = selectedTemplateId || 2; // Si no hay uno seleccionado, usa 2 como predeterminado
         const formData = {
@@ -369,7 +385,7 @@ function setSelectedTemplateId(templateId) {
     <form id="resumeForm">
       <label for="nameInput">Name:</label>
       <input type="text" id="nameInput" name="name" required>
-      <button type="button" id="createResumeBtn" class="green-button">Go!</button>
+      <button type="button" id="createResumeBtn" class="green-button">Create New Resume</button>
     </form>
   </div>
    
@@ -381,7 +397,7 @@ function setSelectedTemplateId(templateId) {
     <form id="otherResumeForm">
       <label for="OtherNameInput">Name:</label>
       <input type="text" id="OtherNameInput" name="other-name" required>
-      <button type="button" id="createOtherResumeBtn" class="green-button">Go!</button>
+      <button type="button" id="createOtherResumeBtn" class="green-button">Create New Resume</button>
     </form>
   </div>
 

@@ -1921,7 +1921,7 @@ section {
 
 /* Estilos para la clase green-button */
 .green-button {
-  background-color: #4caf50 !important;
+  background-color: #2487ce !important;
   color: #fff;
   padding: 3px 10px;
   text-decoration: none;
@@ -1975,7 +1975,16 @@ section {
 
 #otherResumeForm{
   margin-bottom: 30px;
+  float: right;
+  position: relative;
+  top: -100px;
 }
+
+#resumeForm{
+  margin-bottom: 30px;
+  float: right;   
+}
+
 .header-templates-choice{
   position: relative;
   top: -60px;

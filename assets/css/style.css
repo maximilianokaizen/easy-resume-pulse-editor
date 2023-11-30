@@ -2015,3 +2015,8 @@ section {
   width: 100px; /* Ancho de la columna para el texto variable */
 }
 
+@media screen and (max-width: 768px) {
+    #createOtherResumeBtn, #createResumeBtn{
+      margin-top: 5px;
+    }
+}

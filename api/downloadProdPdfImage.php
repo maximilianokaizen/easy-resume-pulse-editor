@@ -14,10 +14,10 @@ if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
     throw new Exception("Error al decodificar el JSON: " . json_last_error_msg());
 }
 
-$htmlData = $jsonData['html']; 
-$jsonData = json_encode(array('html' => $htmlData));
+$url = $jsonData['url']; 
+$jsonData = json_encode(array('url' => $url));
 
-$url = 'http://easyresumecreator.online/image';
+$url = 'http://easyresumecreator.online/getimage';
 
 $curl = curl_init($url);
 curl_setopt($curl, CURLOPT_POST, true);

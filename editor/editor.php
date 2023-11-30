@@ -1784,6 +1784,12 @@ $(function() {
 	document.getElementById('btn-download-pdf-pupi-image').addEventListener('click', function () {
     let htmlContent = Vvveb.Builder.getHtml();
 
+	const body = document.querySelector('body');
+	const rect = body.getBoundingClientRect();
+
+	console.log('Ancho:', rect.width);
+	console.log('Alto:', rect.height);
+
     fetch('https://easyresumepulse.com/en/api/downloadProdPdfImage.php', {
         method: 'POST',
         headers: {

@@ -14,8 +14,9 @@ if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
     throw new Exception("Error al decodificar el JSON: " . json_last_error_msg());
 }
 
-$url = $jsonData['url']; 
-$jsonData = json_encode(array('url' => $url));
+//$urlToSave = $jsonData['url']; 
+$urlToSave = 'https://easyresumepulse.com/en/test.php';
+$jsonData = json_encode(array('url' => $urlToSave));
 
 $url = 'http://easyresumecreator.online/getimage';
 

@@ -223,7 +223,7 @@
   </head>
 
   <body>
-    <div class="container" style="width: 780px; margin: 0px auto">
+    <div class="container" style="width: 780px; margin: 0px auto;height: auto !important;">
       <div class="box-1">
         <div class="background-1">
           <div class="img-profile"></div>

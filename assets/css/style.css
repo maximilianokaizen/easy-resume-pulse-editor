@@ -2036,4 +2036,8 @@ section {
   .hero-image-left {
     display: none; /* Oculta la clase hero-image-left en dispositivos con ancho máximo de 768px */
   }
+  .no-mobile{
+    display: none;
+  }  
 }
+

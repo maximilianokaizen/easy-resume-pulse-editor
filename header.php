@@ -5,7 +5,7 @@
 
       <h1 class="logo"><a href="<?=$baseUrl?>">
       <!--<img src="<?=$baseUrl?>/assets/logo-small.png" alt="" class="logo-header" />-->
-      <i class="lni lni-pencil-alt"></i>  EasyResumePulse<span class="green-color">.com</span></a></h1>
+      <i class="lni lni-pencil-alt no-mobile"></i>  EasyResumePulse<span class="green-color">.com</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 

@@ -6,7 +6,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-xl-7 col-lg-9 text-center">
-        <h1><i class="lni lni-pencil-alt"></i> <i class="lni lni-bolt-alt"></i> Create Your Professional Resume Quickly, Easily, and Absolutely Free</h1>
+        <h1><i class="lni lni-bolt-alt"></i> Create Your Professional Resume Quickly, Easily, and Absolutely Free</h1>
         <h2>No Hassle, No Cost. Craft Your Resume in Minutes!</h2>
       </div>
     </div>

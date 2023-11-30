@@ -14,7 +14,6 @@ $files = glob("test/*.{html,htm,php}", GLOB_BRACE);
 <html lang="en">
 <head>
   <title>dompdf debugger</title>
-  <meta name="robots" content="noindex">
   <script type="text/javascript" src="jquery-1.4.2.js"></script>
   
   <script type="text/javascript">

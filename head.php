@@ -1,15 +1,16 @@
+<meta name="description" content="Create your resume for free and quickly using artificial intelligence on Example.com. Professional templates and easy-to-use tools available.">
+<meta name="keywords" content="create resume, resume builder, free, fast, artificial intelligence, resume templates, online tools, Example.com">
+<meta name="robots" content="index, follow">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RE3Y27JRY9"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-RE3Y27JRY9');
 </script>
 <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="robots" content="noindex">
   <title>EasyResumePulse</title>
   <meta content="" name="description">
   <meta content="" name="keywords">

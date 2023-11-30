@@ -15,12 +15,12 @@ if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
 }
 
 $html = $jsonData['html']; 
-$width = $jsonData['url']; 
+$width = $jsonData['width']; 
 $height = $jsonData['height']; 
 
-$jsonData = json_encode(array('url' => $url, 'width' => $width, 'height' => $height));
+$jsonData = json_encode(array('html' => $html, 'width' => $width, 'height' => $height));
 
-print_r($jsonData);die();
+//print_r($jsonData);die();
 $url = 'http://easyresumecreator.online/image';
 
 $curl = curl_init($url);

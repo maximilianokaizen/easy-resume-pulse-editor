@@ -1784,7 +1784,7 @@ $(function() {
 	document.getElementById('btn-download-pdf-pupi-image').addEventListener('click', function () {
     let htmlContent = Vvveb.Builder.getHtml();
 
-    fetch('https://easyresumepulse.com/en/api/downloadPdfPupiProdImage.php', {
+    fetch('https://easyresumepulse.com/en/api/downloadProdPdfImage.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

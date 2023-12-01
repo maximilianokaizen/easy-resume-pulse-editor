@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $token = sanitizeInput($jsonData['token'] ?? '');
         $id = sanitizeInput($jsonData['id'] ?? '');
         $html = sanitizeInput($jsonData['html'] ?? '');
-        
+
         if ($token !== 'kaizen') {
             die(json_encode(['success' => false, 'message' => 'Invalid token.']));
         }
@@ -25,15 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $db = new DatabaseConnector();
 
         $query = "UPDATE templates SET html=? WHERE id=?";
-        $success = $db->executeStatement($query, [$html, $id]);
+        $success = $db->executeQuery($query, [$html, $id]);
 
-        if ($success) {
-            http_response_code(200);
-            die(json_encode(['success' => true, 'message' => 'HTML updated successfully.']));
-        } else {
-            http_response_code(500);
-            die(json_encode(['success' => false, 'message' => 'Failed to update HTML.']));
-        }
+        die(json_encode(['success' => true, 'message' => 'HTML updated successfully.']));
+       
     } catch (Exception $e) {
         http_response_code(500);
         $log = $e->getMessage();

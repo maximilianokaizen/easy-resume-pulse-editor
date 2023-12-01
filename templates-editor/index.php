@@ -90,7 +90,10 @@ document.addEventListener("DOMContentLoaded", function() {
   // Evento click para el botón de editar template
   editTemplateBtn.addEventListener('click', editTemplate);
 
-  // ... Tu código existente para obtener el parámetro 'id' y realizar el fetch ...
+  const params = {
+      id: id,
+      token: 'kaizen'
+  };
 
   fetch(`https://easyresumepulse.com/en/api/templates/getTemplateFromEditor.php?${queryParams}`, {
     method: 'GET',

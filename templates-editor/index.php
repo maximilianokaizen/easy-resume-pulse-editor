@@ -48,7 +48,7 @@
     // Construir el objeto con los parámetros para el fetch
     const params = {
       id: id,
-      token: 'kaizen&plus2023'
+      token: 'kaizen'
     };
     const queryParams = new URLSearchParams(params).toString();
     fetch(`https://easyresumepulse.com/en/api/templates/getTemplateFromEditor.php?${queryParams}`, {
@@ -159,7 +159,6 @@
         templateName: templateName
       };
 
-
       const confirmed = confirm('Do you want to create the template?');
       if (confirmed) {
         const htmlContent = document.getElementById('htmlContent').value;
@@ -206,9 +205,7 @@
         alert('Ocurrió un error al generar el PDF.');
       } else {
         if (data.filePath) {
-          window.open(data.filePath, '_blank'); // Abre en una nueva ventana
-          // Opción alternativa: descarga automáticamente
-          // window.location.href = data.filePath;
+          window.open(data.filePath, '_blank'); 
         } else {
           alert('No se ha proporcionado la ruta del archivo.');
         }

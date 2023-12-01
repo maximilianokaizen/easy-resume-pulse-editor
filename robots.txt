@@ -2,3 +2,5 @@ User-agent: *
 Disallow: /resumes/
 Disallow: /editor/
 Disallow: /template-editor/
+Disallow: /api/
+Disallow: /themes/

@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $token = sanitizeInput($_GET['token'] ?? '');
         $id = sanitizeInput($_GET['id'] ?? '');
 
-        if ($token !== 'kaizen&plus2023'){
+        if ($token !== 'kaizen'){
             die(json_encode(['false' => true, 'template' => null])); 
         }
 

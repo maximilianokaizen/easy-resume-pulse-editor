@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
       token: 'kaizen'
   };
 
-  fetch(`https://easyresumepulse.com/en/api/templates/getTemplateFromEditor.php?${params}`, {
+  fetch(`https://easyresumepulse.com/en/api/templates/getTemplateFromEditor.php?id=${params.id}&token=${params.token}`, {
     method: 'GET',
     // Otros headers si es necesario
   })

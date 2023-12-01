@@ -43,6 +43,8 @@
 <script>
 
 document.addEventListener("DOMContentLoaded", function() {
+
+  let urlParams = new URLSearchParams(window.location.search);
   const htmlContentTextarea = document.getElementById('htmlContent');
   const templateNameInput = document.getElementById('templateName');
   const editTemplateBtn = document.getElementById('editTemplate');

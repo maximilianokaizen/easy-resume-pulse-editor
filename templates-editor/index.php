@@ -40,6 +40,31 @@
       font-size: 16px;
     }
   </style>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
+  if (id) {
+    // Construir el objeto con los parámetros para el fetch
+    const params = {
+      id: id,
+      token: 'kaizen&plus2023'
+    };
+    const queryParams = new URLSearchParams(params).toString();
+    fetch(`https://easyresumepulse.com/en/api/templates/getTemplateFromEditor.php?${queryParams}`, {
+      method: 'GET',
+    })
+    .then(response => response.json()) 
+    .then(data => {
+      console.log(data); 
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+});
+
+</script>
 </head>
 <body>
   <textarea id="htmlContent" rows="10" cols="50">

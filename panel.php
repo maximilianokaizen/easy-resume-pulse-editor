@@ -385,7 +385,7 @@ function setSelectedTemplateId(templateId) {
     <form id="resumeForm">
       <label for="nameInput">Name:</label>
       <input type="text" id="nameInput" name="name" required>
-      <button type="button" id="createResumeBtn" class="green-button">Create New Resume</button>
+      <button type="button" id="createResumeBtn" class="green-button"><i class="lni lni-plus"></i> Create New Resume</button>
     </form>
   </div>
    
@@ -397,7 +397,7 @@ function setSelectedTemplateId(templateId) {
     <form id="otherResumeForm">
       <label for="OtherNameInput">Name:</label>
       <input type="text" id="OtherNameInput" name="other-name" required>
-      <button type="button" id="createOtherResumeBtn" class="green-button">Create New Resume</button>
+      <button type="button" id="createOtherResumeBtn" class="green-button"><i class="lni lni-plus"></i> Create New Resume</button>
     </form>
   </div>
 

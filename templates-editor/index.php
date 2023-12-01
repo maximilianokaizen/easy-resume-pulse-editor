@@ -42,6 +42,46 @@
   </style>
 <script>
 
+// DELETE
+
+document.addEventListener("DOMContentLoaded", function() {
+      let urlParams = new URLSearchParams(window.location.search);
+      const deleteTemplateBtn = document.getElementById('deleteTemplate');
+
+      // Función para enviar la solicitud POST al eliminar el template
+      function deleteTemplate() {
+        const id = urlParams.get('id');
+
+        const confirmed = confirm('¿Realmente desea ELIMINAR este template?'); // Mensaje de confirmación
+
+        if (confirmed) {
+          const data = {
+            id: id,
+            token: 'kaizen'
+          };
+
+          fetch('https://easyresumepulse.com/en/api/templates/deleteFromEditor.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(response => response.json())
+          .then(result => {
+            // Manejar la respuesta si es necesario
+            console.log(result);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+        }
+      }
+
+      // Evento click para el botón de eliminar template
+      deleteTemplateBtn.addEventListener('click', deleteTemplate);
+    });
+    
 document.addEventListener("DOMContentLoaded", function() {
 
   let urlParams = new URLSearchParams(window.location.search);
@@ -152,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <button id="previewTheme">Preview Theme</button>
   <button id="createTemplate">Create Template!</button>
   <button id="editTemplate">Edit this Template!</button>
+  <button id="deleteTemplate">Delete Template!</button>
   <iframe id="previewFrame"></iframe>
 
   <script>

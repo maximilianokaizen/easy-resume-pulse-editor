@@ -18,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = sanitizeInput($_POST['id'] ?? '');
         $html = sanitizeInput($_POST['html'] ?? '');
 
+        die( $token );
+        
         if ($token !== 'kaizen') {
             die(json_encode(['success' => false, 'message' => 'Invalid token.']));
         }

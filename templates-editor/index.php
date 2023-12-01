@@ -89,9 +89,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Evento click para el botón de editar template
   editTemplateBtn.addEventListener('click', editTemplate);
-
   const params = {
-      id: id,
+      id: urlParams.get('id'),
       token: 'kaizen'
   };
 

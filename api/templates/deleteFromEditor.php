@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $token = sanitizeInput($jsonData['token'] ?? '');
         $id = sanitizeInput($jsonData['id'] ?? '');
-        $html = $jsonData['html'];
 
         if ($token !== 'kaizen') {
             die(json_encode(['success' => false, 'message' => 'Invalid token.']));
@@ -24,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $db = new DatabaseConnector();
 
-        $query = "DELETE templates WHERE id=?";
+        $query = "DELETE * FROM templates WHERE id=?";
         $success = $db->executeQuery($query, [$html, $id]);
 
         die(json_encode(['success' => true, 'message' => 'HTML updated successfully.']));

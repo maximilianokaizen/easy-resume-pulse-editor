@@ -41,27 +41,74 @@
     }
   </style>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get('id');
-  if (id) {
-    // Construir el objeto con los parámetros para el fetch
-    const params = {
+
+document.addEventListener("DOMContentLoaded", function() {
+  const htmlContentTextarea = document.getElementById('htmlContent');
+  const templateNameInput = document.getElementById('templateName');
+  const editTemplateBtn = document.getElementById('editTemplate');
+
+  // Función para cargar los datos en los elementos correspondientes
+  function loadDataIntoElements(html, name) {
+    htmlContentTextarea.value = html; // Cargar HTML en el textarea
+    templateNameInput.value = name; // Cargar nombre en el input
+
+    // Mostrar el botón después de cargar los datos
+    editTemplateBtn.style.display = 'block';
+  }
+
+  // Función para enviar la solicitud POST al editar el template
+  function editTemplate() {
+    const id = urlParams.get('id');
+    const html = htmlContentTextarea.value;
+    const name = templateNameInput.value;
+
+    // Objeto con los datos a enviar en la solicitud POST
+    const data = {
       id: id,
+      html: html,
+      name: name,
       token: 'kaizen'
     };
-    const queryParams = new URLSearchParams(params).toString();
-    fetch(`https://easyresumepulse.com/en/api/templates/getTemplateFromEditor.php?${queryParams}`, {
-      method: 'GET',
+
+    fetch('https://easyresumepulse.com/en/api/templates/editFromEditor.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
     })
-    .then(response => response.json()) 
-    .then(data => {
-      console.log(data); 
+    .then(response => response.json())
+    .then(result => {
+      // Manejar la respuesta si es necesario
+      console.log(result);
     })
     .catch(error => {
       console.error('Error:', error);
     });
   }
+
+  // Evento click para el botón de editar template
+  editTemplateBtn.addEventListener('click', editTemplate);
+
+  // ... Tu código existente para obtener el parámetro 'id' y realizar el fetch ...
+
+  fetch(`https://easyresumepulse.com/en/api/templates/getTemplateFromEditor.php?${queryParams}`, {
+    method: 'GET',
+    // Otros headers si es necesario
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success === true) {
+      const html = data.template[0].html;
+      const name = data.template[0].name;
+      loadDataIntoElements(html, name);
+    } else {
+      // Manejar el caso en que success es false
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 });
 
 </script>

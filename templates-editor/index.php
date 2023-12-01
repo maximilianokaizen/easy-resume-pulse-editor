@@ -142,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <button id="generatePdfPupi">Test PDF with Pupi</button>
   <button id="previewTheme">Preview Theme</button>
   <button id="createTemplate">Create Template!</button>
+  <button id="editTemplate">Edit this Template!</button>
   <iframe id="previewFrame"></iframe>
 
   <script>

@@ -14,11 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Error al decodificar el JSON: " . json_last_error_msg());
         }
 
-        $token = sanitizeInput($_POST['token'] ?? '');
-        $id = sanitizeInput($_POST['id'] ?? '');
-        $html = sanitizeInput($_POST['html'] ?? '');
-
-        die( $token );
+        $token = sanitizeInput($jsonData['token'] ?? '');
+        $id = sanitizeInput($jsonData['id'] ?? '');
+        $html = sanitizeInput($jsonData['html'] ?? '');
         
         if ($token !== 'kaizen') {
             die(json_encode(['success' => false, 'message' => 'Invalid token.']));

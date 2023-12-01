@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $db = new DatabaseConnector();
 
-        $query = "DELETE * FROM templates WHERE id=?";
+        $query = "DELETE templates WHERE id=?";
         $success = $db->executeQuery($query, [$id]); //
 
         die(json_encode(['success' => true, 'message' => 'HTML updated successfully.']));

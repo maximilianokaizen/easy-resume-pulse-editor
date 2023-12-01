@@ -64,7 +64,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const html = htmlContentTextarea.value;
     const name = templateNameInput.value;
 
-    // Objeto con los datos a enviar en la solicitud POST
+    const confirmed = confirm('Realmente desea EDITAR este template?'); // Mensaje de confirmación
+
+    if (confirmed){
+      // Objeto con los datos a enviar en la solicitud POST
     const data = {
       id: id,
       html: html,
@@ -87,6 +90,8 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(error => {
       console.error('Error:', error);
     });
+    }
+    
   }
 
   // Evento click para el botón de editar template

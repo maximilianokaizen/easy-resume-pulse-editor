@@ -15,4 +15,15 @@ require_once($basePath . '/api/internal/links/Links.php');
 $link = new Links();
 
 $htmlResume = $link->getHtml($uuid);
-die($htmlResume);
+
+$dom = new DOMDocument();
+$dom->loadHTML($htmlResume);
+$xpath = new DOMXPath($dom);
+$containers = $xpath->query("//*[@id='container' or contains(concat(' ', normalize-space(@class), ' '), ' container ')]");
+foreach ($containers as $container) {
+    // Modificar el atributo style del div
+    $container->setAttribute('style', 'width:780px !important; margin: 0px auto !important;');
+}
+// Obtener el HTML modificado
+$modifiedHTML = $dom->saveHTML();
+die($modifiedHTML);

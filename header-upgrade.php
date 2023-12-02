@@ -21,3 +21,11 @@
 
     </div>
 </header><!-- End Header -->
+<script>
+    document.getElementById('signOut').addEventListener('click', function(event) {
+    event.preventDefault();
+    sessionStorage.removeItem('jwt');
+    sessionStorage.removeItem('uuid');
+    window.location.href = 'index.php';
+});
+</script>

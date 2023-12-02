@@ -12,7 +12,8 @@
         <ul>
           <li><a class="nav-link scrollto active" href="<?=$baseUrl?>/panel.php">  Back To Panel </a></li>
           <li><a class="getstarted scrollto show-ui" href="#" id="signOut">
-             Logout
+          <i class="fas fa-door-open"></i>
+&nbsp; Logout
         </a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

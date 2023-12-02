@@ -1,7 +1,6 @@
 <?php
 error_reporting(E_ERROR | E_PARSE); // Esto oculta los warnings y muestra solo errores fatales y de análisis
 
-
 if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
     $basePath = '/home/easyre/public_html/en';
 } else {   
@@ -14,7 +13,10 @@ require_once($basePath . '/api/internal/links/Links.php');
 $link = new Links();
 
 $htmlResume = $link->getHtml($uuid);
-
+if (empty($htmlResume) || $htmlResume == ''){
+    $redirect_url = 'https://easyresumepulse.com/en';
+    header('Location: ' . $redirect_url);
+}
 $dom = new DOMDocument();
 $dom->loadHTML($htmlResume);
 $xpath = new DOMXPath($dom);

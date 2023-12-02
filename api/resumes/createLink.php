@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = $db->executeQuery($query, $params);
             if ($result === null) {
                 die(json_encode(['success' => true, 'url' => 
-                $linkUuid])); 
+                'https://easyresumepulse.com/en/my-awesome-resume/index.php?uuid=' . $linkUuid])); 
             }
         } catch (Exception $e) {
             die(json_encode(['success' => false, 'error' => $e->getMessage()]));

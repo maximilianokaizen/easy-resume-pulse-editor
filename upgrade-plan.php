@@ -7,7 +7,7 @@ include_once 'init-zero.php';
 <?php include_once 'head.php'; ?>
 </head>
 <body>
-<?php include_once 'header-panel.php'; ?>
+<?php include_once 'header-upgrade.php'; ?>
   <main id="main">
     
   <div class="container" style="margin-top:100px !important">

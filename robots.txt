@@ -3,4 +3,4 @@ Disallow: /resumes/
 Disallow: /editor/
 Disallow: /template-editor/
 Disallow: /api/
-Disallow: /themes/
+Disallow: /my-awesome-resume/

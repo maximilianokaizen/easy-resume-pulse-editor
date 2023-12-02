@@ -1905,7 +1905,7 @@ document.getElementById('confirmGenerate').addEventListener('click', function() 
 	.then(data => {
         if (data.success && data.url) {
         const url = data.url;
-
+			
         // Mostrar el campo de texto con la URL y los botones
         const generateText = document.getElementById('generateText');
         generateText.style.display = 'none'; // Ocultar el texto
@@ -1928,6 +1928,22 @@ document.getElementById('confirmGenerate').addEventListener('click', function() 
                 document.execCommand('copy');
             });
         }
+
+		// Ocultar botones Accept y Cancel
+		const acceptButton = document.querySelector('button[data-bs-dismiss="modal"]');
+        const cancelButton = document.getElementById('confirmGenerate');
+        acceptButton.style.display = 'none';
+        cancelButton.style.display = 'none';
+
+        // Agregar un botón de cierre adicional
+        const closeButton = document.createElement('button');
+        closeButton.classList.add('btn', 'btn-secondary');
+        closeButton.textContent = 'Close';
+        closeButton.addEventListener('click', function() {
+            const urlModal = new bootstrap.Modal(document.getElementById('urlModal'));
+            urlModal.hide();
+        });
+
         // Mostrar el modal después de manejar la respuesta
         const urlModal = new bootstrap.Modal(document.getElementById('urlModal'));
         urlModal.show();
@@ -1938,26 +1954,6 @@ document.getElementById('confirmGenerate').addEventListener('click', function() 
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Aquí puedes colocar el código que interactúa con los elementos del DOM
-
-    // Agregar evento al botón de Cancelar para cerrar el modal
-    const cancelButton = document.querySelector('button[data-bs-dismiss="modal"]');
-    cancelButton.addEventListener('click', function() {
-        const urlModal = new bootstrap.Modal(document.getElementById('urlModal'));
-        urlModal.hide();
-    });
-
-    // Agregar evento al botón de Aceptar para cerrar el modal
-    const confirmButton = document.getElementById('confirmGenerate');
-    confirmButton.addEventListener('click', function() {
-        const urlModal = new bootstrap.Modal(document.getElementById('urlModal'));
-        urlModal.hide();
-    });
-
-    // Además, aquí puedes colocar el código relacionado con la respuesta del fetch
-    // y la manipulación de los elementos del modal según sea necesario
-});
 
 </script>
 </body>

@@ -1418,10 +1418,10 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
             </div>
             <div class="modal-body">
                 <p>You will generate a link to view this resume. It will be valid for 30 minutes.</p>
-                <!-- Mover el input, botón y enlace aquí -->
-                <input type="text" id="urlInput" readonly>
-                <button id="copyButton">Copiar URL</button>
-                <a href="" id="openLinkButton">Abrir en otra ventana</a>
+                <!-- Campo de texto, botón y enlace ocultos inicialmente -->
+                <input type="text" id="urlInput" readonly style="display: none;">
+                <button id="copyButton" style="display: none;">Copiar URL</button>
+                <a href="" id="openLinkButton" style="display: none;" target="_blank">Abrir en otra ventana</a>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -1430,6 +1430,7 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
         </div>
     </div>
 </div>
+
 
 
 <!-- new page modal-->
@@ -1901,28 +1902,31 @@ document.getElementById('confirmGenerate').addEventListener('click', function() 
         }
         throw new Error('Error en la respuesta del servidor');
     })
-    .then(data => {
-		
-        if (data.success) {
+	.then(data => {
+        if (data.success && data.url) {
             const url = data.url;
-			console.log('url =>', url);
-            // Mostrar la URL en el modal
+
+            // Mostrar los elementos cuando la respuesta es exitosa
             const urlInput = document.getElementById('urlInput');
             const copyButton = document.getElementById('copyButton');
             const openLinkButton = document.getElementById('openLinkButton');
 
             urlInput.value = url;
+            urlInput.style.display = 'block'; // Mostrar el campo de texto
+            copyButton.style.display = 'block'; // Mostrar el botón de copiar
+            openLinkButton.style.display = 'inline-block'; // Mostrar el enlace para abrir en otra ventana
+            openLinkButton.href = url;
 
+            // Evento para copiar al hacer clic en el botón
             copyButton.addEventListener('click', function() {
-                // Copiar la URL al portapapeles
                 urlInput.select();
                 document.execCommand('copy');
                 alert('¡URL copiada!');
             });
-
-            openLinkButton.href = url;
-            openLinkButton.target = '_blank';
         }
+        // Mostrar el modal después de manejar la respuesta
+        const urlModal = new bootstrap.Modal(document.getElementById('urlModal'));
+        urlModal.show();
     })
     .catch(error => {
         console.error('Error al enviar el POST:', error);

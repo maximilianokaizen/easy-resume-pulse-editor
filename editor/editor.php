@@ -120,7 +120,22 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 						</button>
 						&nbsp;
 						&nbsp;
+						
+						<button class="btn btn-primary btn-icon" id="btn-generate-url">
+						<span class="loading d-none">
+							<i class="la la-anchor"></i>
+							<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span>
+							<span>Generating URL... </span>
+						</span>
+						<span class="button-text">
+							<i class="la la-anchor"></i> <span>Get URL</span>
+						</span>
+					</button>
+
+					&nbsp;
 						&nbsp;
+
+
 						<button class="btn btn-primary btn-icon" data-v-vvveb-shortcut="ctrl+e">
 
 							<span class="loading d-none">
@@ -1391,6 +1406,33 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
   </div>
 </div>
 
+<!-- generate url modal -->
+
+<!-- Modal -->
+<div class="modal" id="urlModal" tabindex="-1">
+<div class="modal-body">
+    <input type="text" id="urlInput" readonly>
+    <button id="copyButton">Copiar URL</button>
+    <a href="" id="openLinkButton">Abrir en otra ventana</a>
+</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Generate a link</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+You will generate a link to view this resume. It will be valid for 30 minutes.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmGenerate">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- new page modal-->
 <div class="modal fade" id="new-page-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -1637,8 +1679,6 @@ $(function() {
 			if (!isNaN(templateId) && templateId !== null) {
 			const dynamicUrl = `<?=$baseUrl?>/api/resumes/loadResume.php?resumeId=` + resumeId + '&token=' + token + '&uuid=' + uuid;
 			const dynamicCSS = `<?=$baseUrl?>/editor/themes/${templateId}/styles.css`;
-			//console.log('dynamicUrl =>', dynamicUrl);
-			//console.log('dynamicCSS =>', dynamicCSS);
 			pages = [
 				{
 					name: "resume",
@@ -1657,78 +1697,6 @@ $(function() {
 		Vvveb.Builder.init(pages[firstPage]["url"], function() {
 	});
 	
-	/* download PDF */
-
-	/*
-	document.getElementById('btn-download-pdf').addEventListener('click', function() {
-
-		let baseUrl;
-
-		if (window.location.href.startsWith('https')) {
-			baseUrl = 'https://easyresumepulse.com/en/api';
-		} else {
-			baseUrl = 'http://localhost:8080';
-		}
-
-		let htmlContent = Vvveb.Builder.getHtml();
-		
-		if (!token || !templateId || !uuid) {
-			window.location.href = baseUrl;
-		}
-				
-		fetch('https://easyresumepulse.com/en/api/downloadPdf.php', {
-		//fetch('http://localhost:8080/api/downloadPdf.php', {	
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				htmlContent: htmlContent,
-				token: token,
-				template : templateId,
-			})
-		})
-		.then(response => response.text())
-		.then(textResponse => {
-			console.log('Respuesta del servidor:', textResponse);
-				fetch('https://easyresumepulse.com/en/api/downloadProdPdf.php', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					htmlContent: textResponse,
-					token: token,
-					template : templateId,
-				})
-			})
-			.then(response => response.blob())
-			.then(blob => {
-				const url = window.URL.createObjectURL(new Blob([blob]));
-				const link = document.createElement('a');
-				link.href = url;
-				link.setAttribute('download', 'generated-pdf.pdf');
-				document.body.appendChild(link);
-				link.click();
-				link.parentNode.removeChild(link);
-				this.querySelector('.loading').classList.add('d-none');
-				this.querySelector('.button-text').classList.remove('d-none');
-			})
-			.catch(error => {
-				//console.error('Error al descargar el PDF:', error);
-				//this.querySelector('.loading').classList.add('d-none');
-				//this.querySelector('.button-text').classList.remove('d-none');
-			});
-		})
-		.catch(error => {
-			console.error('Error al descargar el PDF:', error);
-			// Manejar el error en caso de que ocurra
-		})
-	});
-	*/
-	/* end of -- generate PDF */
-
-
 	function obtenerDimensionesDelHTML(html) {
 		// Crear un elemento div temporal para medir el tamaño del contenido HTML
 		let tempDiv = document.createElement('div');
@@ -1900,6 +1868,67 @@ $(function() {
 	}
 });
 
+/* generate link */
+
+// Obtener referencia al botón y al modal
+const generateURLBtn = document.getElementById('btn-generate-url');
+const urlModal = new bootstrap.Modal(document.getElementById('urlModal'));
+
+// Función para mostrar el modal al hacer clic en el botón
+generateURLBtn.addEventListener('click', function() {
+    urlModal.show();
+});
+
+document.getElementById('confirmGenerate').addEventListener('click', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const templateId = urlParams.get('template');
+    const uuid = urlParams.get('uuid');
+
+    fetch('https://easyresumepulse.com/en/api/resumes/createLink.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            token: token,
+            uuid: uuid,
+            template: templateId,
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Error en la respuesta del servidor');
+    })
+    .then(data => {
+        if (data.success) {
+            const url = data.url;
+
+            // Mostrar la URL en el modal
+            const urlInput = document.getElementById('urlInput');
+            const copyButton = document.getElementById('copyButton');
+            const openLinkButton = document.getElementById('openLinkButton');
+
+            urlInput.value = url;
+
+            copyButton.addEventListener('click', function() {
+                // Copiar la URL al portapapeles
+                urlInput.select();
+                document.execCommand('copy');
+                alert('¡URL copiada!');
+            });
+
+            openLinkButton.href = url;
+            openLinkButton.target = '_blank';
+        }
+    })
+    .catch(error => {
+        console.error('Error al enviar el POST:', error);
+        // Puedes manejar errores aquí
+    });
+});
 
 </script>
 </body>

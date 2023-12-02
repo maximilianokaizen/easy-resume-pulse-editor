@@ -40,15 +40,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $dompdf->stream();
 }
 
+
 function addFooter($html) {
-    $footer = "
-    <div class= 'footer-kaizen' style='width: 100%;text-align:center;padding:10px 0;font-size:16px; margin: 0px auto;clear:both'>
-    Generated with https://easyresumepulse.com | Created by https://kaizenpulse.com/index-en.html
-    </div>
-    </body></html>";
-    $result = str_replace("</body></html>", $footer, $html);
-    return $result;
-  }
+  $footer = '';
+  /*
+  $footer = "
+  <div class='footer-kaizen' style='width: 100%;text-align:center;padding:10px 0;font-size:16px; margin: 0px auto;clear:both'>
+  Generated with https://easyresumepulse.com | Created by https://kaizenpulse.com/index-en.html
+  </div>
+  </body></html>";
+  */
+  $result = str_replace("</body></html>", $footer, $html);
+  return $result;
+}
+
 
   
 ?>

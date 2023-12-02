@@ -10,7 +10,7 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="<?=$baseUrl?>/panel.php" target="_blank">  Back To Panel </a></li>
+          <li><a class="nav-link scrollto active" href="<?=$baseUrl?>/panel.php">  Back To Panel </a></li>
           <li><a class="getstarted scrollto show-ui" href="#" id="signOut">
              Logout
         </a></li>
@@ -20,11 +20,3 @@
 
     </div>
 </header><!-- End Header -->
-<script>
-    document.getElementById('signOut').addEventListener('click', function(event) {
-    event.preventDefault();
-    sessionStorage.removeItem('jwt');
-    sessionStorage.removeItem('uuid');
-    window.location.href = 'index.php';
-});
-</script>

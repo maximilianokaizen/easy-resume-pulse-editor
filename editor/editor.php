@@ -1938,6 +1938,27 @@ document.getElementById('confirmGenerate').addEventListener('click', function() 
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Aquí puedes colocar el código que interactúa con los elementos del DOM
+
+    // Agregar evento al botón de Cancelar para cerrar el modal
+    const cancelButton = document.querySelector('button[data-bs-dismiss="modal"]');
+    cancelButton.addEventListener('click', function() {
+        const urlModal = new bootstrap.Modal(document.getElementById('urlModal'));
+        urlModal.hide();
+    });
+
+    // Agregar evento al botón de Aceptar para cerrar el modal
+    const confirmButton = document.getElementById('confirmGenerate');
+    confirmButton.addEventListener('click', function() {
+        const urlModal = new bootstrap.Modal(document.getElementById('urlModal'));
+        urlModal.hide();
+    });
+
+    // Además, aquí puedes colocar el código relacionado con la respuesta del fetch
+    // y la manipulación de los elementos del modal según sea necesario
+});
+
 </script>
 </body>
 </html>

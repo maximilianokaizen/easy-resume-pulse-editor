@@ -26,9 +26,9 @@
             <li>All features of the Free Plan</li>
             <li>Exclusive templates</li>
             <li>Generate links to your resume without limitations</li>
-            <li>Embed an iframe on your website and display your resume (incoming)</li>
-            <li>Translate your resume to any language with just one click (incoming)</li>
-            <li>Receive AI feedback on your resume and improve it with its advice (incoming)</li>
+            <li>Embed an iframe on your website and display your resume </li>
+            <li>Translate your resume to any language with just one click</li>
+            <li>Receive AI feedback on your resume and improve it with its advice</li>
           </ul>
           <br/><br/>        
         </div>

@@ -104,9 +104,11 @@ data-client_id="223124831209-p04fqq68spt1pm60j69drbrcgknjsnl5.apps.googleusercon
             </div>
           </form>
         </div>
+        <p>By registering, you agree to our <a href="https://easyresumepulse.com/en/terms-and-conditions.php">terms and conditions</a>.</p>
       </div>
     </div>
-
+      
+    
   </div>
 </section><!-- End Login Section -->
         <!-- end of login or register -->

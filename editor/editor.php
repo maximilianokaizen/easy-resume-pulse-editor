@@ -1418,7 +1418,7 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
             <div class="modal-body">
                 <!-- Usar un span con un ID para mostrar/ocultar el texto dinámicamente -->
                 <p id="generateText">You will generate a link to view this resume. It will be valid for 30 minutes.</p>
-                <input type="text" id="urlInput" readonly style="width: 100%;">
+                <input type="text" id="urlInput" readonly style="width: 100%;display:none;">
                 <!-- Cambiar los textos a inglés -->
                 <button id="copyButton" style="display: none;">Copy URL</button>
                 <a href="" id="openLinkButton" style="display: none;" target="_blank">Open in another window</a>
@@ -1921,12 +1921,11 @@ document.getElementById('confirmGenerate').addEventListener('click', function() 
 
         copyButton.textContent = 'Copy URL';
         openLinkButton.textContent = 'Open in another window';
-		
-            // Evento para copiar al hacer clic en el botón
+		openLinkButton.href = url;
+
             copyButton.addEventListener('click', function() {
                 urlInput.select();
                 document.execCommand('copy');
-                alert('¡URL copiada!');
             });
         }
         // Mostrar el modal después de manejar la respuesta

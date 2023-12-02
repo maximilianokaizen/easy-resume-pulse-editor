@@ -1,7 +1,6 @@
 <?php
+error_reporting(E_ERROR | E_PARSE); // Esto oculta los warnings y muestra solo errores fatales y de análisis
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 
 if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
     $basePath = '/home/easyre/public_html/en';

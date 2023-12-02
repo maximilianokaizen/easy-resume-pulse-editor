@@ -1410,11 +1410,6 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 
 <!-- Modal -->
 <div class="modal" id="urlModal" tabindex="-1">
-<div class="modal-body">
-    <input type="text" id="urlInput" readonly>
-    <button id="copyButton">Copiar URL</button>
-    <a href="" id="openLinkButton">Abrir en otra ventana</a>
-</div>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -1422,8 +1417,11 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>
-You will generate a link to view this resume. It will be valid for 30 minutes.</p>
+                <p>You will generate a link to view this resume. It will be valid for 30 minutes.</p>
+                <!-- Mover el input, botón y enlace aquí -->
+                <input type="text" id="urlInput" readonly>
+                <button id="copyButton">Copiar URL</button>
+                <a href="" id="openLinkButton">Abrir en otra ventana</a>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -1432,6 +1430,7 @@ You will generate a link to view this resume. It will be valid for 30 minutes.</
         </div>
     </div>
 </div>
+
 
 <!-- new page modal-->
 <div class="modal fade" id="new-page-modal" tabindex="-1" role="dialog">

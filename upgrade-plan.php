@@ -13,10 +13,11 @@ include_once 'init-zero.php';
   <div class="container" style="margin-top:100px !important">
   <h1>Upgrade your account</h1>
 
-  <p>By accessing this website and using our services, you agree to be bound by these terms and conditions. Please read them carefully.</p>
+  <p>We will be in touch shortly after the form has been submitted.</p>
+
 
 <!-- Formulario -->
-<form id="contactForm" action="URL_TO_POST_FORM_DATA" method="POST">
+<form id="contactForm" action="https://easyresumepulse.com/en/contact-plan.php" method="POST" style="width:600px; margin-bottom: 20px">
   <div class="mb-3">
     <label for="firstName" class="form-label">First Name</label>
     <input type="text" class="form-control" id="firstName" name="firstName" required>

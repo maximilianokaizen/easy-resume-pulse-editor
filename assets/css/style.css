@@ -2041,3 +2041,14 @@ section {
   }  
 }
 
+
+@media screen and (max-width: 800px) {
+  #otherResumeForm {
+    margin-bottom: 30px;
+    float: right;
+    position: relative;
+    top: 0px;
+    clear: both;
+}
+}
+

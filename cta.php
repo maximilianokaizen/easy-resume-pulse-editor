@@ -2,8 +2,7 @@
   <div class="container" data-aos="zoom-in">
     <div class="text-center">
       <h3>Create Your Standout Resume Today!</h3>
-      <p>Craft a professional resume effortlessly and at no cost. Access a variety of templates without limitations.</p>
-      <a class="cta-btn" href="<?=$baseUrl?>/signin.php">Craft Your Resume for Free</a>
+      <a class="cta-btn" href="<?=$baseUrl?>/signin.php">Craft Your Resume Now!</a>
     </div>
   </div>
 </section>

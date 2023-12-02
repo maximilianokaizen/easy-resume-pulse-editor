@@ -10,7 +10,7 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="https://www.buymeacoffee.com/easyresumepulse" target="_blank"> Support the project <i class="lni lni-heart"></i> </a></li>
+          <li><a class="nav-link scrollto active" href="<?=$baseUrl?>/upgrade-plan.php" target="_blank"> Upgrade your account </a></li>
           <li><a class="getstarted scrollto show-ui" href="#" id="signOut">
              Logout
         </a></li>

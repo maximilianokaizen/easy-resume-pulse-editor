@@ -1,27 +1,47 @@
 <section id="pricing" class="pricing">
   <div class="container" data-aos="fade-up">
     <div class="section-title">
-      <h2>Our Offer</h2>
-      <p>Unlock a World of Possibilities for Free!</p>
-      <p>Create your CV for free, no restrictions. Consider supporting us with a voluntary contribution to help maintain our servers and cover site-related costs.</p>
+      <h2>Our Plans</h2>
+      <p>We're actively enhancing our platform to better serve you. Some exciting new features are currently in development and will be launched soon to elevate your resume-building experience. Your patience and support are greatly appreciated as we work diligently to bring these improvements to fruition. We value your feedback, so feel free to share any ideas. Thank you for being part of our journey!</p>
     </div>
     <div class="row">
-      <div class="col-lg-12" data-aos="zoom-in" data-aos-delay="100">
+      <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
         <div class="box">
-          <h3>Free</h3>
+          <h3>Free PLAN</h3>
           <h4><sup>$</sup>0<span> / month</span></h4>
           <ul>
-          <li>Create your professional resume in minutes</li>
-          <li>Edit your resume as many times as you want</li>
-          <li>Get a quick and professional PDF</li>
-          <li>Access a variety of templates</li>
-          <li>Customize your resume with different font styles and colors</li>
-          <li>Save multiple versions of your resume for different job applications</li>
-          <li>Receive tips and suggestions for improving your resume content</li>
-          <li>Effortlessly highlight your skills, experiences, and achievements</li>
+            <li>Create your professional resume in minutes</li>
+            <li>Edit your resume as many times as you want</li>
+            <li>Get a quick and professional PDF</li>
+            <li>Access a variety of templates</li>
           </ul>
-          <p style="margin-top: 20px;">Consider supporting our project! Your donation helps us maintain this service free and accessible to everyone. Your contribution supports server costs, development, and ongoing improvements, ensuring you can create and save your CVs at no cost. Every donation matters to continue providing you with the best possible experience.</p>
-          <a href="https://www.buymeacoffee.com/easyresumepulse" target="_blank" class="btn-buy" style="font-weight: bold;">Support the project</a>
+          <br/><br/>        
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+        <div class="box">
+          <h3>Standard PLAN (Most Popular)</h3>
+          <h4><sup>$</sup>25.00<span> / year</span></h4>
+          <ul>
+            <li>All features of the Free Plan</li>
+            <li>Exclusive templates</li>
+            <li>Generate links to your resume without limitations</li>
+            <li>Embed an iframe on your website and display your resume (incoming)</li>
+            <li>Translate your resume to any language with just one click (incoming)</li>
+            <li>Receive AI feedback on your resume and improve it with its advice (incoming)</li>
+          </ul>
+          <br/><br/>        
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+        <div class="box">
+          <h3>Premium PLAN</h3>
+          <h4><sup>$</sup>50.00<span> / year</span></h4>
+          <ul>
+            <li>All features of the Standard Plan</li>
+            <li>Get your own domain.com to showcase your resume to the world</li>
+            <li>Create your own emails with your chosen domain, this will surely make you stand out!</li>
+          </ul>
           <br/><br/>        
         </div>
       </div>

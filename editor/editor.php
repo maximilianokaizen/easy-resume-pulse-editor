@@ -1903,6 +1903,7 @@ document.getElementById('confirmGenerate').addEventListener('click', function() 
         throw new Error('Error en la respuesta del servidor');
     })
     .then(data => {
+		console.log(data);
         if (data.success) {
             const url = data.url;
 

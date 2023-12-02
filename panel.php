@@ -1,5 +1,5 @@
 <?php
-include_once 'init.php';
+include_once 'init-panel.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

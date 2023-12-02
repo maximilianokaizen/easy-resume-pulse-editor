@@ -381,6 +381,13 @@ function setSelectedTemplateId(templateId) {
   <main id="main">
   <div class="container" data-aos="fade-up" style="margin-top:100px;min-height:550px">
 
+  <div class="container mt-4" style="margin-left:-20px;margin-bottom:20px;">
+        <div class="alert alert-warning alert-dismissible fade show alert-message" role="alert">
+            <strong>Warning!</strong> To navigate this site properly, please use a laptop or desktop computer.
+            <a href="#" class="btn-close close-btn" data-bs-dismiss="alert" aria-label="Close"></a>
+        </div>
+    </div>
+
   <div id="create-my-first-resume" style="display:none">
     <form id="resumeForm">
       <label for="nameInput">Name:</label>

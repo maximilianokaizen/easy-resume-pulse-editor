@@ -1408,7 +1408,6 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
 
 <!-- generate url modal -->
 
-<!-- Modal -->
 <div class="modal" id="urlModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1417,15 +1416,16 @@ if (empty($_GET['token']) || empty($_GET['uuid']) || empty($_GET['template'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>You will generate a link to view this resume. It will be valid for 30 minutes.</p>
-                <!-- Campo de texto, botón y enlace ocultos inicialmente -->
-                <input type="text" id="urlInput" readonly style="display: none;">
-                <button id="copyButton" style="display: none;">Copiar URL</button>
-                <a href="" id="openLinkButton" style="display: none;" target="_blank">Abrir en otra ventana</a>
+                <!-- Usar un span con un ID para mostrar/ocultar el texto dinámicamente -->
+                <p id="generateText">You will generate a link to view this resume. It will be valid for 30 minutes.</p>
+                <input type="text" id="urlInput" readonly style="width: 100%;">
+                <!-- Cambiar los textos a inglés -->
+                <button id="copyButton" style="display: none;">Copy URL</button>
+                <a href="" id="openLinkButton" style="display: none;" target="_blank">Open in another window</a>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="confirmGenerate">Aceptar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmGenerate">Accept</button>
             </div>
         </div>
     </div>
@@ -1904,19 +1904,24 @@ document.getElementById('confirmGenerate').addEventListener('click', function() 
     })
 	.then(data => {
         if (data.success && data.url) {
-            const url = data.url;
+        const url = data.url;
 
-            // Mostrar los elementos cuando la respuesta es exitosa
-            const urlInput = document.getElementById('urlInput');
-            const copyButton = document.getElementById('copyButton');
-            const openLinkButton = document.getElementById('openLinkButton');
+        // Mostrar el campo de texto con la URL y los botones
+        const generateText = document.getElementById('generateText');
+        generateText.style.display = 'none'; // Ocultar el texto
 
-            urlInput.value = url;
-            urlInput.style.display = 'block'; // Mostrar el campo de texto
-            copyButton.style.display = 'block'; // Mostrar el botón de copiar
-            openLinkButton.style.display = 'inline-block'; // Mostrar el enlace para abrir en otra ventana
-            openLinkButton.href = url;
+        const urlInput = document.getElementById('urlInput');
+        const copyButton = document.getElementById('copyButton');
+        const openLinkButton = document.getElementById('openLinkButton');
 
+        urlInput.value = url;
+        urlInput.style.display = 'block'; // Mostrar el campo de texto
+        copyButton.style.display = 'inline-block'; // Mostrar el botón de copiar
+        openLinkButton.style.display = 'inline-block'; // Mostrar el enlace para abrir en otra ventana
+
+        copyButton.textContent = 'Copy URL';
+        openLinkButton.textContent = 'Open in another window';
+		
             // Evento para copiar al hacer clic en el botón
             copyButton.addEventListener('click', function() {
                 urlInput.select();

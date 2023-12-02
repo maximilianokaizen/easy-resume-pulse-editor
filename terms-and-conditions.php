@@ -10,7 +10,7 @@ include_once 'init.php';
 <?php include_once 'header.php'; ?>
   <main id="main">
     
-  <div class="container" data-aos="fade-up">
+  <div class="container" style="margin-top:150px">
   <h1>Terms and Conditions</h1>
 
 <p>By accessing this website and using our services, you agree to be bound by these terms and conditions. Please read them carefully.</p>

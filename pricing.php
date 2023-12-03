@@ -35,8 +35,7 @@
       </div>
       <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
         <div class="box">
-          <h3><i class="fas fa-crown"></i>
- Premium PLAN &nbsp;</h3>
+          <h3> <i class="lni lni-star premium-icon"></i> &nbsp; Premium PLAN</h3>
           <h4><sup>$</sup>50.00<span> / year</span></h4>
           <ul>
             <li>All features of the Standard Plan</li>

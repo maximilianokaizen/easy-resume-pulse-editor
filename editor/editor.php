@@ -1919,7 +1919,6 @@ document.getElementById('confirmGenerate').addEventListener('click', function() 
         copyButton.style.display = 'inline-block'; // Mostrar el botón de copiar
         openLinkButton.style.display = 'inline-block'; // Mostrar el enlace para abrir en otra ventana
 		
-		copyLinkButto.style.display = 'none';
         copyButton.textContent = 'Copy URL';
         openLinkButton.textContent = 'Open in another window';
 		openLinkButton.href = url;

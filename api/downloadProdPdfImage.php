@@ -18,7 +18,18 @@ $html = $jsonData['html'];
 $width = $jsonData['width']; 
 $height = $jsonData['height']; 
 
-$jsonData = json_encode(array('html' => $html, 'width' => $width, 'height' => $height));
+/* place html with container */
+
+$dom = new DOMDocument();
+$dom->loadHTML($html);
+$xpath = new DOMXPath($dom);
+$containers = $xpath->query("//*[@id='container' or contains(concat(' ', normalize-space(@class), ' '), ' container ')]");
+foreach ($containers as $container) {
+    $container->setAttribute('style', 'width:780px !important; margin: 0px auto !important;');
+}
+$modifiedHTML = $dom->saveHTML();
+
+$jsonData = json_encode(array('html' => $modifiedHTML, 'width' => $width, 'height' => $height));
 
 //print_r($jsonData);die();
 $url = 'http://easyresumecreator.online/image';

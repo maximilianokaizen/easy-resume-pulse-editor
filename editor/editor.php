@@ -1724,45 +1724,54 @@ $(function() {
 
 	/* download with pupi */
 
-	document.getElementById('btn-download-pdf-pupi').addEventListener('click', function() {
-	let htmlContent = Vvveb.Builder.getHtml();
+	document.getElementById('btn-download-pdf-pupi').addEventListener('click', function () {
+	const htmlContent = Vvveb.Builder.getHtml();
+	const templateId = "your_template_id"; // Reemplaza con tu ID de plantilla
+
+	const button = document.getElementById('btn-download-pdf-pupi');
+	const loadingSpan = button.querySelector('.loading');
+	const buttonText = button.querySelector('.button-text');
+
+	// Mostrar "Saving" durante la solicitud
+	loadingSpan.classList.remove('d-none');
+	buttonText.classList.add('d-none');
 
 	fetch('https://easyresumepulse.com/en/api/downloadPdfPupiProd.php', {
 		method: 'POST',
 		headers: {
-		'Content-Type': 'application/json'
+			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify({ html: htmlContent, template : templateId })
+		body: JSON.stringify({ html: htmlContent, template: templateId })
 	})
-	.then(response => response.json())
-	.then(data => {
-		const button = document.getElementById('btn-download-pdf-pupi');
-		const loadingSpan = button.querySelector('.loading');
-		const buttonText = button.querySelector('.button-text');
+		.then(response => response.json())
+		.then(data => {
+			if (data.success === false) {
+				alert('Ocurrió un error al generar el PDF.');
+			} else {
+				if (data.filePath) {
+					// Crear un enlace y forzar la descarga
+					const downloadLink = document.createElement('a');
+					downloadLink.href = data.filePath;
+					downloadLink.download = 'mi_archivo.pdf'; // Puedes cambiar el nombre del archivo
+					document.body.appendChild(downloadLink);
+					downloadLink.click();
+					document.body.removeChild(downloadLink);
+				} else {
+					alert('No se ha proporcionado la ruta del archivo.');
+				}
+			}
 
-		if (data.success === false) {
-		alert('Ocurrió un error al generar el PDF.');
-		} else {
-		if (data.filePath) {
-			window.open(data.filePath, '_blank'); // Abre en una nueva ventana
-			// Opción alternativa: descarga automáticamente
-			// window.location.href = data.filePath;
-		} else {
-			alert('No se ha proporcionado la ruta del archivo.');
-		}
-		}
+			loadingSpan.classList.add('d-none');
+			buttonText.classList.remove('d-none');
+		})
+		.catch(error => {
+			console.error('Error fetching the PDF:', error);
+			alert('Ocurrió un error al generar el PDF.');
+			loadingSpan.classList.add('d-none');
+			buttonText.classList.remove('d-none');
+		});
+});
 
-		loadingSpan.classList.add('d-none');
-		buttonText.classList.remove('d-none');
-	})
-	.catch(error => {
-		console.error('Error fetching the PDF:', error);
-		const button = document.getElementById('btn-download-pdf-pupi');
-		const loadingSpan = button.querySelector('.loading');
-		const buttonText = button.querySelector('.button-text');
-		loadingSpan.classList.add('d-none');
-		buttonText.classList.remove('d-none');
-	});
 
 	// Mostrar "Saving" durante la solicitud
 	const button = document.getElementById('btn-download-pdf-pupi');

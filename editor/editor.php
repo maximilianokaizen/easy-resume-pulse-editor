@@ -1770,12 +1770,9 @@ $(function() {
 			loadingSpan.classList.add('d-none');
 			buttonText.classList.remove('d-none');
 		});
-		
 });
 
-
 	
-
 	/* download as image */
 	
 	document.getElementById('btn-download-pdf-pupi-image').addEventListener('click', function () {

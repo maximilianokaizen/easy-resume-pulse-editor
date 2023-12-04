@@ -1752,7 +1752,7 @@ $(function() {
 					// Crear un enlace y forzar la descarga
 					const downloadLink = document.createElement('a');
 					downloadLink.href = data.filePath;
-					downloadLink.download = 'mi_archivo.pdf'; // Puedes cambiar el nombre del archivo
+					downloadLink.download = 'my_awesome_resume.pdf'; // Puedes cambiar el nombre del archivo
 					document.body.appendChild(downloadLink);
 					downloadLink.click();
 					document.body.removeChild(downloadLink);
@@ -1776,32 +1776,41 @@ $(function() {
 	/* download as image */
 	
 	document.getElementById('btn-download-pdf-pupi-image').addEventListener('click', function () {
-    let htmlContent = Vvveb.Builder.getHtml();
-	let dimensiones = obtenerDimensionesDelHTML(htmlContent);
+    const htmlContent = Vvveb.Builder.getHtml();
+    const dimensiones = obtenerDimensionesDelHTML(htmlContent);
+    const templateId = "your_template_id"; // Reemplaza con tu ID de plantilla
 
-	console.log('Ancho del contenido:', dimensiones.width);
-	console.log('Alto del contenido:', dimensiones.height);
+    console.log('Ancho del contenido:', dimensiones.width);
+    console.log('Alto del contenido:', dimensiones.height);
+
+    const button = document.getElementById('btn-download-pdf-pupi-image');
+    const loadingSpan = button.querySelector('.loading');
+    const buttonText = button.querySelector('.button-text');
+
+    // Mostrar "Generating Image" durante la solicitud
+    loadingSpan.classList.remove('d-none');
+    buttonText.classList.add('d-none');
 
     fetch('https://easyresumepulse.com/en/api/downloadProdPdfImage.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ html: htmlContent, template: templateId, width : dimensiones.width, height :  dimensiones.height + 150})
+        body: JSON.stringify({ html: htmlContent, template: templateId, width: dimensiones.width, height: dimensiones.height + 150 })
     })
         .then(response => response.json())
         .then(data => {
-            const button = document.getElementById('btn-download-pdf-pupi-image');
-            const loadingSpan = button.querySelector('.loading');
-            const buttonText = button.querySelector('.button-text');
-
             if (data.success === false) {
                 alert('An error occurred while generating the image.');
             } else {
                 if (data.filePath) {
-                    window.open(data.filePath, '_blank'); // Abre en una nueva ventana
-                    // Opción alternativa: descarga automáticamente
-                    // window.location.href = data.filePath;
+                    // Crear un enlace y forzar la descarga
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = data.filePath;
+                    downloadLink.download = 'my_awesome_resume.png'; // Puedes cambiar el nombre de la imagen
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
                 } else {
                     alert('The file path was not provided.');
                 }
@@ -1812,19 +1821,10 @@ $(function() {
         })
         .catch(error => {
             console.error('Error fetching the image:', error);
-            const button = document.getElementById('btn-download-pdf-pupi-image');
-            const loadingSpan = button.querySelector('.loading');
-            const buttonText = button.querySelector('.button-text');
+            alert('An error occurred while generating the image.');
             loadingSpan.classList.add('d-none');
             buttonText.classList.remove('d-none');
         });
-
-    // Mostrar "Generating Image" durante la solicitud
-    const button = document.getElementById('btn-download-pdf-pupi-image');
-    const loadingSpan = button.querySelector('.loading');
-    const buttonText = button.querySelector('.button-text');
-    loadingSpan.classList.remove('d-none');
-    buttonText.classList.add('d-none');
 });
 
 	/* end of download as image */

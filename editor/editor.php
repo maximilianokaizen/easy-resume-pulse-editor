@@ -1770,16 +1770,11 @@ $(function() {
 			loadingSpan.classList.add('d-none');
 			buttonText.classList.remove('d-none');
 		});
+		
 });
 
 
-	// Mostrar "Saving" durante la solicitud
-	const button = document.getElementById('btn-download-pdf-pupi');
-	const loadingSpan = button.querySelector('.loading');
-	const buttonText = button.querySelector('.button-text');
-	loadingSpan.classList.remove('d-none');
-	buttonText.classList.add('d-none');
-	});
+	
 
 	/* download as image */
 	

@@ -58,11 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $image = $db->executeQuery($qry, [$user[0]['id']]);
        
         if ($image !== null){
-            $imageUrl = 'https://easyresumepulse.com/user-images/' . $image[0]['image'];
+            $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
         }
-
-        die($imageUrl);
-
+        
         $query = "SELECT html FROM resumes WHERE uuid = ? LIMIT 1";
     
         $resume = $db->executeQuery($query, [$uuid]);

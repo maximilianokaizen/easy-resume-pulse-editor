@@ -8,6 +8,12 @@ require_once('../lib/token/TokenManager.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
+        $basePath = '/home/easyre/public_html/en/';
+    } else {   
+        $basePath = '/var/www/html/';
+    }
+
     $token = sanitizeInput($_POST['token']);
     $uuid =  sanitizeInput($_POST['uuid']);
 
@@ -72,13 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $newFileName = generateUUIDv4() . '.' . $fileExtension;
-            $uploadPath = $basePath . '/' . $newFileName;
-
+            $uploadPath = $basePath . '/user-images/' . $newFileName;
+            die($uploadPath);
             if (!move_uploaded_file($imageFile['tmp_name'], $uploadPath)) {
                 $errorMessage = error_get_last()['message'] ?? "Unknown error occurred.";
                 throw new Exception("Error uploading image: $errorMessage");
             }
-            
+
             $qry = "INSERT INTO user_images (user_id, image, active, created_at) VALUES (?, ?, ?, NOW())";
             $inserted = $db->executeQuery($qry, [$userId, $newFileName, true]);
 

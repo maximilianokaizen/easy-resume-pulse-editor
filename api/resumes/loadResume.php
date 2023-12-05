@@ -106,6 +106,7 @@ function render($html, $image, $error = ''){
     echo $html;
 }
 
+// simple
 function simpleRender($html, $image, $error = ''){
     echo $html;
 }

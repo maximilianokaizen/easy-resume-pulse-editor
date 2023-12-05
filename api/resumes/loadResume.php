@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         /* end of get user */
        
         $image = $db->executeQuery($qry, [$user[0]['id']]);
-
+        var_dump($image);die();
         if ($image === null || empty($image) || empty($image[0]['image'])) {
             $imageUrl = null;
         } else {
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         $html = $resume[0]['html'];
-        
+
         if ($imageUrl !== null){
             render($html, $imageUrl);
         }else{

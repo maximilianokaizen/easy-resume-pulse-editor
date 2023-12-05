@@ -1694,16 +1694,16 @@ $(function() {
 	}
 	
 	//
-	
+
 	let firstPage = getContentOfImageUrlBack(Object.keys(pages)[0]);
 		Vvveb.Builder.init(pages[firstPage]["url"], function() {
 	});
 	
 	function getContentOfImageUrlBack(html) {
-		
 		const tempDiv = document.createElement('div');
 		tempDiv.innerHTML = html;
 		const imageUrlBackElement = tempDiv.querySelector('#imageUrlBack');
+		console.log('imageUrlBackElement =>', imageUrlBackElement);
 		if (imageUrlBackElement) {
 			console.log('imageUrlBackElement =>', imageUrlBackElement);
 		} 

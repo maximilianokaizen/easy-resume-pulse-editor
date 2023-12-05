@@ -65,7 +65,8 @@ function validateImage() {
         if (xhr.status === 200) {
     var response = JSON.parse(xhr.responseText);
     var uploadForm = document.getElementById('uploadForm');
-    var successAlert = `
+    var messageDiv = document.getElementById('message-upload');
+    messageDiv.innerHTML = `
       <div class="container mt-4" style="margin-left:-20px;margin-bottom:20px;">
         <div class="alert alert-warning alert-dismissible fade show alert-message" role="alert">
           <strong>Success!</strong> Your image has been uploaded.
@@ -73,7 +74,7 @@ function validateImage() {
         </div>
       </div>
     `;
-    var errorAlert = `
+    messageDiv.innerHTML = `
       <div class="container mt-4" style="margin-left:-20px;margin-bottom:20px;">
         <div class="alert alert-danger alert-dismissible fade show alert-message" role="alert">
           <strong>Error!</strong> Temporarily unable to upload image.
@@ -91,7 +92,6 @@ function validateImage() {
       document.body.insertAdjacentHTML('afterbegin', errorAlert);
     }
 
-    modal.show(); // Mostrar el modal
   } else {
     console.error('Error:', xhr.statusText);
   }
@@ -114,6 +114,7 @@ function validateImage() {
     </div>
     <button type="button" onclick="uploadImage()" class="btn btn-primary">Upload</button>
 </form>
+<div id="message-upload"></div>
     </div>
 </main>
 

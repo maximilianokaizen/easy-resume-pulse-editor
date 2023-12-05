@@ -77,8 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $html = $resume[0]['html'];
         
         
-        if ($imageUrl !== '' && ($template == '48' || $template == '50' || $template == '51')){
-           
+        if ($imageUrl !== '' && ($template == 48 || $template == 50 || $template == 51)){
+            die('..');
             $dom = new DOMDocument();
             $dom->loadHTML($html);
             $elements = $dom->getElementsByClassName('img-profile-image');

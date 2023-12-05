@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             
         }
         */
-        render($updatedHTML, $imageUrl, $template);
+        render($html, $imageUrl, $template);
 
     } catch (Exception $e) {
         http_response_code(500);

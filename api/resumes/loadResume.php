@@ -55,10 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         /* end of get user */
        
         $image = $db->executeQuery($qry, [$user[0]['id']]);
-        var_dump($image);die();
+        
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
             if ($image !== null){
                 $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
+                die($imageUrl);
             }else{
                 $imageUrl = '';
             }

@@ -75,10 +75,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         /* end of get template*/
 
         /* check name in created resumes */
-        $query = "SELECT id FROM resumes WHERE name = ?";
+        $query = "SELECT id FROM resumes WHERE name = ? AND user_id = ?";
 
         try { 
-            $result = $db->executeQuery($query, [$name]);
+            $result = $db->executeQuery($query, [$name, $user[0]['id']]);
             if (count($result) > 0) {
                 die(json_encode(['success' => true, 'canCreate' => $remainsResumes])); 
             }

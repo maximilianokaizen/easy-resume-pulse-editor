@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         $html = $resume[0]['html'];
-        render($html, $template, $imageUrl);
+        render($html, $imageUrl);
         
     } catch (Exception $e) {
         http_response_code(500);
@@ -82,7 +82,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode(['success' => false, 'message' => 'Method not allowed. Expected a POST request.']);
 }
 
-function render($html, $template, $image, $error = ''){
-    die($html);
+function render($html, $image, $error = ''){
+    // Expresión regular para buscar URLs de imágenes en atributos 'src' de etiquetas <img>
+    $imgPattern = '/<img[^>]+src=["\']([^"\']+)[^>]*>/i';
+    // Reemplazar las URLs de las imágenes en atributos 'src' de etiquetas <img>
+    $html = preg_replace_callback($imgPattern, function($matches) use ($image) {
+        return str_replace($matches[1], $image, $matches[0]);
+    }, $html);
+
+    // Expresión regular para buscar URLs de imágenes en propiedades de fondo (background-image)
+    $cssPattern = '/url\s*\(\s*[\'\"]?\s*(https?:\/\/[^\'\"\)]+)\s*[\'\"]?\s*\)/i';
+    // Reemplazar las URLs de las imágenes en propiedades de fondo (background-image)
+    $html = preg_replace_callback($cssPattern, function($matches) use ($image) {
+        return str_replace($matches[1], $image, $matches[0]);
+    }, $html);
+
+    // Mostrar el HTML procesado o el HTML original si falla el reemplazo
+    echo $html;
 }
 ?>

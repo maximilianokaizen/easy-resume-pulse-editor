@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         ";
 
         $db = new DatabaseConnector();
-
+        $imageUrl = '';
         /* get user */
         try {
             $query = "SELECT id,uuid,premium FROM users WHERE uuid = ? AND user_active=1";
@@ -86,12 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $element->setAttribute('style', 'background: url(' . $imageUrl . ') transparent center center no-repeat;');
             }
             $updatedHTML = $dom->saveHTML();
-            die($updatedHTML);
+            render($updatedHTML, $imageUrl, $template);
             }
             
         }
         
-        die($html);
+        render($updatedHTML, $imageUrl, $template);
 
     } catch (Exception $e) {
         http_response_code(500);
@@ -100,5 +100,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } else {
     http_response_code(405);
     echo json_encode(['success' => false, 'message' => 'Method not allowed. Expected a POST request.']);
+}
+
+function render($html, $template, $image){
+    die("$html<script>console.log('template =>, $template, imagen => $image ');</script>");
 }
 ?>

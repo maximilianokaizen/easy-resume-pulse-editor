@@ -74,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     
         /* templates replace img */
             if ($template == 48 || $template == 50 || $template == 51){
+                /*
                 $dom = new DOMDocument();
                 $dom->loadHTML($html);
                 $elements = $dom->getElementsByClassName('img-profile-image');
@@ -81,7 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     $element->setAttribute('style', 'background: url(' . $imageUrl . ') transparent center center no-repeat;');
                 }
                 $updatedHTML = $dom->saveHTML();
-                render($updatedHTML, $imageUrl, $template);
+                */
+                render($html, $imageUrl, $template);
             }else{
                 render($html, $template, $imageUrl);
             }

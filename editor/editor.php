@@ -1692,11 +1692,22 @@ $(function() {
 	}else{
 		// created resumen
 	}
-
-	let firstPage = Object.keys(pages)[0];
+	
+	let firstPage = getContentOfImageUrlBack(Object.keys(pages)[0]);
 		Vvveb.Builder.init(pages[firstPage]["url"], function() {
 	});
 	
+	function getContentOfImageUrlBack(html) {
+		
+		const tempDiv = document.createElement('div');
+		tempDiv.innerHTML = html;
+		const imageUrlBackElement = tempDiv.querySelector('#imageUrlBack');
+		if (imageUrlBackElement) {
+			console.log('imageUrlBackElement =>', imageUrlBackElement);
+		} 
+		return html;
+	}
+
 	function obtenerDimensionesDelHTML(html) {
 		// Crear un elemento div temporal para medir el tamaño del contenido HTML
 		let tempDiv = document.createElement('div');

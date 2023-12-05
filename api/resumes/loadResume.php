@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 function render($html, $template, $image, $error = ''){
-    $imageWithAttribute = "<div style='display:none;' id='imageUrlBack' data-image='$image'></div>";
+    $imageWithAttribute = "<div id='imageUrlBack' data-image='$image'></div>";
     die($html . $imageWithAttribute);
 }
 ?>

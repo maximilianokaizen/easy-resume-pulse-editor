@@ -86,10 +86,9 @@ function validateImage() {
     if (response.success) {
       // Si es éxito, mostramos el mensaje de éxito y ocultamos el formulario
       uploadForm.style.display = 'none';
-      document.body.insertAdjacentHTML('afterbegin', successAlert);
     } else {
       // Si es error, mostramos el mensaje de error
-      document.body.insertAdjacentHTML('afterbegin', errorAlert);
+      uploadForm.style.display = 'none';
     }
 
   } else {

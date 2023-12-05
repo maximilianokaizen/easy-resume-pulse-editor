@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         
         //die('template => ' . $template);
         if ($imageUrl !== ''){
-            die('se');
+            die($imageUrl);
             $dom = new DOMDocument();
             $dom->loadHTML($html);
             $elements = $dom->getElementsByClassName('img-profile-image');

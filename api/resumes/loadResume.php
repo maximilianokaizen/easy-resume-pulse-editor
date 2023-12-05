@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-/*
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-*/
+
 
 require_once('../lib/sanatize/sanatize.php');
 require_once('../lib/db/dbConnection.php');
@@ -83,10 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $element->setAttribute('style', 'background: url("' . $imageUrl . '") transparent center center no-repeat;');
             }
             $updatedHTML = $dom->saveHTML();
-            //die($updatedHTML . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
+            die($updatedHTML . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
         }
         
-        //die($html . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
+        die($html . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
 
     } catch (Exception $e) {
         http_response_code(500);

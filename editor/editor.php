@@ -1693,7 +1693,7 @@ $(function() {
 		// created resumen
 	}
 	
-	let firstPage = getContentOfImageUrlBack(Object.keys(pages)[0]);
+	let firstPage = Object.keys(pages)[0];
 		Vvveb.Builder.init(pages[firstPage]["url"], function() {
 	});
 	

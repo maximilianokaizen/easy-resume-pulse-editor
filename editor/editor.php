@@ -1709,7 +1709,7 @@ $(function() {
         if (imageUrl) {
             console.log('Content of data-image =>', imageUrl);
         } else {
-            console.log('Attribute data-image not found');
+            console.log('Attribute data-image not found...');
         }
     } else {
         console.log('Element with id imageUrlBack not found');

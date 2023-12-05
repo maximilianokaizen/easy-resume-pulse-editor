@@ -78,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     
             /* templates img */
             // 48, 50, 51
+            /*
             if ($template == 48 || $template == 50 || $template == 51){
                 $dom = new DOMDocument();
                 $dom->loadHTML($html);
@@ -88,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $updatedHTML = $dom->saveHTML();
                 render($updatedHTML, $imageUrl, $template);
             }
-            
+            */
         render($html, $imageUrl, $template);
 
     } catch (Exception $e) {

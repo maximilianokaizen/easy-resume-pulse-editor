@@ -71,25 +71,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         $html = $resume[0]['html'];
-    
-        /* templates replace img */
+      
+        if (count($image) === 0 ){
+            render($html, $template, $imageUrl);
+        }else{
             if ($template == 48 || $template == 50 || $template == 51){
-                /*
                 $dom = new DOMDocument();
                 $dom->loadHTML($html);
-                $elements = $dom->getElementsByClassName('img-profile-image');
-                foreach ($elements as $element) {
-                    $element->setAttribute('style', 'background: url(' . $imageUrl . ') transparent center center no-repeat;');
+                $xpath = new DOMXPath($dom);
+                $elements = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' img-profile-image ')]");
+                try {
+                    if ($elements !== false && $elements->length > 0) {
+                        foreach ($elements as $element) {
+                            $element->setAttribute('style', 'background: url(' . $imageUrl . ') transparent center center no-repeat;');
+                        }
+                        $updatedHTML = $dom->saveHTML();
+                        render($updatedHTML, $imageUrl, $template);
+                    } else {
+                        // No se encontraron elementos con la clase img-profile-image
+                        $updatedHTML = $html; // Conserva el HTML original
+                        render($updatedHTML, $imageUrl, $template);
+                    }
+                } catch (Exception $e) {
+                    // Manejo de excepciones
+                    $updatedHTML = $html; // Conserva el HTML original
+                    render($updatedHTML, $imageUrl, $template, $e->getMessage());
                 }
-                $updatedHTML = $dom->saveHTML();
-                */
-                render($html, $imageUrl, $template);
-            }else{
-                render($html, $template, $imageUrl);
-            }
-            
-       
-
+        }       
+    }
     } catch (Exception $e) {
         http_response_code(500);
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
@@ -99,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode(['success' => false, 'message' => 'Method not allowed. Expected a POST request.']);
 }
 
-function render($html, $template, $image){
-    die("$html<script>console.log('template =>, $template, imagen => $image ');</script>");
+function render($html, $template, $image, $error = ''){
+    die("$html<script>console.log('template =>, $template, imagen => $image , error => $error');</script>");
 }
 ?>

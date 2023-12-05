@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $image = $db->executeQuery($qry, [$user[0]['id']]);
         
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
-            if ($image !== null && isset($image[0]['image'])){
+            if ($image !== null){
                 $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
             }else{
                 $imageUrl = '';
@@ -85,11 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     $element->setAttribute('style', 'background: url(' . $imageUrl . ') transparent center center no-repeat;');
                 }
                 $updatedHTML = $dom->saveHTML();
-                die($html . '<script>console.log("updated")</script>');
+                die($updatedHTML . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
             //}
         }
         
-        die($html . '<script>console.log("no updated")</script>');
+        die($html . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
 
     } catch (Exception $e) {
         http_response_code(500);

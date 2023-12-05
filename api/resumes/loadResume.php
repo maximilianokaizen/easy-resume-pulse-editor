@@ -76,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         $html = $resume[0]['html'];
         
-        if ($imageUrl !== ''){
-            if ($template == 48 || $template == 50 || $template == 51){
+        if ($imageUrl != ''){
+            //if ($template == 48 || $template == 50 || $template == 51){
                 $dom = new DOMDocument();
                 $dom->loadHTML($html);
                 $elements = $dom->getElementsByClassName('img-profile-image');
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 }
                 $updatedHTML = $dom->saveHTML();
                 die($html . '<script>console.log("updated")</script>');
-            }
+            //}
         }
         
         die($html . '<script>console.log("no updated")</script>');

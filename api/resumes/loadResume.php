@@ -54,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         /* end of get user */
        
-
         $image = $db->executeQuery($qry, [$user[0]['id']]);
         
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
@@ -75,7 +74,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             throw new Exception("No resume found for this UUID.");
         }
 
-        die($resume[0]['html']);
+        $html = $resume[0]['html'];
+        
+        
+        if ($imageUrl !== '' && ($template == '48' || $template == '50' || $template == '51')){
+           
+            $dom = new DOMDocument();
+            $dom->loadHTML($html);
+            $elements = $dom->getElementsByClassName('img-profile-image');
+            foreach ($elements as $element) {
+                $element->setAttribute('style', 'background: url(' . $imageUrl . ') transparent center center no-repeat;');
+            }
+            $updatedHTML = $dom->saveHTML();
+            die($updatedHTML);
+        }
+        
+        die($html);
 
     } catch (Exception $e) {
         http_response_code(500);

@@ -32,7 +32,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             throw new Exception("Error validating the token.");
         }
 
+        /* search user image */
+        $qry = "SELECT image 
+        FROM user_images 
+        WHERE user_id = ? 
+        ORDER BY created_at DESC 
+        LIMIT 1;
+        ";
+
         $db = new DatabaseConnector();
+
+        /* get user */
+        try {
+            $query = "SELECT id,uuid,premium FROM users WHERE uuid = ? AND user_active=1";
+            $user = $db->executeQuery($query, [$userUuid]);
+            if ($user === null || empty($user)) {
+                throw new Exception("No users found with this UUID.");
+            }
+        } catch (Exception $e) {
+            die(json_encode(['success' => false, 'error' => $e->getMessage()]));
+        }
+        /* end of get user */
+
+        $image = $db->executeQuery($query, [$user[0]['id']]);
+
+        if ($image !== null){
+            $imageUrl = 'https://easyresumepulse.com/user-images/' . $image[0]['image'];
+        }
+
+        die($imageUrl);
+
         $query = "SELECT html FROM resumes WHERE uuid = ? LIMIT 1";
     
         $resume = $db->executeQuery($query, [$uuid]);

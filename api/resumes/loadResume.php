@@ -53,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             die(json_encode(['success' => false, 'error' => $e->getMessage()]));
         }
         /* end of get user */
-       
+        $imageUrl = '';
         $image = $db->executeQuery($qry, [$user[0]['id']]);
-        
+
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
             if ($image !== null){
                 $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
@@ -75,18 +75,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         $html = $resume[0]['html'];
-        
-        if ($imageUrl != ''){
-            //if ($template == 48 || $template == 50 || $template == 51){
-                $dom = new DOMDocument();
-                $dom->loadHTML($html);
-                $elements = $dom->getElementsByClassName('img-profile-image');
-                foreach ($elements as $element) {
-                    $element->setAttribute('style', 'background: url(' . $imageUrl . ') transparent center center no-repeat;');
-                }
-                $updatedHTML = $dom->saveHTML();
-                die($updatedHTML . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
-            //}
+        if ($imageUrl !== '') {
+            $dom = new DOMDocument();
+            $dom->loadHTML($html);
+            $elements = $dom->getElementsByClassName('img-profile-image');
+            foreach ($elements as $element) {
+                $element->setAttribute('style', 'background: url("' . $imageUrl . '") transparent center center no-repeat;');
+            }
+            $updatedHTML = $dom->saveHTML();
+            die($updatedHTML . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
         }
         
         die($html . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');

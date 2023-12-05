@@ -85,11 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     $element->setAttribute('style', 'background: url(' . $imageUrl . ') transparent center center no-repeat;');
                 }
                 $updatedHTML = $dom->saveHTML();
-                die($updatedHTML);
+                die($html . '<script>console.log("updated")</script>');
             }
         }
         
-        die($html);
+        die($html . '<script>console.log("no updated")</script>');
 
     } catch (Exception $e) {
         http_response_code(500);

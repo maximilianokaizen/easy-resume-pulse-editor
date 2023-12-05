@@ -77,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $html = $resume[0]['html'];
         
         //die('template => ' . $template);
+        /*
         if ($imageUrl !== ''){
             if ($template == 48 || $template == 50 || $template == 51){
                 $dom = new DOMDocument();
@@ -90,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
             
         }
-        
+        */
         render($updatedHTML, $imageUrl, $template);
 
     } catch (Exception $e) {

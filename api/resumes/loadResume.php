@@ -71,7 +71,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         $html = $resume[0]['html'];
-        render($html, $imageUrl);
+        if ($imageUrl !== null){
+            render($html, $imageUrl);
+        }else{
+            simpleRender($html);
+        }
+       
         
     } catch (Exception $e) {
         http_response_code(500);
@@ -100,4 +105,9 @@ function render($html, $image, $error = ''){
     // Mostrar el HTML procesado o el HTML original si falla el reemplazo
     echo $html;
 }
+
+function simpleRender($html, $image, $error = ''){
+    echo $html;
+}
+
 ?>

@@ -1693,30 +1693,10 @@ $(function() {
 		// created resumen
 	}
 	
-	//
-
-	console.log(' ===> ', Object.keys(pages));
-
 	let firstPage = getContentOfImageUrlBack(Object.keys(pages)[0]);
 		Vvveb.Builder.init(pages[firstPage]["url"], function() {
 	});
 	
-	function getContentOfImageUrlBack(html) {
-    console.log(html);
-    const regex = /data-image-back=['"]([^'"]+)['"]/;
-    const match = html.match(regex);
-
-    if (match) {
-        const imageUrl = match[1];
-        console.log('Content of data-image-back =>', imageUrl);
-        return html; // Retorna el HTML recibido
-    } else {
-        console.log('Attribute data-image-back not found');
-        return html; // Retorna el HTML recibido si no se encuentra el atributo data-image-back
-    }
-}
-
-
 	function obtenerDimensionesDelHTML(html) {
 		// Crear un elemento div temporal para medir el tamaño del contenido HTML
 		let tempDiv = document.createElement('div');

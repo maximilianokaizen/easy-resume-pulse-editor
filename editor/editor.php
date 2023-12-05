@@ -1695,11 +1695,12 @@ $(function() {
 	
 	//
 
-	let firstPage = async getContentOfImageUrlBack(Object.keys(pages)[0]);
+	let firstPage = getContentOfImageUrlBack(Object.keys(pages)[0]);
 		Vvveb.Builder.init(pages[firstPage]["url"], function() {
 	});
 	
-	await function getContentOfImageUrlBack(html) {
+	function getContentOfImageUrlBack(html) {
+    console.log(html);
     const regex = /data-image-back=['"]([^'"]+)['"]/;
     const match = html.match(regex);
 

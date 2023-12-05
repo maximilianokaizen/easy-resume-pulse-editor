@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Awesome Resume | EeasyResumePulse.com</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles4.css" />
+    <style>
+      :root {
+        --txt-black: #000000;
+        --txt-white: #ffffff;
+        --txt-gray: #1b1c1f;
+        --primary: #cc7722; /* Ocre color for primary */
+        --secondary: #a15a00; /* Dark ocre color for secondary */
+        --bg-main: #fffdfd;
+      }
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 10px;
+        color: var(--txt-black);
+      }
+
+      html {
+        -webkit-print-color-adjust: exact;
+        font-family: "Poppins", sans-serif;
+      }
+
+      h1 {
+        font-size: 37px;
+        font-weight: 900;
+        text-transform: uppercase;
+        color: var(--txt-white);
+      }
+
+      h2 {
+        font-size: 20px;
+        font-weight: 200;
+        color: var(--txt-white);
+      }
+
+      h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--secondary);
+        padding-bottom: 22px;
+        position: relative;
+      }
+
+      h3::after {
+        content: "";
+        position: absolute;
+        bottom: 11px;
+        left: 0;
+        width: 70px;
+        height: 2px;
+        background-color: var(--secondary);
+      }
+
+      h4 {
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      p {
+        font-size: 10px;
+      }
+
+      header {
+        background-color: var(--primary);
+        height: 150px;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .img-profile-image {
+        position: relative;
+        top: 20px;
+        left: 40px;
+        border-radius: 50%;
+        width: 160px;
+        height: 160px;
+        overflow: hidden;
+
+        background-size: cover;
+        background-position: 50% 50%;
+      }
+
+      .img-profile {
+        width: 300px;
+      }
+
+      main {
+        background-color: var(--bg-main);
+      }
+
+      #col-1 {
+        float: left;
+        width: 50%;
+        padding: 30px;
+      }
+
+      #col-2 {
+        float: left;
+        width: 50%;
+        padding: 30px 30px 0 0;
+      }
+
+      .my-contact,
+      .hard-skill,
+      .soft-skill,
+      .education,
+      .about-me,
+      .experience,
+      .achivements {
+        padding-bottom: 24px;
+      }
+
+      .my-contact-data {
+        list-style: none;
+      }
+
+      .my-contact-data li {
+        display: flex;
+        align-items: center;
+        line-height: 20px;
+        padding-bottom: 2px;
+      }
+
+      .my-contact-data li svg {
+        padding-right: 4px;
+      }
+
+      .inside li {
+        list-style-position: inside;
+        padding-bottom: 2px;
+      }
+
+      .education .inside li {
+        font-size: 20px;
+        padding-bottom: 12px;
+      }
+
+      .education .inside p {
+        margin-left: 20px;
+        padding-top: 8px;
+      }
+
+      .experience div {
+        margin-bottom: 4px;
+      }
+
+      .experience ul {
+        padding-top: 8px;
+      }
+
+      .experience li {
+        padding-bottom: 4px;
+      }
+
+      .experience i {
+        color: var(--txt-gray);
+      }
+
+      .achivments-container {
+        display: flex;
+        padding-bottom: 6px;
+      }
+
+      .achivments-container .years,
+      .achivments-container p {
+        text-align: left;
+      }
+
+      .achivments-container .years {
+        width: 80px;
+        max-width: 80px;
+        flex-shrink: 0;
+      }
+
+      .achivments-container p {
+        flex-grow: 1;
+        margin-left: 10px;
+      }
+
+      footer {
+        background-color: var(--primary);
+        height: 26px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+    </style>
+    <style id="vvvebjs-styles"></style>
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <section class="img-profile">
+          <div
+            class="img-profile-image"
+            style="
+              background: url(https://easyresumepulse.com/en/user-images/be1f1323-0944-4775-9b08-9e83ecb2eed7.jpeg)
+                transparent center center no-repeat;
+            "
+          ></div>
+        </section>
+        <section class="name-title">
+          <h1>Howard Doe</h1>
+          <h2>Financial Analyst</h2>
+        </section>
+      </header>
+      <main>
+        <section id="col-1">
+          <section class="my-contact">
+            <h3>My Contact</h3>
+            <ul class="my-contact-data">
+              <li>howard-dow@example.com</li>
+              <li>+123-456-7890</li>
+              <li>123 Anywhere St., Any City</li>
+              <li>www.howard-doe.com</li>
+            </ul>
+          </section>
+          <section class="hard-skill">
+            <h3>Hard Skill</h3>
+            <ul class="inside">
+              <li>Financial modeling and reporting</li>
+              <li>Data mining and analysis</li>
+              <li>Financial accounting</li>
+              <li>Business valuation</li>
+              <li>Advanced SAS proficiency</li>
+            </ul>
+          </section>
+          <section class="soft-skill">
+            <h3>Soft Skill</h3>
+            <ul class="inside">
+              <li>Observation</li>
+              <li>Decision making</li>
+              <li>Communication</li>
+              <li>Multi-tasking</li>
+            </ul>
+          </section>
+          <section class="education">
+            <h3>Education Background</h3>
+            <ul class="inside">
+              <li>
+                <span>Borcelle Business School</span>
+                <p><i>Masters in Accounting</i></p>
+                <p>Completed in 2016</p>
+              </li>
+              <li>
+                <span>Larana Business School</span>
+                <p>
+                  <i
+                    >Certificate in Financial Management, Financial Analysis,
+                    and Public Budgeting</i
+                  >
+                </p>
+                <p>Completed in 2014</p>
+              </li>
+              <li>
+                <span>Borcelle Business School</span>
+                <p>
+                  <i
+                    >Bachelor of Economics, Major in Finance, Minor in Data
+                    Analytics</i
+                  >
+                </p>
+                <p>Completed in 2012</p>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section id="col-2">
+          <section class="about-me">
+            <h3>About Me</h3>
+            <p>
+              Dedicated and detail-oriented Financial Analyst with 10 years of
+              experience. Eager to apply proven-budget maximization skills for
+              Bank of Brocelle in monitoring, maintaining, and completing client
+              billing and reconciliations. Special interest in achieving the
+              millennial market and helping with retirement and general
+              financial planning.
+            </p>
+          </section>
+          <section class="experience">
+            <h3>Professional Experience</h3>
+            <div>
+              <h4>Ginyard International Co. | Financial Analyst</h4>
+              <i>2020 – Present</i>
+              <ul class="inside">
+                Key responsibilities:
+                <li>Analyze current and past financial data</li>
+                <li>
+                  Look at recent financial performance and identify trends
+                </li>
+                <li>
+                  Prepare reports on the above information and communicate the
+                  insights of these reports to the broader business
+                </li>
+                <li>
+                  Consult with the management team to develop long-term
+                  commercial plans
+                </li>
+                <li>
+                  Suggest budgets and improvements based on the above
+                  information
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4>Ingoude Company | Junior/Investment Analyst</h4>
+              <i>2018 – 2020</i>
+              <ul class="inside">
+                Key responsibilities:
+                <li>Looked at financial performance and identified trend</li>
+                <li>Explored various investment opportunities</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Timmerman Industries | Financial Analyst Intern</h4>
+              <i>2011 – 2018</i>
+              <ul class="inside">
+                Key responsibilities:
+                <li>Analyzed financial data</li>
+                <li>Observed financial performance and identified trends</li>
+                <li>
+                  Prepared reports on the above information and reported the
+                  insights.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="achivements">
+            <h3>Achievements</h3>
+            <section class="achivments-container">
+              <p class="years">2020 - 2022</p>
+              <p>Managed five projects worth over $100million.</p>
+            </section>
+            <section class="achivments-container">
+              <p class="years">2017 - 2018</p>
+
+              <p>
+                Reduced the production cost by 20% in the second year of
+                internship.
+              </p>
+            </section>
+          </section>
+        </section>
+      </main>
+      <footer></footer>
+    </div>
+
+    <script>
+      console.log(
+        "template =>, https://easyresumepulse.com/en/user-images/18813c9c-144f-4ff8-a858-110c9b52c554.jpeg, imagen => 51 , error => "
+      );
+    </script>
+    <script>
+      console.log(
+        "template =>, https://easyresumepulse.com/en/user-images/be1f1323-0944-4775-9b08-9e83ecb2eed7.jpeg, imagen => 51 , error => "
+      );
+    </script>
+  </body>
+</html>

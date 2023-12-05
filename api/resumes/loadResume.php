@@ -62,8 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
         }
 
-        die('imageUrl es' . $imageUrl);
-        
+
         $query = "SELECT html FROM resumes WHERE uuid = ? LIMIT 1";
     
         $resume = $db->executeQuery($query, [$uuid]);
@@ -74,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         $html = $resume[0]['html'];
 
-        if ($imageUrl !== null){
+        if ($imageUrl === ''){
             render($html, $imageUrl);
         }else{
             simpleRender($html);

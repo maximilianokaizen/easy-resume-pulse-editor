@@ -57,9 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $image = $db->executeQuery($qry, [$user[0]['id']]);
         
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
-            if ($image !== null){
+            if ($image !== null && isset($image[0]['image'])){
                 $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
-                die($imageUrl);
             }else{
                 $imageUrl = '';
             }
@@ -77,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         $html = $resume[0]['html'];
         
-        
+        die($template);
         if ($imageUrl !== '' && ($template == 48 || $template == 50 || $template == 51)){
             die('..');
             $dom = new DOMDocument();

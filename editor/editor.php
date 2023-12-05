@@ -1700,15 +1700,19 @@ $(function() {
 	});
 	
 	function getContentOfImageUrlBack(html) {
-		const tempDiv = document.createElement('div');
-		tempDiv.innerHTML = html;
-		const imageUrlBackElement = tempDiv.querySelector('#imageUrlBack');
-		console.log('imageUrlBackElement =>', imageUrlBackElement);
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    const imageUrlBackElement = tempDiv.querySelector('#imageUrlBack');
 		if (imageUrlBackElement) {
-			console.log('imageUrlBackElement =>', imageUrlBackElement);
-		} 
-		return html;
+			const imageUrl = imageUrlBackElement.getAttribute('data-image');
+			console.log('imageUrl =>', imageUrl);
+			return imageUrl; // Devuelve el valor de imageUrl
+		} else {
+			console.log('Element with id imageUrlBack not found');
+			return null; // O puedes devolver un valor por defecto si no se encuentra el elemento
+		}
 	}
+
 
 	function obtenerDimensionesDelHTML(html) {
 		// Crear un elemento div temporal para medir el tamaño del contenido HTML

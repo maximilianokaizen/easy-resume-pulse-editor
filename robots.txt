@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /resumes/
+Disallow: /user-images/
 Disallow: /editor/
 Disallow: /template-editor/
 Disallow: /api/

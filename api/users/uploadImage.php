@@ -64,7 +64,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!empty($_FILES['image']['name'])) {
 
+            
             $imageFile = $_FILES['image'];
+            
+            $imageDetails = getimagesize($imageFile['tmp_name']);
+            if ($imageDetails === false) {
+                throw new Exception("The uploaded file is not an image.");
+            }
+
             $allowedExtensions = ['png', 'jpg', 'jpeg', 'gif'];
             $maxFileSize = 3 * 1024 * 1024; // 3MB in bytes
 

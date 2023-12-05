@@ -63,10 +63,19 @@ function validateImage() {
 
     xhr.onload = function() {
         if (xhr.status === 200) {
-            console.log(xhr.responseText);
+        var response = JSON.parse(xhr.responseText);
+        var modal = new bootstrap.Modal(document.getElementById('uploadResultModal'));
+
+        if (response.success) {
+            document.getElementById('modalMessage').innerText = response.message; // Mensaje de éxito
         } else {
-            console.error('Error:', xhr.statusText);
+            document.getElementById('modalMessage').innerText = response.message; // Mensaje de error temporal
         }
+
+        modal.show(); // Mostrar el modal
+    } else {
+        console.error('Error:', xhr.statusText);
+    }
     };
 
     xhr.send(formData);
@@ -88,6 +97,25 @@ function validateImage() {
 </form>
     </div>
 </main>
+
+<!-- Modal -->
+<div class="modal" id="uploadResultModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Upload Result</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="modalMessage"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- end of modal -->
 </body>
 </html>

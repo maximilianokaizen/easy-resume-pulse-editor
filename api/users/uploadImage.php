@@ -78,8 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $newFileName = generateUUIDv4() . '.' . $fileExtension;
-            $uploadPath = $basePath . '/user-images/' . $newFileName;
-            die($uploadPath);
+            $uploadPath = $basePath . 'user-images/' . $newFileName;
+           
             if (!move_uploaded_file($imageFile['tmp_name'], $uploadPath)) {
                 $errorMessage = error_get_last()['message'] ?? "Unknown error occurred.";
                 throw new Exception("Error uploading image: $errorMessage");

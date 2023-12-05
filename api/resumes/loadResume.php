@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         $image = $db->executeQuery($query, [$user[0]['id']]);
         echo('..');
-        print_r($image);die();
+        print_r(var_dump($image));die();
         if ($image !== null){
             $imageUrl = 'https://easyresumepulse.com/user-images/' . $image[0]['image'];
         }

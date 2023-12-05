@@ -83,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 function render($html, $template, $image, $error = ''){
-    die($html);
-    //die("$html<script>console.log('template =>, $template, imagen => $image , error => $error');</script>");
+    die($html . "<div style='display:none;' id='imageUrlBack'>$image</div>");
 }
 ?>

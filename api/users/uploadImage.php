@@ -26,31 +26,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $isValidToken = TokenManager::validateToken($token);
         if (!$isValidToken) {
             throw new Exception("Invalid Token.");
-            }
-        } catch (Throwable $e) {
-            throw new Exception("Error validating token: " . $e->getMessage());
         }
+    } catch (Throwable $e) {
+        throw new Exception("Error validating token: " . $e->getMessage());
+    }
 
-        $userUuid = TokenManager::getUserUuidFromToken($token);
-       
-        if ($userUuid === null){
-            throw new Exception("Error validating token (02): " . $e->getMessage());
+    $userUuid = TokenManager::getUserUuidFromToken($token);
+   
+    if ($userUuid === null){
+        throw new Exception("Error validating token (02): " . $e->getMessage());
+    }
+
+    $db = new DatabaseConnector();
+
+    /* get user */
+    try {
+        $query = "SELECT id,uuid,premium FROM users WHERE uuid = ? AND user_active=1";
+        $user = $db->executeQuery($query, [$userUuid]);
+        if ($user === null || empty($user)) {
+            throw new Exception("No users found with this UUID.");
         }
-
-        $db = new DatabaseConnector();
-
-        /* get user */
-        try {
-            $query = "SELECT id,uuid,premium FROM users WHERE uuid = ? AND user_active=1";
-            $user = $db->executeQuery($query, [$userUuid]);
-            if ($user === null || empty($user)) {
-                throw new Exception("No users found with this UUID.");
-            }
-        } catch (Exception $e) {
-            die(json_encode(['success' => false, 'error' => $e->getMessage()]));
-        }
-        /* end of get user */
-        
+    } catch (Exception $e) {
+        die(json_encode(['success' => false, 'error' => $e->getMessage()]));
+    }
+    /* end of get user */
+    
     try {
 
         $userPremium = $user[0]['premium'];
@@ -64,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!empty($_FILES['image']['name'])) {
 
-            
             $imageFile = $_FILES['image'];
             
             $imageDetails = getimagesize($imageFile['tmp_name']);
@@ -86,25 +85,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $newFileName = generateUUIDv4() . '.' . $fileExtension;
             $uploadPath = $basePath . 'user-images/' . $newFileName;
-           
+
             if (!move_uploaded_file($imageFile['tmp_name'], $uploadPath)) {
                 $errorMessage = error_get_last()['message'] ?? "Unknown error occurred.";
                 throw new Exception("Error uploading image: $errorMessage");
             }
+
+            // Código para recortar la imagen a 300x300px
+            $image = imagecreatefromstring(file_get_contents($uploadPath));
+            $width = imagesx($image);
+            $height = imagesy($image);
+            $size = min($width, $height);
+            $croppedImage = imagecrop($image, ['x' => 0, 'y' => 0, 'width' => $size, 'height' => $size]);
+
+            if ($croppedImage !== false) {
+                // Sobrescribir la imagen original con la imagen recortada
+                imagejpeg($croppedImage, $uploadPath); // Cambiar por el formato correcto si no es JPEG
+                imagedestroy($croppedImage);
+            }
+
+            imagedestroy($image);
 
             $qry = "INSERT INTO user_images (user_id, image, active, created_at) VALUES (?, ?, ?, NOW())";
             $inserted = $db->executeQuery($qry, [$userId, $newFileName, true]);
 
             if ($inserted === false) {
                 throw new Exception("Error inserting data into database.");
-            }else{
+            } else {
                 die(json_encode(['success' => true]));
             }
 
         } else {
             throw new Exception("Please select an image to upload.");
         }
-        
+
         // insert in database
         $qry = "INSERT INTO user_images (uuid,user_id,image) VALUES (?,?,?)";
 
@@ -130,6 +144,5 @@ function generateUUIDv4() {
         mt_rand(0, 0x3fff) | 0x8000,
         mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
     );
-  }
-
+}
 ?>

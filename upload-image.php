@@ -64,7 +64,6 @@ function validateImage() {
     xhr.onload = function() {
         if (xhr.status === 200) {
     var response = JSON.parse(xhr.responseText);
-    var modal = new bootstrap.Modal(document.getElementById('uploadResultModal'));
     var uploadForm = document.getElementById('uploadForm');
     var successAlert = `
       <div class="container mt-4" style="margin-left:-20px;margin-bottom:20px;">

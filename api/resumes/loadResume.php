@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-
+/*
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-
+*/
 
 require_once('../lib/sanatize/sanatize.php');
 require_once('../lib/db/dbConnection.php');
@@ -53,11 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             die(json_encode(['success' => false, 'error' => $e->getMessage()]));
         }
         /* end of get user */
-        $imageUrl = '';
+       
         $image = $db->executeQuery($qry, [$user[0]['id']]);
-
+        
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
-            if ($image !== null){
+            if ($image !== null && isset($image[0]['image'])){
                 $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
             }else{
                 $imageUrl = '';
@@ -75,18 +75,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         $html = $resume[0]['html'];
-        if ($imageUrl !== '') {
-            $dom = new DOMDocument();
+        
+        //die('template => ' . $template);
+        if ($imageUrl !== ''){
+            if ($template == 48 || $template == 50 || $template == 51){
+                $dom = new DOMDocument();
             $dom->loadHTML($html);
             $elements = $dom->getElementsByClassName('img-profile-image');
             foreach ($elements as $element) {
-                $element->setAttribute('style', 'background: url("' . $imageUrl . '") transparent center center no-repeat;');
+                $element->setAttribute('style', 'background: url(' . $imageUrl . ') transparent center center no-repeat;');
             }
             $updatedHTML = $dom->saveHTML();
-            die($updatedHTML . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
+            die($updatedHTML);
+            }
+            
         }
         
-        die($html . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
+        die($html);
 
     } catch (Exception $e) {
         http_response_code(500);

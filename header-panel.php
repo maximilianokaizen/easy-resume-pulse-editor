@@ -10,6 +10,7 @@
 
       <nav id="navbar" class="navbar">
         <ul>
+        <!--<li><a class="nav-link scrollto active" href="<?=$baseUrl?>/upload-image.php"><i class="fas fa-camera"></i></i> &nbsp; Upload your photo </a></li>-->
           <li><a class="nav-link scrollto active" href="<?=$baseUrl?>/upgrade-plan.php"> <i class="fas fa-star"></i> &nbsp; Upgrade your account </a></li>
           <li><a class="getstarted scrollto show-ui" href="#" id="signOut"> <i class="fas fa-door-open"></i>
             &nbsp;

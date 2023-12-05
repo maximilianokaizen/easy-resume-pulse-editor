@@ -53,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             die(json_encode(['success' => false, 'error' => $e->getMessage()]));
         }
         /* end of get user */
-
+        print_r(var_dump($user));die();
+        
         $image = $db->executeQuery($query, [$user[0]['id']]);
-        echo('..');
-        print_r(var_dump($image));die();
+       
         if ($image !== null){
             $imageUrl = 'https://easyresumepulse.com/user-images/' . $image[0]['image'];
         }

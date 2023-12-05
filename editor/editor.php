@@ -1670,6 +1670,7 @@ $(function() {
 	let pages;
 	const apiUrl = '<?=$baseUrl?>/api';
 	const urlParams = new URLSearchParams(window.location.search);
+	console.log('urlParams =>', urlParams);
 	const token = urlParams.get('token');
 	const templateId = urlParams.get('template');
 	const uuid = urlParams.get('uuid');

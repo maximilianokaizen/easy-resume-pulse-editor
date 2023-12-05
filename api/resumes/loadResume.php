@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
             if ($image !== null){
                 $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
+                die( $imageUrl);
             }else{
                 $imageUrl = '';
             }

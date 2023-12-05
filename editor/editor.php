@@ -1703,16 +1703,20 @@ $(function() {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = html;
     const imageUrlBackElement = tempDiv.querySelector('#imageUrlBack');
-		if (imageUrlBackElement) {
-			const imageUrl = imageUrlBackElement.getAttribute('data-image');
-			console.log('imageUrl =>', imageUrl);
-			//return imageUrl; // Devuelve el valor de imageUrl
-		} else {
-			console.log('Element with id imageUrlBack not found');
-			//return null; // O puedes devolver un valor por defecto si no se encuentra el elemento
-		}
-		return html;
-	}
+    
+    if (imageUrlBackElement) {
+        const imageUrl = imageUrlBackElement.getAttribute('data-image');
+        if (imageUrl) {
+            console.log('Content of data-image =>', imageUrl);
+        } else {
+            console.log('Attribute data-image not found');
+        }
+    } else {
+        console.log('Element with id imageUrlBack not found');
+    }
+    
+    return html;
+}
 
 
 	function obtenerDimensionesDelHTML(html) {

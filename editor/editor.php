@@ -1672,13 +1672,12 @@ $(function() {
 	const urlParams = new URLSearchParams(window.location.search);
 	const token = urlParams.get('token');
 	const templateId = urlParams.get('template');
-	console.log('templateID =>', templateId);
 	const uuid = urlParams.get('uuid');
 	const resumeId = urlParams.get('resumeId');
 	if (resumeId === null) {
 			// new resume
 			if (!isNaN(templateId) && templateId !== null) {
-			const dynamicUrl = `<?=$baseUrl?>/api/resumes/loadResume.php?resumeId=` + resumeId + '&token=' + token + '&uuid=' + uuid;
+			const dynamicUrl = `<?=$baseUrl?>/api/resumes/loadResume.php?resumeId=` + resumeId + '&token=' + token + '&uuid=' + uuid + "&template=" + templateId;
 			const dynamicCSS = `<?=$baseUrl?>/editor/themes/${templateId}/styles.css`;
 			pages = [
 				{

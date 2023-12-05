@@ -83,6 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 function render($html, $template, $image, $error = ''){
-    die("$html<script>console.log('template =>, $template, imagen => $image , error => $error');</script>");
+    die($html);
+    //die("$html<script>console.log('template =>, $template, imagen => $image , error => $error');</script>");
 }
 ?>

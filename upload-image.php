@@ -63,19 +63,39 @@ function validateImage() {
 
     xhr.onload = function() {
         if (xhr.status === 200) {
-        var response = JSON.parse(xhr.responseText);
-        var modal = new bootstrap.Modal(document.getElementById('uploadResultModal'));
+    var response = JSON.parse(xhr.responseText);
+    var modal = new bootstrap.Modal(document.getElementById('uploadResultModal'));
+    var uploadForm = document.getElementById('uploadForm');
+    var successAlert = `
+      <div class="container mt-4" style="margin-left:-20px;margin-bottom:20px;">
+        <div class="alert alert-warning alert-dismissible fade show alert-message" role="alert">
+          <strong>Success!</strong> Your image has been uploaded.
+          <a href="#" class="btn-close close-btn" data-bs-dismiss="alert" aria-label="Close"></a>
+        </div>
+      </div>
+    `;
+    var errorAlert = `
+      <div class="container mt-4" style="margin-left:-20px;margin-bottom:20px;">
+        <div class="alert alert-danger alert-dismissible fade show alert-message" role="alert">
+          <strong>Error!</strong> Temporarily unable to upload image.
+          <a href="#" class="btn-close close-btn" data-bs-dismiss="alert" aria-label="Close"></a>
+        </div>
+      </div>
+    `;
 
-        if (response.success) {
-            document.getElementById('modalMessage').innerText = response.message; // Mensaje de éxito
-        } else {
-            document.getElementById('modalMessage').innerText = response.message; // Mensaje de error temporal
-        }
-
-        modal.show(); // Mostrar el modal
+    if (response.success) {
+      // Si es éxito, mostramos el mensaje de éxito y ocultamos el formulario
+      uploadForm.style.display = 'none';
+      document.body.insertAdjacentHTML('afterbegin', successAlert);
     } else {
-        console.error('Error:', xhr.statusText);
+      // Si es error, mostramos el mensaje de error
+      document.body.insertAdjacentHTML('afterbegin', errorAlert);
     }
+
+    modal.show(); // Mostrar el modal
+  } else {
+    console.error('Error:', xhr.statusText);
+  }
     };
 
     xhr.send(formData);
@@ -88,7 +108,7 @@ function validateImage() {
   <main id="main">
   <div class="container" data-aos="fade-up" style="margin-top:100px;min-height:550px">
       <h1>Upload your Profile Photo</h1>
-      <form>
+      <form id="uploadForm">
     <div class="mb-3">
         <label for="image" class="form-label">Select Image (PNG, JPG, GIF, max 3MB)</label>
         <input type="file" class="form-control" id="image" accept=".png, .jpg, .jpeg, .gif" required>
@@ -98,23 +118,7 @@ function validateImage() {
     </div>
 </main>
 
-<!-- Modal -->
-<div class="modal" id="uploadResultModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Upload Result</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p id="modalMessage"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <!-- end of modal -->
 </body>

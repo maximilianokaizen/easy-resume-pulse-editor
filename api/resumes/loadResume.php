@@ -83,10 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $element->setAttribute('style', 'background: url("' . $imageUrl . '") transparent center center no-repeat;');
             }
             $updatedHTML = $dom->saveHTML();
-            die($updatedHTML . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
+            //die($updatedHTML . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
         }
         
-        die($html . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
+        //die($html . '<script>console.log("img => ' . $imageUrl . ', template => ' . $template . '")</script>');
 
     } catch (Exception $e) {
         http_response_code(500);

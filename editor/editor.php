@@ -1706,11 +1706,12 @@ $(function() {
 		if (imageUrlBackElement) {
 			const imageUrl = imageUrlBackElement.getAttribute('data-image');
 			console.log('imageUrl =>', imageUrl);
-			return imageUrl; // Devuelve el valor de imageUrl
+			//return imageUrl; // Devuelve el valor de imageUrl
 		} else {
 			console.log('Element with id imageUrlBack not found');
-			return null; // O puedes devolver un valor por defecto si no se encuentra el elemento
+			//return null; // O puedes devolver un valor por defecto si no se encuentra el elemento
 		}
+		return html;
 	}
 
 

@@ -1700,22 +1700,17 @@ $(function() {
 	});
 	
 	function getContentOfImageUrlBack(html) {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;
-    const imageUrlBackElement = tempDiv.querySelector('#imageUrlBack');
-    
-    if (imageUrlBackElement) {
-        const imageUrl = imageUrlBackElement.getAttribute('data-image');
-        if (imageUrl) {
-            console.log('Content of data-image =>', imageUrl);
-        } else {
-            console.log('Attribute data-image not found...');
-        }
+    const regex = /data-image-back=['"]([^'"]+)['"]/;
+    const match = html.match(regex);
+
+    if (match) {
+        const imageUrl = match[1];
+        console.log('Content of data-image-back =>', imageUrl);
+        return html; // Retorna el HTML recibido
     } else {
-        console.log('Element with id imageUrlBack not found');
+        console.log('Attribute data-image-back not found');
+        return html; // Retorna el HTML recibido si no se encuentra el atributo data-image-back
     }
-    
-    return html;
 }
 
 

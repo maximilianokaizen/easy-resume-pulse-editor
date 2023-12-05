@@ -55,15 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         /* end of get user */
        
         $image = $db->executeQuery($qry, [$user[0]['id']]);
-        
-        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
-            if ($image !== null && isset($image[0]['image'])){
-                $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
-            }else{
-                $imageUrl = '';
-            }
+
+        if ($image === null || empty($image) || empty($image[0]['image'])) {
+            $imageUrl = null;
         } else {
-            $imageUrl = 'https://easyresumepulse.com/en/user-images/0033ed01-0e37-429d-a5e4-e115219e9fc7.jpeg';
+            $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
         }
 
         $query = "SELECT html FROM resumes WHERE uuid = ? LIMIT 1";
@@ -90,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 render($updatedHTML, $imageUrl, $template);
             }
             */
-        render($html, $template, $image);
+        render($html, $template, $imageUrl);
 
     } catch (Exception $e) {
         http_response_code(500);

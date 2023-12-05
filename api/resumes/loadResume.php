@@ -74,8 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $html = $resume[0]['html'];
 
         if ($imageUrl === ''){
+            die('render');
             render($html, $imageUrl);
         }else{
+            die('simple');
             simpleRender($html);
         }
        

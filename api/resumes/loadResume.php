@@ -71,38 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         $html = $resume[0]['html'];
-        //render($html, $template, $imageUrl);
+        render($html, $template, $imageUrl);
         
-        if (count($image) === 0 ){
-            render($html, $template, $imageUrl);
-        }else{
-            /* replace html, css for real images */
-            /* template 48, 50, 51 */
-            if ($template == 48 || $template == 50 || $template == 51){
-                $dom = new DOMDocument();
-                $dom->loadHTML($html);
-                $xpath = new DOMXPath($dom);
-                $elements = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' img-profile-image ')]");
-                try {
-                    if ($elements !== false && $elements->length > 0) {
-                        foreach ($elements as $element) {
-                            $element->setAttribute('style', 'background: url(' . $imageUrl . ') transparent center center no-repeat;');
-                        }
-                        $updatedHTML = $dom->saveHTML();
-                        render($updatedHTML, $imageUrl, $template);
-                    } else {
-                        // No se encontraron elementos con la clase img-profile-image
-                        $updatedHTML = $html; // Conserva el HTML original
-                        render($updatedHTML, $imageUrl, $template);
-                    }
-                } catch (Exception $e) {
-                    // Manejo de excepciones
-                    $updatedHTML = $html; // Conserva el HTML original
-                    render($updatedHTML, $imageUrl, $template, $e->getMessage());
-                }
-        }       
-    }
-
     } catch (Exception $e) {
         http_response_code(500);
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);

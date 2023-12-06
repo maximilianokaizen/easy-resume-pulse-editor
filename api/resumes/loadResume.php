@@ -32,16 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             throw new Exception("Error validating the token.");
         }
 
-        /* search user image */
-        $qry = "SELECT image 
-        FROM user_images 
-        WHERE user_id = ? 
-        ORDER BY created_at DESC 
-        LIMIT 1;
-        ";
-
         $db = new DatabaseConnector();
-        $imageUrl = '';
+    
         /* get user */
         try {
             $query = "SELECT id,uuid,premium FROM users WHERE uuid = ? AND user_active=1";
@@ -54,15 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         /* end of get user */
        
-        $image = $db->executeQuery($qry, [$user[0]['id']]);
-      
-        if ($image === null || empty($image) || empty($image[0]['image'])) {
-            $imageUrl = null;
-        } else {
-            $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
-        }
-
-
         $query = "SELECT html FROM resumes WHERE uuid = ? LIMIT 1";
     
         $resume = $db->executeQuery($query, [$uuid]);
@@ -73,12 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         $html = $resume[0]['html'];
 
-        if ($imageUrl === ''){
-            render($html, $imageUrl);
-        }else{
-            simpleRender($html);
-        }
-       
+        die($html);
         
     } catch (Exception $e) {
         http_response_code(500);
@@ -89,28 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode(['success' => false, 'message' => 'Method not allowed. Expected a POST request.']);
 }
 
-function render($html, $image, $error = ''){
-    // Expresión regular para buscar URLs de imágenes en atributos 'src' de etiquetas <img>
-    $imgPattern = '/<img[^>]+src=["\']([^"\']+)[^>]*>/i';
-    // Reemplazar las URLs de las imágenes en atributos 'src' de etiquetas <img>
-    $html = preg_replace_callback($imgPattern, function($matches) use ($image) {
-        return str_replace($matches[1], $image, $matches[0]);
-    }, $html);
 
-    // Expresión regular para buscar URLs de imágenes en propiedades de fondo (background-image)
-    $cssPattern = '/url\s*\(\s*[\'\"]?\s*(https?:\/\/[^\'\"\)]+)\s*[\'\"]?\s*\)/i';
-    // Reemplazar las URLs de las imágenes en propiedades de fondo (background-image)
-    $html = preg_replace_callback($cssPattern, function($matches) use ($image) {
-        return str_replace($matches[1], $image, $matches[0]);
-    }, $html);
-
-    // Mostrar el HTML procesado o el HTML original si falla el reemplazo
-    echo $html;
-}
-
-// simple
-function simpleRender($html){
-    echo $html;
-}
 
 ?>

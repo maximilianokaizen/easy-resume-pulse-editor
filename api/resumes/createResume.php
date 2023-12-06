@@ -52,6 +52,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         /* end of get user */
 
+        /* search user image */
+         $qry = "SELECT image 
+         FROM user_images 
+         WHERE user_id = ? 
+         ORDER BY created_at DESC 
+         LIMIT 1;
+        ";
+
+        $image = $db->executeQuery($qry, [$user[0]['id']]);
+            
+        if (count($imageUrl) === 0) {
+            $imageUrl = '';
+        } else {
+            $imageUrl = 'https://easyresumepulse.com/en/user-images/' . $image[0]['image'];
+        }
         $userPremium = $user[0]['premium'];
 
         if ($userPremium >= 1){
@@ -72,13 +87,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     
         $html = $template[0]['html'];
+        if ($imageUrl !== ''){
+            $html = renderWithUserImage($html, $html);
+        }
         /* end of get template*/
 
         /* check name in created resumes */
         $query = "SELECT id FROM resumes WHERE name = ? AND user_id = ?";
 
         try { 
-            $result = $db->executeQuery($query, [$name, $user[0]['id']]);
+            $result = $db->executeQuery($query, [$name, $user[0]['id']]);   
             if (count($result) > 0) {
                 die(json_encode(['success' => true, 'canCreate' => $remainsResumes])); 
             }
@@ -86,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die(json_encode(['success' => false, 'error' => $e->getMessage()]));
         }
 
+        
         $templateData = [
             'uuid' => generateUUIDv4(),
             'user_id' => $user[0]['id'],
@@ -140,5 +159,20 @@ function generateUUIDv4() {
         mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
     );
   }
+
+  function renderWithUserImage($html, $image){
+    $imgPattern = '/<img[^>]+src=["\']([^"\']+)[^>]*>/i';
+    $html = preg_replace_callback($imgPattern, function($matches) use ($image) {
+        return str_replace($matches[1], $image, $matches[0]);
+    }, $html);
+    $cssPattern = '/url\s*\(\s*[\'\"]?\s*(https?:\/\/[^\'\"\)]+)\s*[\'\"]?\s*\)/i';
+    $html = preg_replace_callback($cssPattern, function($matches) use ($image) {
+        return str_replace($matches[1], $image, $matches[0]);
+    }, $html);
+
+    return $html;
+}
+
+
 
 ?>

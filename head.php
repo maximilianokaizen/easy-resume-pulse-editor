@@ -1,4 +1,4 @@
-<meta name="description" content="Create your resume for free and quickly using artificial intelligence on Example.com. Professional templates and easy-to-use tools available.">
+<meta name="description" content="Create your resume for free and quickly using artificial intelligence on Easy Resume Pulse. Professional templates and easy-to-use tools available.">
 <meta name="keywords" content="create resume, resume builder, free, fast, artificial intelligence, resume templates, online tools, Example.com">
 <meta name="robots" content="index, follow">
 <!-- Google tag (gtag.js) -->
